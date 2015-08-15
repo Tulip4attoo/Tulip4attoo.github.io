@@ -1,5 +1,5 @@
 title: Tulip4attoo's Blog
-description: My blog about data analytics, data visualization,... all about data.
+description: My blog about data analytics.
 
 url: http://brianmaierjr.github.com/long-haul
 baseurl: ""
@@ -24,4 +24,4 @@ social:
    facebook: huylinh.nguyen
    email: huylinh.nguyen@outlook.com
 
-google_analytics: "UA-58263416-1"
+google_analytics: 
