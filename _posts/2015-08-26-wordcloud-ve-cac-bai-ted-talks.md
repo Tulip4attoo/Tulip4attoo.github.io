@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  Giới thiệu các trang data competition
-date:   2015-08-19
+title:  Wordcloud về các bài ted talks.
+date:   2015-08-25
 ---
 <p class="intro">Wordcloud về các bài ted talks.
 </p>
