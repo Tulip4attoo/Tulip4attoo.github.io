@@ -13,8 +13,30 @@ Các bài diễn thuyết này đều có thể được xem miễn phí thông 
 ![Image of TED talks]({{ tulip4attoo.github.io }}/assets/img/TED-talks/Ted-talks-screenshot.png)
 
 
+```
+library("tm", lib.loc="~/R/win-library/3.2")
+library("wordcloud", lib.loc="~/R/win-library/3.2")
 
 
+ted = read.csv("TED.csv")
+
+ted$Name = as.character(ted$Name)
+ted$Name[92] = "Jeff Bezos: The electricity metaphor for the web's future"
+
+```
+
+```r
+
+library("tm", lib.loc="~/R/win-library/3.2")
+library("wordcloud", lib.loc="~/R/win-library/3.2")
+
+
+ted = read.csv("TED.csv")
+
+ted$Name = as.character(ted$Name)
+ted$Name[92] = "Jeff Bezos: The electricity metaphor for the web's future"
+
+```
 
 <div style="width: 400px; height: 400px; padding-bottom: 30px;">
 <script src="http://cdn.tagul.com/embed/fjahcvg6dves"></script>
