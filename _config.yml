@@ -1,7 +1,7 @@
 title: Tulip4attoo's Blog
 description: My blog about data analytics.
 
-url: http://brianmaierjr.github.com/long-haul
+url: http://tulip4attoo.github.io/
 baseurl: ""
 paginate_path: "blog/page:num/"
 permalink: blog/:title/
