@@ -3,7 +3,7 @@ layout: post
 title:  Tương lai nào cho Youtube Gaming?
 date:   2015-08-30
 ---
-<p class="intro">Ngày 25 tháng 8 năm 2014, [Twitch.tv](http://www.twitch.tv/) chính thức rơi vào tay Amazon.com với mức giá 970 triệu USD trong cuộc chiến giữa 2 gã khổng lồ: Google và Amazon. Hơn 1 năm sau, vào ngày 26 tháng 8 năm 2015, Google chính thức ra mắt [Youtube Gaming](https://gaming.youtube.com/), với hy vọng tấn công vào lĩnh vực game streaming. Liệu Youtube Gaming sẽ là 1 sản phẩm thành công của Google, hay đi theo bước chân của Google +, 1 sản phẩm theo chân đầy thất bại?
+<p class="intro">Ngày 25 tháng 8 năm 2014, <a href="http://www.twitch.tv/">Twitch.tv</a> chính thức rơi vào tay Amazon.com với mức giá 970 triệu USD trong cuộc chiến giữa 2 gã khổng lồ: Google và Amazon. Hơn 1 năm sau, vào ngày 26 tháng 8 năm 2015, Google chính thức ra mắt <a href="https://gaming.youtube.com/">Youtube Gaming</a>, với hy vọng tấn công vào lĩnh vực game streaming. Liệu Youtube Gaming sẽ là 1 sản phẩm thành công của Google, hay đi theo bước chân của Google +, 1 sản phẩm theo chân đầy thất bại?
 </p>
 
 Nội dung chính: 
