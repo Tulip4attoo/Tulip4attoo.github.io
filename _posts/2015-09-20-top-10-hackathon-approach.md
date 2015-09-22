@@ -41,7 +41,7 @@ boxplot(training_set$Project_Valuation ~ training_set$Var8, outline=F, col = c("
 "royalblue2"))
 ```
 
-![boxplot-outliers]({{ tulip4attoo.github.io }}/assets/img/hackathon/boxplot-outliers.jpg)
+![boxplot-no-outlier]({{ tulip4attoo.github.io }}/assets/img/hackathon/boxplot-no-outlier.jpg)
 
 Khi cho phép hiển thị các outliers, bạn có thể nhận thấy rõ ràng hơn:
 
@@ -51,7 +51,7 @@ boxplot(training_set$Project_Valuation ~ training_set$Var8, outline=T, col = c("
 "royalblue2"))
 ```
 
-![boxplot-no-outlier]({{ tulip4attoo.github.io }}/assets/img/hackathon/boxplot-no-outlier.jpg)
+![boxplot-outliers]({{ tulip4attoo.github.io }}/assets/img/hackathon/boxplot-outliers.jpg)
 
 Như vậy, bạn có thể tạo ra 1 biến mới chỉ bao gồm 4 loại khu vực sau khi đã phân loại.
 
