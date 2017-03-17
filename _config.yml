@@ -1,27 +1,27 @@
 title: Tulip4attoo's Blog
-description: My blog about data analytics.
+description: A blog about data analytics.
 
 url: http://tulip4attoo.github.io/
 baseurl: ""
 paginate_path: "blog/page:num/"
 permalink: blog/:title/
 
-markdown: redcarpet
+markdown: maruku
 highlighter: pygments
 paginate: 5
 
 navigation:
- - title: Home
-   url: /index.html
- - title: About
-   url: /about
- - title: Contact
-   url: /contact
+  - title: Home
+    url: /index.html
+  - title: About
+    url: /about
+  - title: Contact
+    url: /contact
 
 social:
-   github: Tulip4attoo
-   twitter: 
-   facebook: huylinh.nguyen
-   email: huylinh.nguyen@outlook.com
+    github: Tulip4attoo
+    twitter: 
+    facebook: huylinh.nguyen
+    email: huylinh.nguyen@outlook.com
 
 google_analytics: 
