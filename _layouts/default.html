@@ -5,28 +5,23 @@
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 
 {% include head.html %}
-<head>
-  {% include html_meta %}
-  <link href="/bootstrap/css/bootstrap.2.2.2.min.css" rel="stylesheet">
-  <link href="/css/style.css" rel="stylesheet" type="text/css" media="all">
-  {% if page.use_math %}
-    {% include mathjax_support %}
-  {% endif %}
-</head>
 
 <body>
 
-  {% include header.html %}
+   {% include header.html %}
 
-  <div class="content">
-    <div class="container">
-      {{ content }}
+   <div class="content">
+      <div class="container">
+         {{ content }}
       </div>
-  </div><!-- end .content -->
+   </div><!-- end .content -->
 
-  {% include footer.html %}
-  {% include scripts.html %}
+   {% include footer.html %}
+   {% include scripts.html %}
 
 </body>
+<script type="text/javascript"
+    src="/_includes/mathjax_support">
+</script>
 
 </html>
