@@ -6,9 +6,20 @@ baseurl: ""
 paginate_path: "blog/page:num/"
 permalink: blog/:title/
 
-markdown: redcarpet
+markdown: Pandoc
 highlighter: pygments
 paginate: 5
+
+gems:
+  - jekyll-pandoc
+
+pandoc:
+  extensions:
+    - normalize
+    - smart
+    - mathjax
+    - csl: _styles/apa.csl
+    - bibliography: bibliography/references.bib
 
 navigation:
   - title: Home
