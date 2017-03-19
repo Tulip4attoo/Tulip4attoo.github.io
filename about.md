@@ -5,7 +5,6 @@ title: About me
 
 <div class="post">
 	<h1 class="pageTitle">About me</h1>
-	<img src="{{ '/assets/img/touring.jpg' | prepend: site.baseurl }}" alt=""> 
 	<p class="intro">Hi. My name is Nguyễn Huy Linh. I am a data sicentist wannabe.</p>
 	<h2>Honors &amp; Awards</h2>
 	<ul>

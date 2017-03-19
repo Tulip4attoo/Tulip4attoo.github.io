@@ -4,6 +4,7 @@ title:  Truncation Error trong Finite Difference (Hay là lỗi sai số trong t
 date:   2017-03-17
 mathjax: true
 comments: true
+description: lỗi sai số trong tính toán xấp xỉ đạo hàm
 ---
 
 
@@ -16,10 +17,9 @@ Truncation Error (có thể gọi là lỗi sai số, lỗi làm tròn, tuy nhi�
 Đạo hàm của 1 hàm số là sự biến thiên giá trị của hàm số tại 1 điểm. Về biểu diễn hình học, đạo hàm của 1 hàm số tại 1 điểm là tiếp tuyến của hàm số tại điểm đó.
 
 <p align="center">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Tangent_to_a_curve.svg/330px-Tangent_to_a_curve.svg.png"><br>
-  <i>Đường màu đỏ chính là đạo hàm của hàm số</i>
+  <img src="https://tulip4attoo.github.io/assets/img/truncation-error/different-figure.png"><br>
+  <i>Đường màu đỏ chính là đạo hàm của hàm số (source: wikipedia)</i>
 </p>
-
 
 Trong trường hợp chúng ta có hàm số: $y = f(x)$, khi đó đạo hàm của hàm số, ký hiệu là $f'(x)$ được tính bằng:
 
