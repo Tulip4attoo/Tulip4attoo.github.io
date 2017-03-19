@@ -3,6 +3,7 @@ layout: post
 title:  Truncation Error trong Finite Difference (Hay là lỗi sai số trong tính toán xấp xỉ đạo hàm)
 date:   2017-03-17
 mathjax: true
+comments: true
 ---
 
 
@@ -22,20 +23,24 @@ Truncation Error (có thể gọi là lỗi sai số, lỗi làm tròn, tuy nhi�
 
 Trong trường hợp chúng ta có hàm số: $y = f(x)$, khi đó đạo hàm của hàm số, ký hiệu là $f'(x)$ được tính bằng:
 
-$$
-f'(x_{0}) = \lim_{\Delta x\to0} \frac{f(x_{0} + \Delta x) - f(x_{0})}{\Delta x}
-$$
+$$f'(x_{0}) = \lim_{\Delta x\to0} \frac{f(x_{0} + \Delta x) - f(x_{0})}{\Delta x}$$
 
 Tuy nhiên, trong thực tế, chúng ta không thể lấy được giá trị $\Delta x$ nào để có thể thoả mãn được biểu thức bên trên cả. Chúng ta chỉ có thể sử dụng các hằng số nhỏ khác để thay thế. Tuy nhiên, khi tính toán trên các đơn vị quá bé, máy tính sẽ không đưa ra được kết quả thật sự chính xác, vì vậy đây cũng là 1 vấn đề đáng cân nhắc. Chúng ta sẽ chọn $\Delta x$ đủ bé để giá trị xấp xỉ gần với giá trị đạo hàm thực tế, đồng thời phải chọn $\Delta x$ không quá bé để tránh lỗi tính toán nói trên. Một giải pháp cho vấn đề này là lựa chọn hàm xấp xỉ có Truncation Error thấp hơn, khi đó chúng ta không cần $\Delta x$ phải quá bé nữa.
 
 Ở trên chúng ta vừa đề cập tới công thức của đạo hàm hàm số tại 1 điểm. Tuy nhiên, đó chỉ là 1 trong nhiều cách biểu diễn đạo hàm mà thôi. Cụ thể sẽ có 3 cách thường dùng như sau:
 
 * Forward: 
+
 $$f'(x_{0}) = \lim_{\Delta x\to0} \frac{f(x_{0} + \Delta x) - f(x_{0})}{\Delta x}$$
+
 * Backward: 
+
 $$f'(x_{0}) = \lim_{\Delta x\to0} \frac{f(x_{0}) - f(x_{0} - \Delta x)}{\Delta x}$$
+
 * Central: 
+
 $$f'(x_{0}) = \lim_{\Delta x\to0} \frac{f(x_{0} + \frac{1}{2}\Delta x) - f(x_{0} - \frac{1}{2}\Delta x)}{\Delta x}$$
+
 
 Trong phần tiếp theo, chúng ta sẽ tính lần lượt Truncation error của 3 công thức, từ đó chọn ra công thức có Truncation error nhỏ nhất.
 
@@ -54,9 +59,13 @@ $$f(x) = \sum\limits_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!}(x-a)^n$$
 ## Truncation error của Forward difference
 
 Áp dụng khai triển Taylor cho $f(x + h)$, ta được:
+
 $$f(x + h) = f(x) + \frac{hf'(x)}{1!} + \frac{h^2f''(x)}{2!} + \frac{h^3f^{(3)}(x)}{3!} + ... $$
+
 Chuyển vế $f(x)$ và chia 2 vế cho $h$, ta được:
+
 $$ \frac{f(x+h) - f(x)}{h} = f'(x) + \frac{hf''(x)}{2!} + \frac{h^2f^{(3)}(x)}{3!} + ... $$
+
 $$ \Rightarrow \frac{f(x+h) - f(x)}{h} - f'(x) = O(h) \rightarrow 0 \quad (khi \ \,	h\rightarrow 0)$$
 
 Như vậy, Truncation error của Forward difference có độ lớn $O(h)$. Dễ thấy với Backward difference, Truncation error cũng có độ lớn $O(h)$
@@ -64,13 +73,21 @@ Như vậy, Truncation error của Forward difference có độ lớn $O(h)$. D�
 ## Truncation error của Central difference
 
 Áp dụng khai triển Taylor cho $f(x + \frac{h}{2})$ và $f(x - \frac{h}{2})$, ta được:
+
 $$f(x + \frac{h}{2}) = f(x) + \frac{hf'(x)}{2 *1!} + \frac{h^2f''(x)}{2^2 * 2!} + \frac{h^3f^{(3)}(x)}{2 ^3 *3!} + ... $$
+
 $$f(x - \frac{h}{2}) = f(x) - \frac{hf'(x)}{2 *1!} + \frac{h^2f''(x)}{2^2 * 2!} - \frac{h^3f^{(3)}(x)}{2 ^3 *3!} + ... $$
+
 Trừ vế 2 biểu thức trên, ta được:
+
 $$f(x + \frac{h}{2}) - f(x - \frac{h}{2}) = hf'(x) + \frac{h^3f^{(3)}(x)}{2 ^2 *3!} + ... $$
+
 Chia 2 vế cho $h$, khi đó:
+
 $$ \frac{f(x + \frac{h}{2}) - f(x - \frac{h}{2})}{h} = f'(x) + \frac{h^2f^{(3)}(x)}{2 ^2 *3!} + ... $$
+
 $$ \Rightarrow \frac{f(x + \frac{h}{2}) - f(x - \frac{h}{2})}{h} - f'(x) = O(h^2) \rightarrow 0 \quad (khi \ \,	h\rightarrow 0)$$
+
 
 Như vậy, Truncation error của Central difference có độ lớn $O(h^2)$. Điều này cho thấy chúng ta nên sử dụng Central difference thay cho Forward difference trong tính toán xấp xỉ đạo hàm.
 
