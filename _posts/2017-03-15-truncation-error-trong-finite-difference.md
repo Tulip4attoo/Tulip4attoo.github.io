@@ -2,7 +2,6 @@
 layout: post
 title:  Truncation Error trong Finite Difference (Hay là lỗi sai số trong tính toán xấp xỉ đạo hàm)
 date:   2017-03-17
-use_math: true
 ---
 
 
