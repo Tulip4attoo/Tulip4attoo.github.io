@@ -18,7 +18,7 @@ Truncation Error (có thể gọi là lỗi sai số, lỗi làm tròn, tuy nhi�
 
 <p align="center">
   <img src="https://tulip4attoo.github.io/assets/img/truncation-error/different-figure.png"><br>
-  <i>Đường màu đỏ chính là đạo hàm của hàm số (source: wikipedia)</i>
+  <i>Đường màu đỏ chính là đạo hàm của hàm số (nguồn: wikipedia)</i>
 </p>
 
 Trong trường hợp chúng ta có hàm số: $y = f(x)$, khi đó đạo hàm của hàm số, ký hiệu là $f'(x)$ được tính bằng:
