@@ -15,7 +15,7 @@ FizzBuzz vốn là bài toán vui ở Anh để dạy cho cho trẻ con làm que
 > Viết một chương trình để in ra các số từ 1 đến 100. Nhưng đối với các số là bội của 3 thì in ra chữ “Fizz” thay vì hiển thị số đó và đối với các số là bội của 5 thì in ra chữ “Buzz”. Đối với các số vừa là bội của 3 và 5 thì in ra chữ “FizzBuzz”.
 
 <p align="center">
-  <img src="https://chrismorgan.info/media/images/rust-fizzbuzz.png"><br>
+  <img src="https://tulip4attoo.github.io/assets/img/fizzbuzz-tf/rust-fizzbuzz.png"><br>
   <i>Minh hoạ bài toán FizzBuzz (nguồn ảnh: chrismorgan.info)</i>
 </p>
 
@@ -42,11 +42,9 @@ Cách thứ nhất tuy rõ ràng, mang lại kết quả cao hơn (làm sao có 
 TensorFlow là 1 thư viện về Machine Learning, chuyên về Deep Learning do Google phát triển, được công bố mã nguồn vào tháng 11/2015. Theo thông tin từ Google, TensorFlow được sử dụng trong nhiều dịch vụ và hoạt động của Google. Các bạn có thể xem mã nguồn của TensorFlow ở đây: [Github](https://github.com/tensorflow/tensorflow)
 
 <p align="center">
-  <img src="https://lh3.googleusercontent.com/hIViPosdbSGUpLmPnP2WqL9EmvoVOXW7dy6nztmY5NZ9_u5lumMz4sQjjsBZ2QxjyZZCIPgucD2rhdL5uR7K0vLi09CEJYY=s688
-"><br>
+  <img src="https://tulip4attoo.github.io/assets/img/fizzbuzz-tf/tf-logo.jpg"><br>
   <i>TensorFlow xử lý các model dưới dạng data flow graph (nguồn ảnh: tensorflow.org)</i>
 </p>
-
 
 Dù có sử dụng interface là Python (và C++/Java/Go), nhưng performance của TensorFlow vẫn được đảm bảo do mã nguồn được viết bằng C++. TensorFlow có thể hoạt động tốt trên GPU, các hệ thống song song và phân tán, cũng như các thiết bị nhỏ như smartphone. TensorFlow mới ra phiên bản 1.0 gần đây, với nhiều nâng cấp. Nếu chọn 1 framework để làm việc với Deep Learning, TensorFlow sẽ là 1 lựa chọn không tệ. Hiện tại, TensorFlow đang có nhiều kế hoạch để người dùng có thể sử dụng TensorFlow dễ dàng hơn, ví như việc [Keras được tích hợp sẵn trong TensorFlow bản 1.2](https://blog.keras.io/introducing-keras-2.html) mới thông báo gần đây chẳng hạn.
 
