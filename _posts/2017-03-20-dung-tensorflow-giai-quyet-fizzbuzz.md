@@ -4,6 +4,7 @@ title:  Giải quyết bài toán FizzBuzz bằng Machine Learning sử dụng T
 date:   2017-03-20
 mathjax: true
 comments: true
+image: fizzbuzz-tf/rust-fizzbuzz.png
 description: FizzBuzz là bài toán đơn giản nhưng rất nổi tiếng, dùng để kiểm tra xem 1 lập trình viên có thực sự biết code hay không. Có nhiều lời giải và góc nhìn về bài toán này. Bạn đã từng nghĩ tới việc giải quyết FizzBuzz bằng Machien Leaning chưa? Bài viết này tôi sẽ sử dụng 1 framework Machine Learning là TensorFlow để xử lý bài toán FizzBuzz.
 ---
 
@@ -15,7 +16,7 @@ FizzBuzz vốn là bài toán vui ở Anh để dạy cho cho trẻ con làm que
 > Viết một chương trình để in ra các số từ 1 đến 100. Nhưng đối với các số là bội của 3 thì in ra chữ “Fizz” thay vì hiển thị số đó và đối với các số là bội của 5 thì in ra chữ “Buzz”. Đối với các số vừa là bội của 3 và 5 thì in ra chữ “FizzBuzz”.
 
 <p align="center">
-  <img src="https://tulip4attoo.github.io/assets/img/fizzbuzz-tf/rust-fizzbuzz.png"><br>
+  <img src="/assets/img/fizzbuzz-tf/rust-fizzbuzz.png"><br>
   <i>Minh hoạ bài toán FizzBuzz (nguồn ảnh: chrismorgan.info)</i>
 </p>
 
@@ -42,7 +43,7 @@ Cách thứ nhất tuy rõ ràng, mang lại kết quả cao hơn (làm sao có 
 TensorFlow là 1 thư viện về Machine Learning, chuyên về Deep Learning do Google phát triển, được công bố mã nguồn vào tháng 11/2015. Theo thông tin từ Google, TensorFlow được sử dụng trong nhiều dịch vụ và hoạt động của Google. Các bạn có thể xem mã nguồn của TensorFlow ở đây: [Github](https://github.com/tensorflow/tensorflow)
 
 <p align="center">
-  <img src="https://tulip4attoo.github.io/assets/img/fizzbuzz-tf/tf-logo.jpg"><br>
+  <img src="/assets/img/fizzbuzz-tf/tf-logo.jpg"><br>
   <i>TensorFlow xử lý các model dưới dạng data flow graph (nguồn ảnh: tensorflow.org)</i>
 </p>
 
@@ -53,7 +54,7 @@ Dù có sử dụng interface là Python (và C++/Java/Go), nhưng performance c
 
 Để thực hiện bài toán, đầu tiên chúng ta sẽ import các package cần thiết: TensorFlow (dĩ nhiên), numpy (để xử lý đầu vào bài toán), time (đo thừoi gian chạy)
 
-```{python}
+```python
 import tensorflow as tf
 import numpy as np
 import time
@@ -61,7 +62,7 @@ import time
 
 Tiếp đó, chúng ta viết riêng các biến sẽ sử dụng trong bài để tiện thay đổi, nếu cần
 
-```{python}
+```python
 NUM_DIGITS = 13
 NUM_LABELS = 4
 X_WIDTH = NUM_DIGITS
@@ -72,7 +73,7 @@ GRADIENT_CONSTANT = 0.05
 
 Ngoài ra, là các hàm thay đổi input, tính toán độ chính xác của kết quả, print output
 
-```{python}
+```python
 def binary_encode(i, num_digits):
   return np.array([i >> d & 1 for d in range(num_digits)])[::-1]
 
@@ -92,7 +93,7 @@ def fizz_buzz(i, prediction):
 
 Và chúng ta cũng sẽ tạo nên tập train và tập test. Tập test, dĩ nhiên sẽ là các số từ 1 tới 100. Ngoài ra, labels kết quả sẽ thay đổi sang dạng one-hot column vector, đây là dạng labels thường gặp khi giải quyết các bài toán phân loại sử dụng Deep Learning, bởi lẽ nó rất phù hợp để sử dụng hàm Cross-entropy để đánh giá. Chúng ta sẽ sử dụng input là các chữ số của số khi đã được mã hoá nhị phân, điều này giúp cho chúng ta có đủ input đầu vào. Bạn có thể xem vài cách xử lý input khác trong phần sau.
 
-```{python}
+```python
 trX = np.array([binary_encode(i, NUM_DIGITS) for i in range(101, 2 ** NUM_DIGITS)])
 trY = np.array([fizz_buzz_encode(i)          for i in range(101, 2 ** NUM_DIGITS)])
 trX = trX.astype(np.float32)
@@ -106,7 +107,7 @@ teY = teY.astype(np.float32)
 
 Sau khi đã khai báo input, các biến cố định sử dụng trong toàn chương trình, ta lại tiếp tục phải khai báo mô hình của chúng ta cho TensorFlow, thật lăng nhằng và mệt mỏi phải không nào? Ở đây, chúng ta sử dụng mô hình Neural Network với 1 hidden layer. Hàm loss là hàm Cross-entropy. Sử dụng Gradient Decent là phương pháp optimize (thực ra là Stochatic Gradient Decent - SGD). RELU được chọn làm hàm activation.
 
-```{python}
+```python
 graph = tf.Graph()
 with graph.as_default():
 
@@ -137,7 +138,7 @@ with graph.as_default():
 
 Do đặc trưng của Neural Network là tính ngẫu nhiên khi khởi tạo các weight và bias ban đầu, từ đó mỗi lần chạy sẽ ra các kết quả khác nhau đôi chút, do đó chúng ta có thể viết thêm vài dòng cho việc lưu lại model.
 
-```{python}
+```python
   tf.add_to_collection('params', weights_1)
   tf.add_to_collection('params', biases_1)
   tf.add_to_collection('params', weights_2)
@@ -147,7 +148,7 @@ Do đặc trưng của Neural Network là tính ngẫu nhiên khi khởi tạo c
 
 Ok, tới đây thì đã khai báo xong. Chúng ta có thể chạy mô hình được rồi. Sử dụng SGD, chúng ta có thể train mô hình với số lượng vòng lặp rất lớn, ở đây tôi chọn NUM_STEPS = 120000 lần. Ngoài ra, mỗi 10000 bước, chúng ta lại in kết quả ra ngoài để tiện theo dõi, đồng thời lưu mô hình lại.
 
-```{python}
+```python
 with tf.Session(graph=graph) as session:
   start_time = time.time()
   tf.global_variables_initializer().run()
@@ -203,7 +204,7 @@ Test accuracy: 100.0%
 
 Bạn có thể load lại mô hình tại những điểm đã lưu.
 
-```{python}
+```python
 with tf.Session(graph=graph) as sess:
   new_saver = tf.train.import_meta_graph('my-model-120000.meta')
   new_saver.restore(sess, tf.train.latest_checkpoint('./'))
