@@ -5,6 +5,7 @@ date:   2017-03-17
 mathjax: true
 comments: true
 description: lỗi sai số trong tính toán xấp xỉ đạo hàm
+img: truncation-error/different-figure.png
 ---
 
 

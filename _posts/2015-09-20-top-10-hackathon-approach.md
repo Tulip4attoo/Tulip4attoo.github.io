@@ -2,6 +2,10 @@
 layout: post
 title:  Lọt vào top 10 cuộc thi hackathon 3.0 của Analytics Vidhya
 date:   2015-09-20
+mathjax: true
+comments: true
+description: Lần đầu tham gia 1 cuộc thi hackathon online, khi mới tập code được tầm 2 tháng. Thành tích 7 / 273 thí sinh tham dự là 1 kết quả quan trọng với tôi.
+img: hackathon/result.jpg
 ---
 
 Analytics Vidhya là 1 trang chuyên về phân tích dữ liệu (data analytics) của Ấn Độ. Lĩnh vực phân tích dữ liệu là 1 lĩnh vực mới, tuy nhiên đang được đón nhận tích cực tại Mỹ, Ấn Độ và nhiều quốc gia khác trên thế giới. Từ tháng 6 trở lại đây, Analytics Vidhya đều đặn tổ chức các cuộc thi data hackathon hàng tháng, thu hút 1 số lượng không nhỏ các ứng viên. Tháng 8 - 2015, tôi có tham gia và đạt hạng 7 chung cuộc trên tổng số 273 thí sinh tham dự cuộc thi [Online Hackathon - Find the next Brain Wong!](http://discuss.analyticsvidhya.com/t/online-hackathon-3-0-find-the-next-brain-wong/2838). Bài viết này nói về cách tiếp cận và giải quyết vấn đề trong cuộc thi đấy của tôi.
