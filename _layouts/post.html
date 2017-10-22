@@ -14,6 +14,19 @@ layout: main
         <h1 class="page-title">{{page.title}}</h1>
         <div class="page-date"><span>{{page.date | date: '%Y, %b %d'}}&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
       </header>
+<<<<<<< HEAD
+=======
+ -->
+      <header class="header-page">
+        <h1 class="page-title">{{page.title}}</h1>
+        <div class="page-date"><span>{{page.date | date: '%B %d, %Y' }} | <span class="time">{{ page.content | number_of_words | divided_by:180 }}</span> Minutes Read&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+      </header>
+
+<!--       <h1 class="postTitle">{{ page.title }}</h1>
+      <p class="meta">{{ page.date | date: '%B %d, %Y' }} | <span class="time">{{ page.content | number_of_words | divided_by:180 }}</span> Minute Read</p>
+      {% include mathjax.html %}
+ -->
+>>>>>>> parent of 5283237... Revert "some tune"
       {{page.content | markdownify}}
       <div class="page-footer">
         <div class="page-share">
