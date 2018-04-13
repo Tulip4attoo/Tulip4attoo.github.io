@@ -5,6 +5,7 @@ date:           2018-04-11
 mathjax:        true
 comments:       true
 description:    Bài viết đầu tiên trong series tạo bot chơi game T-Rex của Chrome. Trong bài viết đầu tiên, chúng ta sẽ implement bot theo hardcode version.
+img:            chrome-trex/chrome_trex_intro.gif
 ---
 
 
@@ -12,7 +13,7 @@ Có thể bạn đã biết, trình duyệt Google Chrome được tích hợp s
 
 <p align="center">
   <img src="https://Tulip4attoo.github.io/assets/img/chrome-trex/chrome_trex_intro.gif"><br>
-  <i>Trò chơi nhỏ của Chrome giúp bạn giết thời gian khi mất mạng (nguồn: [https://mathewsachin.github.io](https://mathewsachin.github.io/blog/2016/11/05/chrome-dino-hack.html))</i>
+  <i>Trò chơi nhỏ của Chrome giúp bạn giết thời gian khi mất mạng (nguồn: https://mathewsachin.github.io)</i>
 </p>
 
 Mình sẽ viết 1 series bài về cách tạo ra 1 con bot chơi game này. Hiện tại mình đã giải quyết bài toán với 2 phương pháp:
@@ -32,7 +33,7 @@ Nếu có thời gian, mình sẽ tìm cách sử dụng reinforcement learning 
 
 Trước hết chúng ta cần import các package cần thiết. Chúng ta sẽ dùng  `mss` để chụp màn hình, `pyautogui` để output ra ngoài và vài package quen thuộc khác.
 
-```{python}
+```python
 import pyautogui
 import time
 import numpy as np
@@ -43,14 +44,14 @@ from mss import mss
 
 Chúng ta sẽ define ra 1 số constant dùng sau này:
 
-```{python}
+```python
 TIME_BETWEEN_FRAMES = 0.01
 TIME_BETWEEN_GAMES = 0.5
 ```
 
 Chúng ta tạo ra các hàm để chơi game, bao gồm: 1 class `Cordinates` để lưu vị trí của các object, và 2 hàm để restart game cũng như press phím Up.
 
-```{python}
+```python
 class Cordinates(object):
     # vi tri cua cac object
     replay_pos = (390, 410) # vi tri cua button replay
@@ -72,7 +73,7 @@ Chúng ta tạo ra hàm `get_cactus_box_value` để xem xét trong 1 khu vực 
 
 Các bạn chú ý là các giá trị ở đây sẽ thay đổi tuỳ theo từng thiết lập các máy, nếu bạn muốn chạy ở máy mình thì có thể phải sửa 1 chút nha.
 
-```{python}
+```python
 BLANK_BOX = 247000
 
 def get_cactus_box_value():
@@ -88,7 +89,7 @@ def get_cactus_box_value():
 
 Tới đây chúng ta đã cơ bản hoàn thành phần code cho 1 lượt chơi. Tuy nhiên, chúng ta nên làm thêm 1 hàm `check_gameover`, để khi có gameover thì chúng ta sẽ phát hiện ra và gọi hàm `restart_game` để chơi lại.
 
-```{python}
+```python
 GAMEOVER_RANGE = [620000, 660000]
 
 def check_gameover(gameover_range = GAMEOVER_RANGE):
@@ -108,7 +109,7 @@ def check_gameover(gameover_range = GAMEOVER_RANGE):
 
 Sau khi đã chuẩn bị xong toàn bộ các thành phần phía trên, chúng ta sẽ tạo ra hàm `main` để kết hợp toàn bộ những thành phần ở trên lại.
 
-```{python}
+```python
 def main():
     while True:
         gameover_state = check_gameover()
