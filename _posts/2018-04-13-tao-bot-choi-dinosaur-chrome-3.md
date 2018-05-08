@@ -1,7 +1,7 @@
 ---
 layout:         post
-title:          Tạo bot chơi T-Rex trong Chrome (phần 2) - Setup môi trường training
-date:           2018-04-13
+title:          Tạo bot chơi T-Rex trong Chrome (phần 3) - Setup môi trường training
+date:           2018-05-08
 mathjax:        true
 comments:       true
 description:    Bài viết thứ 3 trong series tạo bot chơi game T-Rex của Chrome. Trong bài viết này, mình sẽ nói về việc setup môi trường để training thuật toán. Môi trường bao gồm 1 model Neural network với 1 hidden layer, xác định state hiện tại của game (tốc độ, vị trí xương rồng, etc.), việc chuyển Neural network thành bot.
@@ -348,6 +348,8 @@ def play_game(parameters_set):
 # Kết luận
 
 Tới đây, ta đã hoàn thành việc define sẵn mạng Neural network để chạy bot, cũng như phần engineering để xác định các thông tin cho bot của chúng ta. Công việc còn lai thì chúng ta cần implement GA để train cho model. Phần implement GA và train model mình sẽ viết trong phần 4, cũng là phần cuối của series này.
+
+Các bạn có thể chạy file [`clever_bot.py`](https://github.com/Tulip4attoo/chrome_trex/blob/master/clever_bot.py) để xem ví dụ về 1 con bot chạy trên cơ sở những thiết lập trong bài viết này.
 
 # Tham khảo
 
