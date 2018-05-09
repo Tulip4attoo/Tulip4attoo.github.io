@@ -8,6 +8,7 @@ description:    Bài viết thứ 3 trong series tạo bot chơi game T-Rex củ
 img:            chrome-trex/NN_model.png
 ---
 
+Bài viết thứ 3 trong series tạo bot chơi game T-Rex của Chrome. Trong bài viết này, mình sẽ nói về việc setup môi trường để training thuật toán. Môi trường bao gồm 1 model Neural network với 1 hidden layer, xác định state hiện tại của game (tốc độ, vị trí xương rồng, etc.), việc chuyển Neural network thành bot.
 
 # Ý tưởng thực hiện
 
@@ -185,6 +186,7 @@ INIT_SPEED = 270
 N_X = 3 # kich thuoc input layer
 N_H = 3 # kich thuoc Hidden layer
 N_Y = 1 # kich thuoc output layer
+LANDSCAPE = False
 ```
 
 Để lấy được state hiện tại của game như: `speed, size, distance`, chúng ta cần phân tích hình ảnh màn hình game. Để có thể phù hợp với nhiều máy, thay vì hardcode như bài trước, ta sẽ tạo ra 1 hàm `find_game_position` để xác định vị trí của game. Việc thực hiện là matching màn hình với 1 template có sẵn và xác định phần matched.
@@ -278,6 +280,12 @@ def reset_game():
     pyautogui.hotkey('ctrl', 'r')
     time.sleep(2)
 
+def reset_game_2(landscape):
+    y = 65 + landscape['top']
+    x = 235 + landscape["left"]
+    pyautogui.click(y, x)
+    time.sleep(2)
+
 def start_game():
     pyautogui.press('space')
     time.sleep(1.5)
@@ -301,6 +309,12 @@ Cuối cùng, ta define hàm `play_game`, để với 1 bộ `parameters_set` l�
 
 ```python
 def play_game(parameters_set):
+    global LANDSCAPE
+    with mss() as sct:
+        if LANDSCAPE:
+            reset_game_2(LANDSCAPE)
+        else:
+            reset_game()
     with mss() as sct:
         reset_game()
         landscape = get_game_landscape_and_set_focus_or_die(sct, .8)
