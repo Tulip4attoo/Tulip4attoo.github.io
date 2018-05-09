@@ -5,7 +5,7 @@ date:           2018-05-09
 mathjax:        true
 comments:       true
 description:    Đây là bài thứ 4 và cũng là bài cuối trong series tạo bot chơi game T-Rex của Chrome. Trong bài viết này, mình sẽ nói về việc implement Genetic Algorithm (GA) và áp dụng training. Ngoài ra thì mình cũng nói thêm 1 số kinh nghiệm khi tiến hành training cũng như khi code project này.
-img:            chrome-trex/NN_model.png
+img:            chrome-trex/GA_crossover.png
 ---
 
 Yeah, cuối cùng đã tới bài cuối này rồi :'( Các bạn có thể đọc các bài còn lại trong series ở đây:
@@ -280,9 +280,12 @@ Tới generation 6 thì mọi chuyện khá hơn 1 chút, bot đã biết nhảy
 Các bạn có thể lấy tham số bot này ở file [`clever_bot.py`](https://github.com/Tulip4attoo/chrome_trex/blob/master/clever_bot.py). Hoặc copy từ đây. Các bạn có thể chạy thẳng file `clever_bot.py` để xem bot chạy với hệ param đó luôn.
 
 ```python
-clever_params = {'b2': np.array([[ 0.27304736]]), 'W2': np.array([[ 0.91572382, -0.29862268,  0.30955728]]), 'W1': np.array([[-0.02062025,  0.00016742,  0.00381535],
+clever_params = {'b2': np.array([[ 0.27304736]]), 
+                 'W2': np.array([[ 0.91572382, -0.29862268,  0.30955728]]), 
+                 'W1': np.array([[-0.02062025,  0.00016742,  0.00381535],
        [ 0.00226537,  0.01325698,  0.02389935],
-       [ 0.02300561,  0.01351209,  0.00588823]]), 'b1': np.array([[-0.73119972],
+       [ 0.02300561,  0.01351209,  0.00588823]]), 
+       'b1': np.array([[-0.73119972],
        [-0.05157346],
        [-0.00290758]])}
 ```
