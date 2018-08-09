@@ -315,8 +315,6 @@ def play_game(parameters_set):
             reset_game_2(LANDSCAPE)
         else:
             reset_game()
-    with mss() as sct:
-        reset_game()
         landscape = get_game_landscape_and_set_focus_or_die(sct, .8)
         start_game()
 

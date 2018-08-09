@@ -16,6 +16,8 @@ Yeah, cuối cùng đã tới bài cuối này rồi :'( Các bạn có thể 
 
 + Phần 3: https://kipalog.com/posts/Tao-bot-choi-T-Rex-trong-Chrome--phan-3----Setup-moi-truong-training
 
++ Phần 4: (phần cuối) https://kipalog.com/posts/Tao-bot-choi-T-Rex-trong-Chrome--phan-4----Training-voi-Genetic-Algorithm
+
 # Áp dụng GA trong Neural network và bài toán này
 
 Như đã nói ở [phần 2](https://kipalog.com/posts/Tao-bot-choi-T-Rex-trong-Chrome--phan-2----Gioi-thieu-ve-Genetic-Algorithms), GA không có quy định chặt chẽ về cách áp dụng. Đối với việc áp dụng GA vào bài toán này, ta cần phải quy định những điều sau:
