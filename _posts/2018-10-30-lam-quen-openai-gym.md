@@ -1,7 +1,7 @@
 ---
 layout:         post
 title:          Làm quen với OpenAI gym
-date:           2018-10-230
+date:           2018-10-30
 mathjax:        true
 comments:       true
 description:    Làm quen với OpenAI gym thông qua game Cartpole.
