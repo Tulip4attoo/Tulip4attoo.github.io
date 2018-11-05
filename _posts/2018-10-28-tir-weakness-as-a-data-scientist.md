@@ -4,13 +4,13 @@ title:          TIR - Today I read - My weakness as a Data scientist
 date:           2018-10-28
 mathjax:        true
 comments:       true
-description:    Tóm tắt lại bài viết My weakness as a Data scientist ở Toward data science(https://towardsdatascience.com/my-weaknesses-as-a-data-scientist-1310dab9f566
+description:    Tóm tắt lại bài viết My weakness as a Data scientist ở Toward data science(https://towardsdatascience.com/my-weaknesses-as-a-data-scientist-1310dab9f566)
 img:            tir/weakness_as_a_data_scientist.png
 ---
 
 Đây là bài viết mở đầu chuyên mục TIR - Today I read của mình. Vì mỗi ngày mình thường đọc khá nhiều, tuy nhiên nếu không note lại thì khá dễ quên (có note thì lâu quên hơn - nhưng vẫn quên) và sau này lục tìm cũng khó. Vì vậy, mình quyết định sẽ lập ra cái topic này, để lưu lại những gì mình đọc hàng ngày. Song song với nói về nội dung, sẽ là bước soi chiếu lên cá nhân mình. Gọi là hàng ngày nhưng việc này khá là takes time nên mình có lẽ chỉ làm 2 bài / tuần là phù hợp.
 
-Bài viết mở đầu hôm nay là: [My weakness as a Data scientist](https://towardsdatascience.com/my-weaknesses-as-a-data-scientist-1310dab9f566). Đây là 1 bài viết nói về những điểm yếu của 1 data scientist vốn từ academic chuyển sang. Cá nhân mình có những điểm yếu y hệt tác giả, nên đây là 1 bài viết mình khá thích.
+Bài viết mở đầu hôm nay là: [My weakness as a Data scientist] (https://towardsdatascience.com/my-weaknesses-as-a-data-scientist-1310dab9f566). Đây là 1 bài viết nói về những điểm yếu của 1 data scientist vốn từ academic chuyển sang. Cá nhân mình có những điểm yếu y hệt tác giả, nên đây là 1 bài viết mình khá thích.
 
 Dưới đây là nội dung bài viết qua ý hiểu của mình, cũng như kèm thêm soi chiếu bản thân.
 
