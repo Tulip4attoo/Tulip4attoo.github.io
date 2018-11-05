@@ -19,8 +19,7 @@ Dưới đây là nội dung bài viết qua ý hiểu của mình.
 Tác giả nói rằng, phần lớn những vấn đề bạn gặp hiện nay, RL không giải quyết được. 
 
 <p align="center">
-  <img src="https://Tulip4attoo.github.io/assets/img/tir/rl-hard.jpg
----"><br>
+  <img src="https://Tulip4attoo.github.io/assets/img/tir/rl-hard.jpg"><br>
   <i>Khẳng định của tác giả
 </i>
 </p>
