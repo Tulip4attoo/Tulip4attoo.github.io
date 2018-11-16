@@ -1,3 +1,6 @@
+# draft folder
+/_posts/draft/
+
 _site
 .sass-cache
 .jekyll-metadata
