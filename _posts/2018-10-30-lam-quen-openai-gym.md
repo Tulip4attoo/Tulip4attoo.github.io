@@ -8,16 +8,16 @@ description:    Làm quen với OpenAI gym thông qua game Cartpole.
 img:            rl/openai.png
 ---
 
-Reinforcement learning hiện đang là một chủ đề được quan tâm nhiều trong giới AI. Hiện mình đang học RL theo course CS294 của Bekerley song song với tham gia 1 nhóm những người cùng công ty mình. Đây alf bài viết đầu tiên trong nhiều bài viết của mình trong quá trình mình học RL. Bạn có thể coi qua 1 repo tổng hợp cuẩ mình nếu quan tâm tới quá trình học của mình.
+Reinforcement learning hiện đang là một chủ đề được quan tâm nhiều trong giới AI. Hiện mình đang học RL theo course CS294 của Bekerley song song với tham gia 1 nhóm những người cùng công ty mình. Đây là bài viết đầu tiên trong nhiều bài viết của mình trong quá trình mình học RL. Bạn có thể coi qua 1 [repo](https://github.com/Tulip4attoo/rl) tổng hợp của mình nếu quan tâm tới quá trình học của mình.
 
 ## Why OpenAI gym?
 
 > Theo [1 survey năm 2016 của Nature](https://www.nature.com/news/1-500-scientists-lift-the-lid-on-reproducibility-1.19970
 ), có tới hơn 70% những nhà nghiên cứu đã từng thử và thất bại trong việc reproduce lại những kết quả nghiên cứu khác, và tới hơn một nửa thất bại trong việc reproduce lại kết quả của chính bản thân mình.
 
-OpenAI là 1 công cụ được tạo ra nhằm giúp những nhà nghiên cứu dễ dàng hơn trong việc có 1 benchmark tốt bằng cách tạo một môi trường ổn định, có cách cài đặt đơn giản. Mục đích của công cụ này là giúp tăng khả năng reproduce lại các kết quả trong lĩnh vực AI, cũng như cung cấp 1 công cụ giúp chúng ta dễ dàng thao tác với các môi trường AI hơn.
+OpenAI là 1 công cụ được tạo ra nhằm giúp những nhà nghiên cứu dễ dàng hơn trong việc có 1 benchmark tốt bằng cách tạo một môi trường ổn định, có cách cài đặt đơn giản. Mục đích của công cụ này là giúp tăng khả năng reproduce lại các kết quả trong lĩnh vực AI, cũng như cung cấp 1 công cụ giúp chúng ta dễ dàng thao tác với các môi trường AI hơn. ([nhưng thực ra cũng không ăn thua lắm](https://tulip4attoo.github.io/blog/tir-rl-hard/))
 
-Còn lý do sử dụng OpenAI của mình là bởi nó thiết lập sẵn các môi trường để làm việc và thao tác. Mình từng xử lý game Dinosaur của Chrome, và mình hiểu việc engineering những thứ này mệt mỏi như thế nào.
+Còn lý do sử dụng OpenAI của mình là bởi nó thiết lập sẵn các môi trường để làm việc và thao tác. Mình [từng xử lý game Dinosaur](https://github.com/Tulip4attoo/chrome_trex) của Chrome, và mình hiểu việc engineering những thứ này mệt mỏi như thế nào.
 
 ## Cài đặt
 
