@@ -26,3 +26,13 @@ Có 2 cách giải quyết mình nghĩ tới:
 ## Tổng kết lại
 
 Đây là 1 vấn đề khó. Cách 1 là giải quyết tạm thời. Cách 2 là xử lý tốt cho sau này, tuy nhiên mình mới đang làm thôi. Note là cách 2 có thể view tốt được data và đảm bảo reproduce kết quả.
+
+## Update
+
+Mình mới nhận ra là 8k * 8 * 4 ~ 240k.
+
+240k là 1 con số ổn, có thể so sánh với 1mil. Như vậy, việc áp dụng cả 2 phương pháp ở cách 1 cũng có thể train được ở mức độ vừa phải. 
+
+Ưu điểm ở đây là dễ code và máy yếu (4GB RAM) vẫn có thể phà phà chạy tầm 50k, 100k memory size vô tư. Tất nhiên cách 2 vẫn là tối ưu hơn cho máy yếu, nwhng chưa biết tốc độ khi implement sẽ như thế nào, cái này cần thực chiến mới biết được.
+
+Update 2: 19 Nov 18: phat hiện ra kiểu save file và load chạy cực kỳ cực kỳ chậm. Suy nghĩ tới việc chuyển load cho 10/100 batch cho từng lần chạy, chú ý 100 batch thực ra chỉ là random trong 100/1mil = 0.0001 nên ảnh hưởng hầu như không đáng kể, có thể thực hiện được. Tuy nhiên, mình đọc được bài này: https://github.com/fg91/Deep-Q-Learning/blob/master/DQN.ipynb Ở đây có 1 cách khá hay là chuyển về dạng uint8 (so với np.float16 của mình), cũng như chuyển dạng lưu là 1mil frame, và khi load chỉ cần index sẽ kéo ra 5 frame, tạo thành state và next_state. Như vậy, memory_size có thể tăng lên thêm 2 * 8 = 16 lần, như giờ mình có thể train với 35k memory_size --> 35k*16 = 560k, có thể coi là đã ổn rồi. Cheer! Vậy là mình nên đọc qua thêm vài github để coi họ có các hướng nào hay ho để học tập nữa, hehee.
