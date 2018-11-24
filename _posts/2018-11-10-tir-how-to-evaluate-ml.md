@@ -1,7 +1,7 @@
 ---
 layout:         post
 title:          TIR - Today I read - How Should We Evaluate Machine Learning for AI?
-date:           2018-11-04
+date:           2018-11-15
 mathjax:        true
 comments:       true
 description:    Tóm tắt lại bài talk How Should We Evaluate Machine Learning for AI? (https://www.youtube.com/watch?v=7CcSm0PAr-Y)
