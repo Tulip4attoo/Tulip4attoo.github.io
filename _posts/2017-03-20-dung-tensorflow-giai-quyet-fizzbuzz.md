@@ -5,7 +5,7 @@ date:   2017-03-20
 mathjax: true
 comments: true
 img: fizzbuzz-tf/rust-fizzbuzz.png
-description: FizzBuzz là bài toán đơn giản nhưng rất nổi tiếng, dùng để kiểm tra xem 1 lập trình viên có thực sự biết code hay không. Có nhiều lời giải và góc nhìn về bài toán này. Bạn đã từng nghĩ tới việc giải quyết FizzBuzz bằng Machien Leaning chưa? Bài viết này tôi sẽ sử dụng 1 framework Machine Learning là TensorFlow để xử lý bài toán FizzBuzz.
+description: "FizzBuzz là bài toán đơn giản nhưng rất nổi tiếng, dùng để kiểm tra xem 1 lập trình viên có thực sự biết code hay không. Có nhiều lời giải và góc nhìn về bài toán này. Bạn đã từng nghĩ tới việc giải quyết FizzBuzz bằng Machien Leaning chưa? Bài viết này tôi sẽ sử dụng 1 framework Machine Learning là TensorFlow để xử lý bài toán FizzBuzz."
 ---
 
 # Bài toán FizzBuzz

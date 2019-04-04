@@ -1,48 +1,54 @@
-title: Hello, world! I'm Tulip4attoo
-description: > # this means to ignore newlines until "baseurl:"
-  My technical blog. I will talk about many things 
-  that not so-much personal here.
-permalink: 'blog/:title/'
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://tulip4attoo.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+# Site
+name: "Tulip's blog"
+title: "Tulip's blog"
+description: "Gamer, Reader, Dreamer, AI Engineer, Gamedev"
+logo: 'assets/images/logo.png'
+favicon: 'assets/images/logo.png'
+baseurl: 
+include: ["_pages"]
+permalink: /:title/
 
-# Author Settings
-author: Tulip4attoo 
-author-img: tulip4attoo.jpg 
-about-author: Gamer, Reader, Dreamer
-facebook: huylinh.nguyen
-github: Tulip4attoo
-linkedin: # add your Linkedin handle
-email: huylinh.nguyen@outlook.com
+# Authors
+authors:
+  Tulip:
+    name: Tulip
+    display_name: Tulip
+    gravatar: b44180fbc23943ee9c2a304d941c6ca8
+    email: huylinh.nguyen@outlook.com
+    web: https://tulip4attoo.github.io/
+    facebook: https://www.facebook.com/huylinh.nguyen
+    description: "Gamer, Reader, Dreamer, AI Engineer, Gamedev."
 
-# Disqus
-discus-identifier: tulip4attoo-github-io 
-
-# Tracker
-analytics: # Google Analytics
-
-# Build Settings
-markdown: kramdown
-highlighter: rouge
-# More › http://kramdown.gettalong.org/quickref.html
-# Options › http://kramdown.gettalong.org/options.html
-kramdown:
-  input:          GFM
-  # https://github.com/jekyll/jekyll/pull/4090
-
-plugins:
-  - jekyll-sitemap
+# Plugins
+plugins: 
   - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-archives
+    
+# Archives
+jekyll-archives:
+  enabled:
+    - categories
+  layout: archive
+  permalinks:
+    category: '/category/:name/'
+    
+# Pagination 
+paginate: 6
+paginate_path: /page:num/
+    
+# Other
+markdown: kramdown
 
-navigation:
-  - title: Home
-    url: /index.html
-  - title: About
-    url: /about
-  - title: Contact
-    url: /contact
+kramdown:
+  input: GFM
+  # syntax_highlighter: rouge
+  syntax_highlighter: darkly
+  syntax_highlighter_opts:
+    block:
+      line_numbers: true
 
-paginate: 100
-paginate_path: "blog/page:num/"
-
-exclude: ["node_modules", "gulpfile.js", "package.json", "yarn.lock"]
+# Lazy Images ("enabled" or "disabled")
+lazyimages: "enabled"
