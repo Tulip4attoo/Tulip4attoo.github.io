@@ -133,7 +133,8 @@ Theme này (và rất nhiều theme khác) không hỗ trợ gõ công thức to
 
 + copy file `mathjax.html` và `mathjax_support` vào thư mục `_includes`
 + thêm đoạn này vào file `post.html`
-```html
+
+```
 {% include mathjax.html %}
 ```
 
