@@ -605,6 +605,10 @@ License: https://www.wowthemes.net/freebies-license/
     background: rgba(0,0,0,0.75);
     color: #fff;
 }
+.transpgreen {    
+    background: rgba(0, 179, 54, 0.75);
+    color: #fff;
+}
  @media (min-width:768px) {
      .jumbotron.fortags {
          margin-bottom:-50px;
@@ -612,11 +616,11 @@ License: https://www.wowthemes.net/freebies-license/
          padding:0;
          height:350px;
          border-radius:0;
-         background-image: url(../images/jumbotron.jpg);
+         /* background-image: url(../images/jumbotron.jpg); */
          background-size:cover;
     }
      .jumbotron.fortags .col-md-4 {
-         background:rgba(0,0,0,0.75);
+         background:rgba(1, 151, 46, 0.767);
          color:#fff;
     }
      .jumbotron.fortags .row {
@@ -627,12 +631,12 @@ License: https://www.wowthemes.net/freebies-license/
          margin-top: 3rem;
          padding:0;
          border-radius:0;
-         background-image: url(../images/jumbotron.jpg);
+         /* background-image: url(../images/jumbotron.jpg); */
          background-size:cover;
 }
  .jumbotron.fortags a {
      padding: 5px 10px 7px;
-     background: #222;
+     background: rgb(41, 49, 10);
      border-radius: 30px;
      color: #fff;
      font-weight: 500;

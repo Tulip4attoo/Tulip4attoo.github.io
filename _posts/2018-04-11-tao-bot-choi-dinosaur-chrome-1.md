@@ -7,13 +7,14 @@ comments:       true
 featured:       true
 description:    Bài viết đầu tiên trong series tạo bot chơi game T-Rex của Chrome. Trong bài viết đầu tiên, chúng ta sẽ implement bot theo hardcode version.
 img:            assets/img/chrome-trex/chrome_trex_intro.gif
+categories:     [ bot, chrome, GA ]
 ---
 
 
 Có thể bạn đã biết, trình duyệt Google Chrome được tích hợp sẵn một game nhỏ để bạn có thể giết thời gian mỗi khi mất mạng. Nếu bạn truy cập một trang web bằng Chrome mà mất mạng, bạn sẽ nhìn thấy hình ảnh một chú khủng long khá dễ thương hiện ra. Cách chơi game rất đơn giản: bạn bấm phím "Space"/"Up" để nhảy tránh chướng ngại vật, là cây xương rồng hoặc những con khủng long bay.
 
 <p align="center">
-  <img src="https://Tulip4attoo.github.io/assets/img/chrome-trex/chrome_trex_intro.gif"><br>
+  <img src="../assets/img/chrome-trex/chrome_trex_intro.gif"><br>
   <i>Trò chơi nhỏ của Chrome giúp bạn giết thời gian khi mất mạng (nguồn: https://mathewsachin.github.io)</i>
 </p>
 
@@ -143,7 +144,7 @@ Các bạn có thể lấy file `chrome_trex_api.py` ở [đây](https://github.
 Tada, và đây là kết quả của chúng ta. Khá tốt phải không nào?
 
 <p align="center">
-  <img src="https://Tulip4attoo.github.io/assets/img/chrome-trex/chrome_trex_hardcode.gif"><br>
+  <img src="../assets/img/chrome-trex/chrome_trex_hardcode.gif"><br>
   <i>Chạy file thôi \m/</i>
 </p>
 
