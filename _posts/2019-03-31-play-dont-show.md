@@ -6,7 +6,7 @@ date:           2019-03-31
 mathjax:        true
 featured:       true
 excerpt:        Bàn về việc phát triển nhân vật và việc cảm thụ cảm xúc nhân vật trong game Child of light
-image:          assets/images/child-of-light-review/child-of-light-feature.png
+img:            assets/img/child-of-light-review/child-of-light-feature.png
 categories:     [ game, story telling, child of light ]
 ---
 
@@ -25,7 +25,7 @@ Nhưng dần dần, Aurora đi tiếp, kết bạn với nhiều người. Đầ
 Càng về sau, Aurora càng trở nên can đảm hơn, bản lĩnh hơn. Dưới vai trò người chơi, ta không ngại khi đối diện với những kẻ thù mới, dù chúng ta có thể thắng hay thua. Child of light đã thể hiện rất tốt bản lĩnh của em, đặc biệt khi em tiến tới dõng dạc nói chuyện với con nhện khổng lồ đang chiếm giữ trái tim của người khổng lồ đá. 
 
 <div align="center">
-  <img src="../assets/images/child-of-light-review/child-of-light-facing-the-giant.png" width="100%"><br>
+  <img src="../assets/img/child-of-light-review/child-of-light-facing-the-giant.png" width="100%"><br>
   <i>Aurora đối diện một gã khổng lồ</i>
 </div>
 
@@ -36,7 +36,7 @@ Chúng ta đã cùng em đi một chẳng đường dài, từ một đứa tr�
 Cao trào của game ở đoạn Aurora trở về lâu đài và rời xa những người bạn của mình. Bạn biết có điều gì đó không ổn, hành trình chưa hẳn là dừng lại, nhưng khi Aurora trở về, thì những người bạn đồng hành sẽ không đi tiếp hành trình được nữa. Sự chia ly này, ngoài nỗi buồn chia ly đơn thuần, bạn còn mất đi những người để nương tựa vào khi gặp khó khăn. Nếu không có chú chuột Robert, chú hề Rubella thì làm sao bạn vượt qua được những thử thách phái trước. Sự buồn đau khi chia tay được khắc họa rất rõ.
 
 <div align="center">
-  <img src="../assets/images/child-of-light-review/what-is-love.jpg" width="100%"><br>
+  <img src="../assets/img/child-of-light-review/what-is-love.jpg" width="100%"><br>
   <i>Aurora, tình yêu là gì?<br>
   Là khi thật khó để nói lời chia ly</i>
 </div>

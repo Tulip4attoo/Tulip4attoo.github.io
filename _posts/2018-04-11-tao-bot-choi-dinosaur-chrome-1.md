@@ -6,8 +6,7 @@ mathjax:        true
 comments:       true
 featured:       true
 description:    Bài viết đầu tiên trong series tạo bot chơi game T-Rex của Chrome. Trong bài viết đầu tiên, chúng ta sẽ implement bot theo hardcode version.
-image:            assets/images/chrome-trex/chrome_trex_intro.gif
-# image: assets/images/11.jpg
+img:            assets/img/chrome-trex/chrome_trex_intro.gif
 ---
 
 
