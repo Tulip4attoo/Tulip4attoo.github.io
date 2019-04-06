@@ -2,8 +2,8 @@
 name: "Tulip's blog"
 title: "Tulip's blog"
 description: "Gamer, Reader, Dreamer, AI Engineer, Gamedev"
-logo: 'assets/images/logo.png'
-favicon: 'assets/images/logo.png'
+logo: 'assets/img/logo.png'
+favicon: 'assets/img/logo.png'
 baseurl: 
 include: ["_pages"]
 permalink: /:title/

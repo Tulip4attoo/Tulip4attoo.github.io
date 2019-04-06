@@ -7,7 +7,7 @@ mathjax:        true
 comments:       true
 # featured:       true
 description:    Chuyển theme cho blog, từ Flexible-Jekyll qua Mediumish.
-image:          assets/images/theme-migrate/bird_migrate.jpg
+image:          assets/img/theme-migrate/bird_migrate.jpg
 categories:     [ Web, Jekyll, Migrate ]
 ---
 
@@ -18,12 +18,12 @@ Sau 1 thời gian dùng theme Flexible-Jekyll và không ưng ý cho lắm, mìn
 Trước hết nói về lý do chuyển theme. Ban đầu thì mình nhìn theme cũng khá ổn, nhưng tới khi dùng thì không được như tưởng tượng lắm, âu cũng là vấn đề mua hàng trên mạng hmmm. Trông cũng chấp nhận được, nhưng chấp nhận được thì chưa bao giờ là hay cả.
 
 <div align="center">
-  <img src="../assets/images/theme-migrate/demo_img.jpg" width="80%"><br>
+  <img src="../assets/img/theme-migrate/demo_img.jpg" width="80%"><br>
   <i>Đây là hình ảnh được giới thiệu</i>
 </div>
 
 <div align="center">
-  <img src="../assets/images/theme-migrate/real_old_theme_img.png" width="80%"><br>
+  <img src="../assets/img/theme-migrate/real_old_theme_img.png" width="80%"><br>
   <i>Đây là hình ảnh thực tế -_-!</i>
 </div>
 
@@ -41,14 +41,14 @@ Mình mấy hôm nay đang tập tọe học HTML và CSS 1 chút để làm m�
 Ban đầu mình tính sử dụng [theme này](https://www.w3schools.com/w3css/tryw3css_templates_blog.htm), khá chim ưng của W3School. Theme trông thanh thoát và dễ chịu, ngoài ra thích hợp với blog nữa.
 
 <div align="center">
-  <img src="../assets/images/theme-migrate/img_temp_blog.jpg" width="80%"><br>
+  <img src="../assets/img/theme-migrate/img_temp_blog.jpg" width="80%"><br>
   <i>Theme định dùng</i>
 </div>
 
 Tuy nhiên có làm mới thấy nhiêu khê. Nhìn source code mình thấy khối lượng công việc để chuyển từ đống HTML này qua cũng nhiều, nên mình quyết định tìm một theme Jekyll thuần hơn. Mình nghĩ mà chuyển từ đống này sang Jekyll, nhanh thì 3 ngày, không cũng phải 1 tuần mới xong. Kể ra thì cũng có hơi lười hehe. Vậy là lại lục lọi trên mạng và thấy 1 theme khác cũng ổn, dù mình không ưng quá do nó là phiên bản của medium thôi.
 
 <div align="center">
-  <img src="../assets/images/theme-migrate/new_theme.png" width="80%"><br>
+  <img src="../assets/img/theme-migrate/new_theme.png" width="80%"><br>
   <i>Theme mình chuyển sang dùng</i>
 </div>
 
@@ -94,7 +94,7 @@ thành
 ```
 
 <div align="center">
-  <img src="../assets/images/theme-migrate/change_text_color.png" width="80%"><br>
+  <img src="../assets/img/theme-migrate/change_text_color.png" width="80%"><br>
   <i>Và đây là thành quả</i>
 </div>
 
