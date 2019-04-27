@@ -1,13 +1,15 @@
 ---
-layout:         post
-title:          Bàn về Child of light
-author:         Tulip
-date:           2019-03-31
-mathjax:        true
-featured:       true
-excerpt:        Bàn về việc phát triển nhân vật và việc cảm thụ cảm xúc nhân vật trong game Child of light
-img:            assets/img/child-of-light-review/child-of-light-feature.png
-categories:     [ game, story telling, child of light ]
+layout:                 post
+title:                  Bàn về Child of light
+date:                   2019-03-31
+mathjax:                true
+featured:               true
+description:            Bàn về việc phát triển và cảm thụ cảm xúc nhân vật trong game Child of light
+short_description:      Bàn về việc phát triển và cảm thụ cảm xúc nhân vật trong game Child of light
+img:                    assets/img/child-of-light-review/child-of-light-recent-post.png
+img_feature:            assets/img/child-of-light-review/child-of-light-feature-post.png
+categories:             [ game, story telling, child of light ]
+author:                 Tulip
 ---
 
 Biết tới Child of light đã rất lâu, thậm chí mình đã up bài wake up lên youtube cua rminhf từ tận mấy năm trước cũng như down về chơi thử rồi, nhưng mãi gần đây mình mới thật sự chơi game. Game cũng không quá dài, tầm 12h là có thể hoàn thành game khá trọn vẹn. Lúc chơi, có 1 giây phút mình cảm thấy thực sự nghẹn ngào, do đó mình quyết định viết bài viết này.

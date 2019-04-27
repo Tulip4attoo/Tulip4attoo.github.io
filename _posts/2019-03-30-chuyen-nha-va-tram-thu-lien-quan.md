@@ -7,7 +7,7 @@ mathjax:        true
 comments:       true
 # featured:       true
 description:    Chuyển theme cho blog, từ Flexible-Jekyll qua Mediumish.
-image:          assets/img/theme-migrate/bird_migrate.jpg
+img:            assets/img/theme-migrate/bird_migrate.jpg
 categories:     [ Web, Jekyll, Migrate ]
 ---
 
@@ -135,7 +135,7 @@ Theme này (và rất nhiều theme khác) không hỗ trợ gõ công thức to
 + thêm đoạn này vào file `post.html`
 
 ```
-{% include mathjax.html %}
+{% raw %}{% include mathjax.html %}{% endraw %}
 ```
 
 # To do
