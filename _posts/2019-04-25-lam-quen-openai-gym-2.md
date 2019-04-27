@@ -1,11 +1,12 @@
 ---
 layout:         post
 title:          Làm quen với OpenAI gym thông qua game Taxi-v2
-date:           2018-11-15
+date:           2019-04-25
 mathjax:        true
 comments:       true
 description:    Sau khi cài đặt xong OpenAI gym, chúng ta sẽ tiến hành làm quen thêm với môi trường, biết cách lấy state, reward của môi trường, cũng như cách giải quyết bài toán sử dụng Q-learning.
-img:            rl/taxi-v2.gif
+img:            assets/img/rl/taxi-v2.gif
+author:         Tulip
 ---
 
 Sau khi cài đặt xong OpenAI gym, chúng ta sẽ tiến hành làm quen thêm với môi trường, biết cách lấy state, reward của môi trường, cũng như cách giải quyết bài toán sử dụng Q-learning. Bài này mang tính giới thiệu và tutorial hướng dẫn các bạn thực hiện code Q-learning. 
@@ -53,7 +54,7 @@ _env.render()
 ```
 
 <p align="center">
-  <img src="/assets/img/rl/taxi-v2_state_89.jpg"><br>
+  <img src="..../assets/img/rl/taxi-v2_state_89.jpg"><br>
   <i>Hình ảnh được render ra của state 89</i>
 </p>
 
@@ -67,21 +68,21 @@ Về cơ bản, tư tưởng của Q learning là tính được Value function 
 Chúng ta chú ý trong bài toán này, số state khá nhỏ (chỉ có 500), vì vậy chúng ta có thể chuyển Q(s,a) từ hàm số ra 1 bảng gọi là q_table, đại loại nó sẽ là bảng tra cứu như thế này:
 
 <p align="center">
-  <img src="/assets/img/rl/q_table.jpg"><br>
+  <img src="../assets/img/rl/q_table.jpg"><br>
   <i>Ví dụ về q_table</i>
 </p>
 
 Ban đầu, chúng ta sẽ để giá trị mặc định của q_table toàn bộ là 0. Sau đó, ta sẽ cập nhật dần dần các giá trị của q_table theo công thức sau:
 
 <p align="center">
-  <img src="/assets/img/rl/q_learning_algorithm.png"><br>
+  <img src="../assets/img/rl/q_learning_algorithm.png"><br>
   <i>Thuật toán Q learning (sử dụng Bellman equation)</i>
 </p>
 
 Đây là công thức tính q_table cho tới khi hội tụ. Chúng ta sẽ phân tích qua bước cuối, cũng là bước quan trọng nhất:
 
 <p align="center">
-  <img src="/assets/img/rl/q_learning_formula.png"><br>
+  <img src="../assets/img/rl/q_learning_formula.png"><br>
   <i>Cụ thể hơn về cách update q_table (sử dụng Bellman equation)</i>
 </p>
 
@@ -132,7 +133,8 @@ decay_rate = 0.01             # Exponential decay rate for exploration prob
 Ngoài ra, q_table được tạo ra với số hàng tương ứng với số lượng state (500), số cột tương ứng với số action (6). Mỗi giá trị tương ứng với cummulative reward (chúng ta tính toán ra, và chưa hẳn đã chính xác) của 1 action cho 1 state.
 
 Sau đó, ta chỉ việc cập nhật Q table thông qua các episodes
-```
+
+```python
 for episode in range(total_episodes):
     state = env.reset()
     done = False
@@ -167,12 +169,14 @@ Mình sẽ giải thích qua về flow của code. Đầu tiên, ta chạy một
     + nếu episode hiện tại đã hoàn thành, ta dừng vòng lặp anyf và chuyển qua vòng lặp mới.
 
 Khi chạy đủ 5000 episodes (total_episodes), chúng ta sẽ thu được 1 bảng q_table.Tới đây, ta có thể lưu kết quả q_table lại để sau có thể dùng
-```
+
+```python
 np.save(FILE_SAVE, q_table)
 ```
 
 Về cơ bản chúng ta đã train xong model. Để thực hiện việc xem xét model chạy như thế nào, ta có thể chạy đoạn code sau, khá tương tự đoạn code training ở trên:
-```
+
+```python
 env.reset()
 rewards = []
 
