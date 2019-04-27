@@ -54,7 +54,7 @@ _env.render()
 ```
 
 <p align="center">
-  <img src="..../assets/img/rl/taxi-v2_state_89.jpg"><br>
+  <img src="../assets/img/rl/taxi-v2_state_89.jpg"><br>
   <i>Hình ảnh được render ra của state 89</i>
 </p>
 
@@ -217,8 +217,6 @@ Bài chưa thật đầy dủ, nhưng đã rất dài, nên mình tạm dừng �
 
 ## Tham khảo
 
-[1] https://neurocats.github.io/2017/08/31/part3-Intro/
-
-[2] https://medium.freecodecamp.org/diving-deeper-into-reinforcement-learning-with-q-learning-c18d0db58efe
-
-[3] Reinforcement Learning: An introduction
+1, https://neurocats.github.io/2017/08/31/part3-Intro/
+2, https://medium.freecodecamp.org/diving-deeper-into-reinforcement-learning-with-q-learning-c18d0db58efe
+3, Reinforcement Learning: An introduction
