@@ -209,7 +209,7 @@ env.close()
 print ("Score over time: " +  str(sum(rewards)/total_test_episodes))
 ```
 <p align="center">
-  <img src="https://media.giphy.com/media/LqmWe5E7rgA5Fxm6kU/giphy.gif"><br>
+  <img src="../assets/img/rl/taxi-v2.gif"><br>
   <i>Và đây là kết quả, khá ổn phải không nào? (hãy thông cảm cho chất lượng hình ảnh =)))</i>
 </p>
 
