@@ -185,8 +185,6 @@ for episode in range(total_test_episodes):
     step = 0
     done = False
     total_rewards = 0
-    #print("****************************************************")
-    #print("EPISODE ", episode)
 
     for step in range(max_steps):
         # UNCOMMENT IT IF YOU WANT TO SEE OUR AGENT PLAYING
@@ -202,7 +200,6 @@ for episode in range(total_test_episodes):
         
         if done:
             rewards.append(total_rewards)
-            #print ("Score", total_rewards)
             break
         state = new_state
 env.close()
@@ -221,5 +218,7 @@ Bài chưa thật đầy dủ, nhưng đã rất dài, nên mình tạm dừng �
 ## Tham khảo
 
 [1] https://neurocats.github.io/2017/08/31/part3-Intro/
+
 [2] https://medium.freecodecamp.org/diving-deeper-into-reinforcement-learning-with-q-learning-c18d0db58efe
+
 [3] Reinforcement Learning: An introduction
