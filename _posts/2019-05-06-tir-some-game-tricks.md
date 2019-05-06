@@ -1,11 +1,11 @@
 ---
 layout:         post
 title:          TIR - Today I read - Some game tricks
-date:           2018-05-06
+date:           2019-05-06
 mathjax:        true
 comments:       true
 description:    Nói về 2 video mình theo dõi, 1 là 1 số trick trong Dead cells để làm game nuột hơn, 2 là một trick về việc thiết kế graphic cho game.
-img:            assets/img/tir/dead-cell.jpeg
+img:            assets/img/tir/dead-cell.jpg
 author:         Tulip
 ---
 
