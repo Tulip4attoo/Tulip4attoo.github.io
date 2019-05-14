@@ -11,18 +11,25 @@ author:                 Tulip
 
 <blockquote><i>
 Hư không của sự hư không, hư không của sự hư không, thảy đều hư không.
+<br>
 
 Các việc lao khổ loài người làm ra dưới mặt trời, thì được ích lợi chi?
+<br>
 
 Ðời nầy qua, đời khác đến; nhưng đất cứ còn luôn luôn.
+<br>
 
 Mặt trời mọc, mặt trời lặn, nó lật đật trở về nơi nó mọc.
+<br>
 
 Gió thổi về hướng nam, kế xây qua hướng bắc; nó xây đi vần lại không ngừng, rồi trở về vòng cũ nó.
+<br>
 
 Mọi sông đều đổ vào biển, song không hề làm đầy biển; nơi mà sông thường chảy vào, nó lại chảy về đó nữa.
+<br>
 
 Muôn vật thảy đều lao khổ, loài người không thế nói ra được; mắt không hề chán ngó, tai chẳng hề nhàm nghe.
+<br>
 
 Ðiều chi đã có, ấy là điều sẽ có; điều gì đã làm, ấy là điều sẽ làm nữa; chẳng có điều gì mới ở dưới mặt trời.
 </i></blockquote>
