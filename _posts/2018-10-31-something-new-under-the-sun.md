@@ -3,7 +3,6 @@ layout:                 post
 title:                  Something new under the sun
 date:                   2018-10-31
 mathjax:                true
-featured:               true
 description:            "Kinh Thánh có mấy lời rằng: Ðiều chi đã có, ấy là điều sẽ có; điều gì đã làm, ấy là điều sẽ làm nữa; chẳng có điều gì mới ở dưới mặt trời. Nhưng dưới ánh mặt trời, nhiều thứ đang thay đổi."
 img:                    assets/img/something-new-under-the-sun/theshy.png
 categories:             [ esport, lol ]
