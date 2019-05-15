@@ -6,6 +6,7 @@ mathjax:        true
 comments:       true
 description:    Nói về 1 năm biến động của League of Legends. Cả thế giới thay đổi.
 img:            assets/img/no-king-rules-forever/uzi.jpg
+categories:     [ esport, lol ]
 author:         Tulip
 ---
 
