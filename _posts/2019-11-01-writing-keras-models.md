@@ -40,6 +40,16 @@ Với cá nhân mình, mình sử dụng cách viết Functional API trong công
 
 Vậy, ta nên viết model dạng Functional như thế nào?
 
+# Flow khi sử dụng Keras
+
+Khi sử dụng Keras để giải quyết các bài toán machine learning, mình sẽ thực hiện theo flow như sau:
+
+- viết lớp input. Chú ý trong việc tạo shape của input cho chính xác.
+- viết các layers giữa của network. Tùy thuộc vào network mà việc này sẽ phức tạp hoặc là không, tuy nhiên phần đa đều khá đơn giản.
+- tiến hành feed input layer và output layer vào tf.keras.models.Model. Xong bước này thì chỉ cần gọi ra là ta đã có model rồi.
+
+Nghe khá đơn giản phải không? Thực ra nhờ Keras mà nó thực sự đúng là đơn giản như vậy đó. Hồi xưa viết thuần Tensorflow thì cực hơn khá là nhiều.
+
 # Cách viết Keras model dạng Functional
 
 Để minh họa cho việc tạo model dạng Functional, mình sẽ viết lại Resnet 50. Nếu nói cặn kẽ hơn về Keras thì sẽ khá mất thời gian, cũng như khiến bài viết dài hơn rất nhiều, do đó mình sẽ viết cho các bạn đã từng biết chút chút về Keras sử dụng.
