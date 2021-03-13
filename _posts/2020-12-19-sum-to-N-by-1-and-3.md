@@ -100,7 +100,10 @@ Về cơ bản cách này nhanh :))) Nhưng có 2 vấn đề nó gặp phải: 
 
 Về cơ bản chúng ta có công thức sau
 
-![alt text](https://s3-ap-southeast-1.amazonaws.com/kipalog.com/elv81xyvqd_image.png)
+<p align="center">
+  <img src="https://Tulip4attoo.github.io/assets/img/sum_by_1_and_3/khai_trien_ma_tran.png"><br>
+  <i>Công thức sau khi tính toán</i>
+</p>
 
 Áp công thức này thì ta có đoạn code như này
 
