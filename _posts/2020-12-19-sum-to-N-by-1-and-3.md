@@ -1,3 +1,11 @@
+---
+layout:         post
+title:          Tính tổng số cách để biểu diễn 1 số N dưới dạng tổng của 1 và 3
+date:           2020-12-19
+mathjax:        true
+comments:       true
+description:    Bàn về bài toán tính số cách để biểu diễn 1 số N dưới dạng tổng của 1 và 3. Nói tới 1 vài cách giải quyết.
+---
 
 Hôm nọ, mình có đọc 1 bài toán như thế này:
 
@@ -105,7 +113,7 @@ Về cơ bản chúng ta có công thức sau
   <i>Công thức sau khi tính toán</i>
 </p>
 
-Áp công thức này thì ta có đoạn code như này
+Áp công thức này thì ta có đoạn code như này (note: thật ra nếu code bằng numpy thì sẽ nhanh hơn, tốt hơn, tiện hơn).
 
 ```python
 def mul_metrix_1(m1, m2):
@@ -161,8 +169,9 @@ def f(n):
 
 Tada, tới đây là xong rồi. Cheer!
 
-Tham khảo:
-https://www.geeksforgeeks.org/modulo-1097-1000000007/?ref=rp
-https://www.geeksforgeeks.org/count-ofdifferent-ways-express-n-sum-1-3-4/
-https://kipalog.com/posts/Ban-ve-phuong-phap-toi-uu-tinh-tong-cac-so-Fibonacci
+## Tham khảo:
+
++ https://www.geeksforgeeks.org/modulo-1097-1000000007/?ref=rp
++ https://www.geeksforgeeks.org/count-ofdifferent-ways-express-n-sum-1-3-4/
++ https://kipalog.com/posts/Ban-ve-phuong-phap-toi-uu-tinh-tong-cac-so-Fibonacci
 
