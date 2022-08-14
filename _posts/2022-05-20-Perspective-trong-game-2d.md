@@ -5,7 +5,7 @@ date:                       2022-05-20
 mathjax:                    true
 comments:                   true
 description:                Trong hội họa có 1 khái niệm là phối cảnh. Nó cho ta cảm nhận được vị trí của vật thể trong không gian 3 chiều. Bởi lẽ hầu hết không gian ta muốn thể hiện là không gian 3d, nhưng lại chỉ làm việc trên màn hình 2d. Chúng ta sẽ tìm hiểu về Perspective trong 1 số game 2d.
-img:                        assets/img/choosing-gpu/overview.png
+img:                        assets/img/perspective/orthographic.png
 ---
 
 Trong hội họa có 1 khái niệm là phối cảnh. Nó cho ta cảm nhận được vị trí của vật thể trong không gian 3 chiều. Bởi lẽ hầu hết không gian ta muốn thể hiện là không gian 3d, nhưng lại chỉ làm việc trên màn hình 2d. Chúng ta sẽ tìm hiểu về Perspective trong 1 số game 2d.
@@ -14,62 +14,103 @@ Trong hội họa có 1 khái niệm là phối cảnh. Nó cho ta cảm nhận 
 
 Đây là map cho các loại camera view trong video game
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b6bf4fb1-dc7b-4de6-a6bc-ddf30ddb9e29/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b6bf4fb1-dc7b-4de6-a6bc-ddf30ddb9e29/Untitled.png)
+<div align="center">
+  <img src="../assets/img/perspective/overview.png" width="100%"><br>
+  <i>Các loại camera view cơ bản</i>
+</div>
 
 Curlinear là 1 loại mang cảm giác kỳ dị, chúng ta biết chứ không đụng vào.
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3197d63a-0fb5-4348-9d2b-d31039dd9a7e/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3197d63a-0fb5-4348-9d2b-d31039dd9a7e/Untitled.png)
+<div align="center">
+  <img src="../assets/img/perspective/curlinear.png" width="100%"><br>
+  <i>Curlinear</i>
+</div>
 
-Parallel là dạng khá thích hợp cho 2d game, bởi lẽ khác với perspective, các object sẽ giữ nguyên size khi thay đổi vị trí. Việc thay đổi size khá phức tạp, đặc biệt với pixel art thì việc thay đổi size hầu như là không làm được (0.9x chẳng hạn).
+Parallel là dạng khá thích hợp cho 2d game, bởi lẽ khác với perspective, các object sẽ giữ nguyên size khi thay đổi vị trí. Việc thay đổi size khá phức tạp, đặc biệt với pixel art thì việc thay đổi size hầu như là không làm được (0.9x chẳng hạn). Tuy vậy, nếu ta làm trên môi trường 3d thì việc này khá đơn giản. Tất nhiên, việc kết hợp 3d và 2d như thế nào, lại là 1 vấn đề khác.
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/265cd02c-0f5e-4f51-94c4-9aaadf486c6b/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/265cd02c-0f5e-4f51-94c4-9aaadf486c6b/Untitled.png)
+<div align="center">
+  <img src="../assets/img/perspective/parallel1.png" width="100%"><br>
+  <i></i>
+</div>
 
-Dễ dàng nhận thấy trong hình bên phải, nếu ta cho 1 nhân vật đi trên con đường thì ta cần resize lại theo nó.
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/af9cf063-1db4-4bea-bb8f-dec77e12458b/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/af9cf063-1db4-4bea-bb8f-dec77e12458b/Untitled.png)
+Dễ dàng nhận thấy trong hình, nếu ta cho 1 nhân vật đi trên con đường thì ta cần resize lại theo nó.
+
+<div align="center">
+  <img src="../assets/img/perspective/parallel2.png" width="100%"><br>
+  <i></i>
+</div>
 
 # Parallel perspective
 
 Về cơ bản thì Parallel perspective có 3 loại game perspective chính:
 
-- top-down
+<div align="center">
+  <img src="../assets/img/perspective/topdown.png" width="100%"><br>
+  <i>Top-down</i>
+</div>
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3df81344-aaf5-4e67-8497-ee57f7fa5628/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3df81344-aaf5-4e67-8497-ee57f7fa5628/Untitled.png)
+<div align="center">
+  <img src="../assets/img/perspective/sideon.png" width="100%"><br>
+  <i>Side-on</i>
+</div>
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c3f2e6f1-0c8c-4332-87bb-beca449ea71b/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c3f2e6f1-0c8c-4332-87bb-beca449ea71b/Untitled.png)
+<div align="center">
+  <img src="../assets/img/perspective/isometric.png" width="100%"><br>
+  <i>Isometric</i>
+</div>
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/da70941d-d5e4-4cc5-ae85-fadc0a181143/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/da70941d-d5e4-4cc5-ae85-fadc0a181143/Untitled.png)
-
-- side-on
-- isometric
 
 Thông thường, các game 2d hiện nay đều dùng Orthographic Projection. Với cách projection này, vật thể sẽ giữ nguyên size dù cho vị trí của z-axis trong hệ tọa độ là bao nhiêu đi nữa.
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e39ea1cf-7120-494f-8234-4e50d9c5d7bf/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e39ea1cf-7120-494f-8234-4e50d9c5d7bf/Untitled.png)
+<div align="center">
+  <img src="../assets/img/perspective/orthographic.png" width="100%"><br>
+  <i>Orthographic Projection</i>
+</div>
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/db00aff2-22e4-4312-abbb-5eba50722be5/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/db00aff2-22e4-4312-abbb-5eba50722be5/Untitled.png)
+<div align="center">
+  <img src="../assets/img/perspective/diffirent-lens.png" width="100%"><br>
+  <i>With different lens</i>
+</div>
+
 
 Vậy, chúng ta sẽ tạo ra cảm nhận 3d cho người chơi như thế nào?
 
 ## Bằng composition
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1669c78b-2639-4735-9142-01b9aa97dca0/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1669c78b-2639-4735-9142-01b9aa97dca0/Untitled.png)
+<div align="center">
+  <img src="../assets/img/perspective/composition1.png" width="100%"><br>
+  <i>Dùng composition để tạo hiệu ứng xa-gần</i>
+</div>
 
 Chúng ta có thể tạo ra hiệu ứng vật thể này che khuất vật thể kia, như vậy sẽ có cảm giác 3d cho vật này ở trước/sau vật thể kia.
 
-![https://miro.medium.com/max/3072/1*EuxDmqadIlIBSaNJe29w1Q.gif](https://miro.medium.com/max/3072/1*EuxDmqadIlIBSaNJe29w1Q.gif)
+<div align="center">
+  <img src="../assets/img/perspective/composition2.gif" width="100%"><br>
+  <i>Lập các layer depth khác nhau để có thể che khuất nhau</i>
+</div>
+
 
 ## Bằng hiệu ứng giảm saturation
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/920882df-0742-465c-96a8-2ac313cd2408/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/920882df-0742-465c-96a8-2ac313cd2408/Untitled.png)
+<div align="center">
+  <img src="../assets/img/perspective/saturation1.png" width="100%"><br>
+  <i></i>
+</div>
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/5feb9ca5-1440-4ae6-a48b-84f87395dcad/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/5feb9ca5-1440-4ae6-a48b-84f87395dcad/Untitled.png)
+<div align="center">
+  <img src="../assets/img/perspective/saturation2.png" width="100%"><br>
+  <i></i>
+</div>
 
 Ở gần thì dùng các màu có saturation cao hơn, ở xa thì giảm độ saturation xuống là 1 cách đơn giản và hiệu quả.
 
 ## Hiệu ứng Parallax scrolling
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a1d1aa82-9879-4f73-aed9-63a4a2a9abc4/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/a1d1aa82-9879-4f73-aed9-63a4a2a9abc4/Untitled.png)
+<div align="center">
+  <img src="../assets/img/perspective/parallax.png" width="100%"><br>
+  <i></i>
+</div>
 
 Hiệu ứng này kết hợp zoom in/zoom out khá là tốt. Ví dụ như này: 
 
