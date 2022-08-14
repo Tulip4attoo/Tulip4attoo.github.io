@@ -16,11 +16,17 @@ Trước hết, ta đều biết rằng AWS có rất nhiều lựa chọn khi c
 
 Chính vì có nhiều lựa chọn như vậy, và khi build hệ thống training/inference, chúng ta không chỉ chọn mình GPU mà còn cả CPU, ram, network bandwidth các kiểu, nên thay vì chỉ chọn GPU, ta cần xem xét cả GPU instance.
 
-![Overview](assets/img/choosing-gpu/overview.png)
+<p align="center">
+  <img src="../assets/img/choosing-gpu/overview.png"><br>
+  <i>Overview</i>
+</p>
 
 Có nhiều họ trong các AWS instance, ví như trong việc tính toán bằng GPU, thì có họ G, P, F, Inf. Đây là bảng giới thiệu về họ G và P.
 
-![Overview - more detail](assets/img/choosing-gpu/overview_more_detail.png)
+<p align="center">
+  <img src="../assets/img/choosing-gpu/overview_more_detail.png"><br>
+  <i>Bảng giới thiệu về họ G và P</i>
+</p>
 
 Chúng ta đi sâu vào từng nhóm instance một.
 
@@ -137,6 +143,7 @@ Mới ra. Custom chip chuyên cho inference. Nhìn chung thì có tốc độ in
 - **I want the best performance on any GPU instance**: Use [AWS Deep Learning AMI](https://docs.aws.amazon.com/dlami/latest/devguide/what-is-dlami.html) and [AWS Deep Learning Containers](https://docs.aws.amazon.com/deep-learning-containers/latest/devguide/deep-learning-containers-images.html)
 - **I want to save money**: Use Spot Instances and Managed Spot Training on Amazon SageMaker. Choose Amazon Elastic Inference for models that don’t take advantage of a full GPU.
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/629542b6-7c14-4078-84d2-6bf17c0b70de/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/629542b6-7c14-4078-84d2-6bf17c0b70de/Untitled.png)
-
-![Brief info of cluster](assets/img/choosing-gpu/brief_info_of_clusters.png)
+<p align="center">
+  <img src="../assets/img/choosing-gpu/brief_info_of_clusters.png"><br>
+  <i>Brief info of clusters</i>
+</p>
