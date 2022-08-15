@@ -1,7 +1,7 @@
 ---
 layout:                     post
 title:                      Perspective trong game 2d
-date:                       2022-05-20
+date:                       2021-07-27
 mathjax:                    true
 comments:                   true
 description:                Trong hội họa có 1 khái niệm là phối cảnh. Nó cho ta cảm nhận được vị trí của vật thể trong không gian 3 chiều. Bởi lẽ hầu hết không gian ta muốn thể hiện là không gian 3d, nhưng lại chỉ làm việc trên màn hình 2d. Chúng ta sẽ tìm hiểu về Perspective trong 1 số game 2d.
