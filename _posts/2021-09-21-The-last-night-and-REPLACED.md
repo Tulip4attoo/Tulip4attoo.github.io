@@ -4,7 +4,7 @@ title:                      Phân tích hình ảnh trailer The last night và R
 date:                       2021-09-21
 mathjax:                    true
 comments:                   true
-description:                Trong hội họa có 1 khái niệm là phối cảnh. Nó cho ta cảm nhận được vị trí của vật thể trong không gian 3 chiều. Bởi lẽ hầu hết không gian ta muốn thể hiện là không gian 3d, nhưng lại chỉ làm việc trên màn hình 2d. Chúng ta sẽ tìm hiểu về Perspective trong 1 số game 2d.
+description:                Bàn về visual của 2 pixelate games - The last night và REPLACED.
 img:                        assets/img/the-last-night-and-REPLACED/r2.png
 ---
 
