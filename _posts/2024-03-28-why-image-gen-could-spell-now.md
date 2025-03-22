@@ -69,7 +69,10 @@ Còn về phía người dùng, có lẽ chúng ta chỉ cần đọc các bài 
 # Tham khảo
 
 TextDiffuser: Diffusion Models as Text Painters (arxiv.org)
+
 SDXL: Improving Latent Diffusion Models for High-Resolution Image Synthesis (arxiv.org)
+
 Stable Diffusion 3: Research Paper — Stability AI
+
 EVA-CLIP: Improved Training Techniques for CLIP at Scale (arxiv.org)
 

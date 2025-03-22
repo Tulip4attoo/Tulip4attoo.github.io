@@ -161,8 +161,14 @@ Từ những điều mà Apple đã làm, chúng ta có thể học hỏi đư�
 # Tham khảo
 
 WWDC24: Platforms State of the Union
+
 From WWDC 2024, Apple Intelligence to the race of Open-Source model: Uncovering the Story Behind Apple's Lightweight On-Device GenAI Language Model
+
 Introducing Apple’s On-Device and Server Foundation Models - Apple Machine Learning Research
+
 Talking Tech and AI with Tim Cook!
+
 Understanding Apple’s On-Device and Server Foundation Models release
+
 Use Core ML Tools for machine learning model compression
+
