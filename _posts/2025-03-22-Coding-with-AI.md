@@ -5,8 +5,6 @@ date:                       2025-03-22
 mathjax:                    true
 comments:                   true
 description:                Hiện nay, coding with AI tiếp tục thay đổi cách chúng ta viết code và giải quyết vấn đề. Bài viết này chú trọng vào HOW - chúng ta nên sử dụng AI trong coding thế nào để đạt hiệu quả tốt hơn.
-
-img:                        assets/img/coding-with-ai/ai-coding-assistant.png
 ---
 
 Lập trình ra đời từ nửa sau thế kỷ 20 và đã trải qua nhiều thay đổi lớn. Ban đầu, lập trình viên dùng thẻ đục lỗ, với chi phí debug cực cao do mỗi lỗi phải sửa thủ công trên từng tấm thẻ. Sau đó, ngôn ngữ Assembly và các ngôn ngữ cấp cao như Fortran xuất hiện, máy tính nhanh hơn, giảm dần chi phí debug bằng cách thay thế mã máy phức tạp. Đến khi màn hình và giao diện người dùng (UX) ra đời, việc viết và sửa mã trở nên trực quan hơn. Các chu kỳ phát triển (iteration) cũng ngắn lại đáng kể, đi kèm với những cơ chế quản lý mới như Agile hay DevOps. 
