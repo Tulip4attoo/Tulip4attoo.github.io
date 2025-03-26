@@ -11,6 +11,13 @@ description:                GPT4o image generation chính thức xuất hiện s
 
 Năm ngoái, GPT-4o ra mắt, với "o" là "omni", ám chỉ việc đây là một model multimodal đích thực, không chỉ còn là việc đơn giản plug với các model khác. Những ngày vừa qua, Gemini và Grok cũng theo đó cho ra những model có khả năng output trực tiếp ra hình ảnh.
 
+Ngay hôm nay, GPT-4o cuối cùng đã ra mắt image generation, với khả năng tạo ra những bức ảnh rất choáng ngợp. Dễ dàng tạo những bức ảnh vô cùng phức tạp với những prompt đơn giản, dễ dàng fix lỗi bằng mô tả. Quá nhiều thứ thay đổi trong image generation.
+
+<div align="center">
+  <img src="../assets/img/truly-multimodal/comic.png" width="100%"><br>
+  <i>Fix lỗi ở comic. First shot.</i>
+</div>
+
 OpenAI, mặc dù thường không tiết lộ chi tiết kỹ thuật cụ thể, lần này đã đưa ra một thông tin về model trong tài liệu công bố GPT-4o ("GPT-4o System Card – March 25, 2025"):
 
 > "Unlike DALL-E, which operates as a diffusion model, 4o image generation is an autoregressive model natively embedded within ChatGPT."
@@ -29,7 +36,14 @@ Quy trình đơn giản là:
 - Token đầu vào → Transformer autoregressive → Token đầu ra (text/hình ảnh/audio)
 - Token đầu ra → Được decode trở lại dạng mong muốn (âm thanh hoặc pixel ảnh)
 
-# III. Đặc điểm và Cách GPT-4o Xử Lý Thách Thức
+# III. Một số đặc điểm chính của GPT-4o mới
+
+OpenAI thậm chí còn tung 1 hình ảnh về đặc điểm cơ bản của việc tích hợp output hình ảnh vào LLM
+
+<div align="center">
+  <img src="../assets/img/truly-multimodal/properties.png" width="100%"><br>
+  <i>Các đặc điểm của GPT-4o</i>
+</div>
 
 ## 1. Ưu điểm:
 
