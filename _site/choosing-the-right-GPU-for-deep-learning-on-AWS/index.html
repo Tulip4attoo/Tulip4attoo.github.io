@@ -390,8 +390,13 @@
 
 <script>
   function showSubscriptionForm() {
-    document.getElementById('overlay').style.display = 'block';
-    document.querySelector('.subscription-form').style.display = 'block';
+    // Check if user has already subscribed
+    const hasSubscribed = sessionStorage.getItem('hasSubscribed');
+    
+    if (!hasSubscribed) {
+      document.getElementById('overlay').style.display = 'block';
+      document.querySelector('.subscription-form').style.display = 'block';
+    }
   }
 
   function hideSubscriptionForm() {
@@ -419,9 +424,10 @@
     })
     .then(response => {
       if (response.ok) {
+        // Store that user has subscribed
+        sessionStorage.setItem('hasSubscribed', 'true');
         form.style.display = 'none';
         thankYouMessage.style.display = 'block';
-        // Hide thank you message and form after 1 second
         setTimeout(() => {
           hideSubscriptionForm();
         }, 1000);
