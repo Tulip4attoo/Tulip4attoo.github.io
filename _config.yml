@@ -1,55 +1,34 @@
-# Site
-name: "Tulip's blog"
-title: "Tulip's blog"
-description: "Gamer, Reader, Dreamer, AI Engineer, Gamedev"
-logo: 'assets/img/logo.png'
-favicon: 'assets/img/logo.png'
-baseurl: 
-include: ["_pages"]
-permalink: /:title/
+# Site settings
+title: 生命不止，折腾不息
+author: MonsterSlayer
+author_avatar: /images/header.jpg
+email: alias@domain.tld
+description: 生命不止，折腾不息 
+url: "https://dongyadoit.com"
+domain: "http://dongyadoit.com"
+github_username: dongyado
+github_site_repo: dongyado/dongyado.github.io
+disqus: monsterslayer
 
-# Authors
-authors:
-  Tulip:
-    name: Tulip
-    display_name: Tulip
-    gravatar: b44180fbc23943ee9c2a304d941c6ca8
-    email: huylinh.nguyen@outlook.com
-    web: https://tulip4attoo.github.io/
-    facebook: https://www.facebook.com/huylinh.nguyen
-    description: "Gamer, Reader, Dreamer, AI Engineer, Gamedev."
 
-# Plugins
-plugins: 
-  - jekyll-paginate
-  - jekyll-sitemap
-  - jekyll-feed
-  - jekyll-seo-tag
-  - jekyll-archives
-    
-# Archives
-jekyll-archives:
-  enabled:
-    - categories
-  layout: archive
-  permalinks:
-    category: '/category/:name/'
-    
-# Pagination 
-paginate: 10
-paginate_path: /page:num/
-page_1: /
-
-# Other
+# Build settings
+highlighter: rouge
 markdown: kramdown
-
 kramdown:
-  input: GFM
-  syntax_highlighter: rouge
-  # syntax_highlighter: darkly
-  syntax_highlighter_opts:
-    block:
-      line_numbers: true
+    syntax_highlighter: rouge
+    extensions: ["fenced_code_blocks", "autolink", "tables", "smart"]
 
-# Lazy Images ("enabled" or "disabled")
-lazyimages: "enabled"
+sass:
+    style: :compressed
+    sass_dir: _sass
+
+permalink: pretty
+excerpt_separator: "<!-- more -->"
+
+# path
+categories_path: categories/
+tags_path: tags/
+
+
+gems:
+  - jekyll-sitemap

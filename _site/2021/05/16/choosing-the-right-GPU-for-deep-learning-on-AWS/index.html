@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Choosing the right GPU for deep learning on AWS</title>
+
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="">
+
+    
+    
+
+    <link rel="canonical" href="http://localhost:4000/2021/05/16/choosing-the-right-GPU-for-deep-learning-on-AWS/">
+    <link rel="icon" type="image/png" href="/images/logo.png">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/monster.css">
+
+    
+
+</head>
+
+
+    <body>
+    
+    <div class="wrapper">
+
+      <header class="header">
+
+  <div class="site-title">
+    
+    <h4 class="entry-title"><a href="/2021/05/16/choosing-the-right-GPU-for-deep-learning-on-AWS/">Choosing the right GPU for deep learning on AWS</a></h4>
+    
+  </div>
+
+<div class="links">
+    
+    <a href="/" class="page-link">Blog</a>
+    
+    
+    
+    
+      <a class="page-link"
+        href="/about/">About</a>
+    
+    
+    
+      <a class="page-link"
+        href="/categories/">Categories</a>
+    
+    
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/links/">Links</a>
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/tags/">Tags</a>
+    
+    
+    <a href="/feed.xml" target="_blank" class="page-link">RSS</a>
+</div>
+</header>
+
+      
+      <div class="navi">
+    
+    <a href="/" class="page-link">Blog</a>
+    
+    
+    
+    
+      <a class="page-link"
+        href="/about/">About</a>
+    
+    
+    
+      <a class="page-link"
+        href="/categories/">Categories</a>
+    
+    
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/links/">Links</a>
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/tags/">Tags</a>
+    
+    
+    <a href="/feed.xml" target="_blank" class="page-link">RSS</a>
+</div>
+
+
+      <div class="content">
+        <div class="articles">
+            <div class="entry post">
+
+	<div class="entry-content">
+	  <article class="entry-body">
+	  	
+	  		<p>Năm 2021, công ty mình có làm việc với AWS để chuyển hệ thống từ Azure qua AWS. Đây là 1 bài về AWS ML instance review, được 1 Machine Learning Specialist nhận xét là best overview of the ML instance options in AWS. Mình tổng hợp lại để đọc luôn. Đây là <a href="https://towardsdatascience.com/choosing-the-right-gpu-for-deep-learning-on-aws-d69c157d8c86">bài gốc</a></p>
+
+<h1 id="overview">Overview</h1>
+
+<p>Trước hết, ta đều biết rằng AWS có rất nhiều lựa chọn khi chọn GPU instances, về GPU VRAM (8, 16, 32), GPU architectures (Ampere, Turing, Volta, Maxwell, Kepler, note: card chơi game là Geforce, có GTX và RTX, RTX hỗ trợ half-precision, 5 loại đầu thì chưa rõ thông số lắm hehe), các đặc trưng kỹ thuật khác nhau (khả năng handle FP64, FP32, FP16, INT8, TensorCores, NVLink), số GPUs trên 1 instance (1, 2, 4, 8, 16).</p>
+
+<p>Chính vì có nhiều lựa chọn như vậy, và khi build hệ thống training/inference, chúng ta không chỉ chọn mình GPU mà còn cả CPU, ram, network bandwidth các kiểu, nên thay vì chỉ chọn GPU, ta cần xem xét cả GPU instance.</p>
+
+<p align="center">
+  <img src="../assets/img/choosing-gpu/overview.png" /><br />
+  <i>Overview</i>
+</p>
+
+<p>Có nhiều họ trong các AWS instance, ví như trong việc tính toán bằng GPU, thì có họ G, P, F, Inf. Đây là bảng giới thiệu về họ G và P.</p>
+
+<p align="center">
+  <img src="../assets/img/choosing-gpu/overview_more_detail.png" /><br />
+  <i>Bảng giới thiệu về họ G và P</i>
+</p>
+
+<p>Chúng ta đi sâu vào từng nhóm instance một.</p>
+
+<h1 id="tips-đọc-tên">Tips đọc tên</h1>
+
+<p>Mỗi instance có 1 cái tên dài dài, vd: p3.2xlarge, p3dn.24xlarge, p4d.24xlarge, inf1.xlarge, thì:</p>
+
+<ul>
+  <li>phần trước chữ số kèm chữ số đầu tiên là họ Instance (vd: P3, P4, Inf1,…). P thì thiên về training, G thiên về graphic + inference, Inf là inference.</li>
+  <li>phần tiếp theo là tên cụ thể trong họ. Tổng cả phần lại là family (P4, P3, Inf1,…). Đôi lúc có 1 số ký tự đánh dấu phía sau (chưa rõ nghĩa hehe). Số càng to là càng mới, càng mạnh hơn (và tốn tiền hơn lol). Cost effective thì tùy.</li>
+  <li>Phần sau tên hầu hết là xlarge (chỉ có 1 cái metal). Thường thì đọc xlarge, 2xlarge, 4xlarge, 8xlarge và 24xlarge sẽ đoán được size, nhưng nó cũng có range lớn nên ước chừng vậy thôi.</li>
+</ul>
+
+<h2 id="p4-highest-performing-dl-training-instance">P4: highest-performing DL training instance</h2>
+
+<p><strong>P4 instance features at a glance:</strong></p>
+
+<ul>
+  <li><strong>GPU Generation</strong>: NVIDIA Ampere</li>
+  <li><strong>Supported precision types</strong>: FP64, FP32, FP16, INT8, BF16, TF32, Tensor Cores 3rd generation(mixed-precision)</li>
+  <li><strong>GPU memory</strong>: 40 GB per GPU</li>
+  <li><strong>GPU interconnect</strong>: NVLink high-bandwidth interconnect, 3rd generation</li>
+</ul>
+
+<p>Bọn này dùng A100 GPU. Chú ý, IEEE standard thì dùng FP32 (xảy ra trước DL era)(nguồn?). A100 thì hỗ trợ chuyển đổi half-precision (FP32 → FP16). Ngoài ra A100 thì support thêm 1 số dạng như BF16, TF32.</p>
+
+<h3 id="p4d24xlarge">p4d.24xlarge</h3>
+
+<p>P4 chỉ có 1 instance là p4d.24xlarge. Rất mạnh, rất to.</p>
+
+<p>Use cases: (very) high performance tasks.</p>
+
+<h2 id="p3-high-performance-and-cost-effective-dl-training">P3: high performance and cost-effective DL training.</h2>
+
+<p><strong>P3 instance features at a glance:</strong></p>
+
+<ul>
+  <li><strong>GPU Generation</strong>: NVIDIA Volta</li>
+  <li><strong>Supported precision types</strong>: FP64, FP32, FP16, Tensor Cores (mixed-precision)</li>
+  <li><strong>GPU memory</strong>: 16 GB on <code class="language-plaintext highlighter-rouge">p3.2xlarge, p3.8xlarge, p3.16xlarge</code>, 32 GB on <code class="language-plaintext highlighter-rouge">p3dn.24xlarge</code></li>
+  <li><strong>GPU interconnect</strong>: NVLink high-bandwidth interconnect, 2nd generation</li>
+</ul>
+
+<p>Chú ý là 1 GPU sẽ có 16GB VRAM hoặc 32GB VRAM. P3 thì tính toán cũng nhanh, và nhiều options để lựa chọn hơn P4. Training thì có thể chọn P3.</p>
+
+<h3 id="p32xlarge-best-gpu-instance-for-single-gpu-training">p3.2xlarge: Best GPU instance for single GPU training</h3>
+
+<p>V100 thì nhanh chỉ thua có A100 thôi. Mà cái instance này cũng ổn cho các hệ thống nho nhỏ, không quá lớn (thì như vậy code cũng ez hơn nữa). Về cơ bản thì có thể sử dụng qua EC2 hoặc là SageMaker. Khá tuyệt.</p>
+
+<h3 id="p38xlarge-and-p316xlarge-ideal-gpu-instance-for-small-scale-multi-gpu-training-and-running-parallel-experiments">p3.8xlarge and p3.16xlarge: Ideal GPU instance for small-scale multi-GPU training and running parallel experiments</h3>
+
+<p>Vì GPU có 16 VRAM, lại còn là nhiều GPU nữa.</p>
+
+<h3 id="p3dn24xlarge-high-performance-and-cost-effective-training">p3dn.24xlarge: High-performance and cost effective training</h3>
+
+<p>Chỉ chậm hơn P4, nhưng rẻ hơn kha khá. Thêm nữa, nó và P4 là 2 loại mà có VRAM cực lớn (32GB và 40GB), vì vậy có thể wwork với những loại data dạng với, vd như 3D images.</p>
+
+<h1 id="g4-best-instance-for-cost-efficient-deep-learning-training-and-high-performance-inference-deployments">G4: Best instance for cost-efficient deep learning training, and high-performance inference deployments</h1>
+
+<ul>
+  <li><strong>GPU Generation</strong>: NVIDIA Turing</li>
+  <li><strong>Supported precision types</strong>: FP64, FP32, FP16, Tensor Cores (mixed-precision), INT8, INT4, INT1</li>
+  <li><strong>GPU memory</strong>: 16 GB (G4dn), 8GB (G4ad)</li>
+  <li><strong>GPU interconnect</strong>: PCIe</li>
+</ul>
+
+<p>Chúng ta chú ý 1 điều, là lúc training, thường thì model weights và gradients thường được lưu trữ dưới dạng FP32, để có thể được chính xác hơn, nhưng trong lúc inference, thì tầm FP16 là đủ rồi, thậm chí INT8. Điều này có thể boost được inference performance. T100 có thể train, nhưng chậm hơn V100 và A100 rất nhiều.</p>
+
+<p>Chú ý 1 điều là không nên dùng nhiều GPU ở G4 lắm, vì nó dùng PCIe để connect chứ không phải NVLink. Điều này nghĩa là multi-node/distributed training thì vẫn nên là cân nhắc P3 instance hơn.</p>
+
+<h3 id="g4dn-family">G4dn family</h3>
+
+<p>Có nhiều option con. Thích hợp cho ML inference.</p>
+
+<h3 id="g4ad-family">G4ad family</h3>
+
+<p>Có nhiều option con. G4ad instances provide the best price performance for graphics intensive applications in the cloud: remote graphics workstations, video transcoding, photo-realistic design, and game streaming in the cloud.</p>
+
+<h1 id="p2-rẻ-mà-hơi-tệ">P2: rẻ mà hơi tệ</h1>
+
+<p><strong>P2 instance features at a glance:</strong></p>
+
+<ul>
+  <li><strong>GPU Generation</strong>: NVIDIA Kelper</li>
+  <li><strong>Supported precision types</strong>: FP64, FP32</li>
+  <li><strong>GPU memory:</strong> 12 GB</li>
+  <li><strong>GPU interconnect</strong>: PCIe</li>
+</ul>
+
+<p>Kiến trúc K80 ra đời cũng lâu rồi, nên tuy rẻ nhưng cũng không đáng chú ý lắm. G4 sẽ phù hợp cho cost-effective tasks hơn.</p>
+
+<h1 id="g3-graphic-workloads-consider-p2-hoặc-g4">G3: graphic workloads, consider P2 hoặc G4</h1>
+
+<p><strong>G3 instance features at a glance:</strong></p>
+
+<ul>
+  <li><strong>GPU Generation</strong>: NVIDIA Maxwell</li>
+  <li><strong>Supported precision types</strong>: FP32</li>
+  <li><strong>GPU memory</strong>: 8 GB</li>
+  <li><strong>GPU interconnect</strong>: PCIe</li>
+</ul>
+
+<p>Chuyên cho các tác vụ graphic, dùng cho DL cũng được mà P2, G4 tốt hơn.</p>
+
+<p>Để training thì: P3 &gt; G4 &gt; P2 &gt; G3</p>
+
+<h1 id="bonus-inf1-chuyên-cho-inference">(bonus) Inf1: chuyên cho inference</h1>
+
+<p>Mới ra. Custom chip chuyên cho inference. Nhìn chung thì có tốc độ inference nhanh nhất, cost-effective nhất khi chạy cho scale lớn. Với scale nhỏ thì nên dùng G4 hơn (vì đơn giản hơn, cost ok, và các model đã support đủ, Inf1 mới ra nên vẫn chưa support đủ).</p>
+
+<h1 id="the-list">The list</h1>
+
+<ul>
+  <li><strong>Highest performing GPU instance on AWS. Period</strong>: <code class="language-plaintext highlighter-rouge">p4d.24xlarge</code> (8 x A100 GPUs)</li>
+  <li><strong>High performance and cost effective:</strong> <code class="language-plaintext highlighter-rouge">p3dn.24xlarge</code> (8 x V100 GPUs)</li>
+  <li><strong>Best single GPU training performance</strong>: <code class="language-plaintext highlighter-rouge">p3.2xlarge</code>(V100, 16 GB GPU)</li>
+  <li><strong>Best single-GPU instance for developing, testing and prototyping</strong>: <code class="language-plaintext highlighter-rouge">g4dn.xlarge</code>(T4, 16 GB GPU). Consider <code class="language-plaintext highlighter-rouge">g4dn.(2/4/8/16)xlarge</code> for more vCPUs and higher system memory.</li>
+  <li><strong>Best multi-GPU instance for cost effective single node training and running parallel experiments</strong>: <code class="language-plaintext highlighter-rouge">p3.8xlarge</code> (4 V100 GPUs, 16 GB per GPU), <code class="language-plaintext highlighter-rouge">p3.16xlarge</code> (8 GPUs, 16 GB per GPU)</li>
+  <li><strong>Best multi-GPU, multi-node distributed training performance</strong>: <code class="language-plaintext highlighter-rouge">p4d.24xlarge</code> (8 A100 GPUs, 40GB per GPU, 400 Gbps aggregate network bandwidth)</li>
+  <li><strong>Best single-GPU instance for inference deployments</strong>: G4 instance type. Choose instance size <code class="language-plaintext highlighter-rouge">g4dn.(2/4/8/16)xlarge</code> based on pre- and post-processing steps in your deployed application.</li>
+  <li><strong>I need the most GPU memory I can get for large models</strong>: <code class="language-plaintext highlighter-rouge">p4d.24xlarge</code> (8 A100, 40GB per GPU)</li>
+  <li><strong>I need access to Tensor Cores for mixed-precision training</strong>: P4, P3 and G4 instance types. Choose the instance size based on your model size and application.</li>
+  <li><strong>I need access to double precision (FP64) for HPC and deep learning</strong>: P4, P3, P2 instance types. Choose the instance size based on your application.</li>
+  <li><strong>I need 8 bit integer precision (INT8) for inference</strong>: G4 instance type. Choose instance size based on pre- and post-processing steps in your deployed application.</li>
+  <li><strong>I need access to half precision (FP16) for inference</strong>: P4, P3, G4 instance type. Choose the instance size based on your application.</li>
+  <li><strong>I want GPU acceleration for inference but don’t need a full GPU</strong>: Use <a href="https://towardsdatascience.com/choosing-the-right-gpu-for-deep-learning-on-aws-d69c157d8c86#0863">Amazon Elastic Inference</a> and attach just the right amount of GPU acceleration you need.</li>
+  <li><strong>I want the best performance on any GPU instance</strong>: Use <a href="https://docs.aws.amazon.com/dlami/latest/devguide/what-is-dlami.html">AWS Deep Learning AMI</a> and <a href="https://docs.aws.amazon.com/deep-learning-containers/latest/devguide/deep-learning-containers-images.html">AWS Deep Learning Containers</a></li>
+  <li><strong>I want to save money</strong>: Use Spot Instances and Managed Spot Training on Amazon SageMaker. Choose Amazon Elastic Inference for models that don’t take advantage of a full GPU.</li>
+</ul>
+
+<p align="center">
+  <img src="../assets/img/choosing-gpu/brief_info_of_clusters.png" /><br />
+  <i>Brief info of clusters</i>
+</p>
+
+  		
+	  </article>
+    </div>
+
+</div>
+
+<div class="article-meta">
+    2021-05-16
+     • Category: 
+        
+    
+     • Tag: 
+        
+    
+</div>
+
+
+
+	<div class="article-author">
+    <div class="avatar">
+    <img width="50" height="50" src="/images/header.jpg" alt=" Avatar"/>
+    </div>
+    <div class="name">
+        <h4><b>MonsterSlayer</b> </h4>
+        Just for fun!
+    </div>
+</div>
+
+
+	
+	    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'monsterslayer';
+	(function() {
+	    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+	    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+	
+
+
+<div class="cnzz"><script src="http://s4.cnzz.com/z_stat.php?id=1255123325&web_id=1255123325" language="JavaScript"></script> </div>
+
+
+        </div>
+      </div>
+    </div>
+
+    </body>
+</html>

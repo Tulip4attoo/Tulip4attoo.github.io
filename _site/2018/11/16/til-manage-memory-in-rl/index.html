@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>TIL - Làm việc với memory trong RL</title>
+
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="">
+
+    
+    
+
+    <link rel="canonical" href="http://localhost:4000/2018/11/16/til-manage-memory-in-rl/">
+    <link rel="icon" type="image/png" href="/images/logo.png">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/monster.css">
+
+    
+
+</head>
+
+
+    <body>
+    
+    <div class="wrapper">
+
+      <header class="header">
+
+  <div class="site-title">
+    
+    <h4 class="entry-title"><a href="/2018/11/16/til-manage-memory-in-rl/">TIL - Làm việc với memory trong RL</a></h4>
+    
+  </div>
+
+<div class="links">
+    
+    <a href="/" class="page-link">Blog</a>
+    
+    
+    
+    
+      <a class="page-link"
+        href="/about/">About</a>
+    
+    
+    
+      <a class="page-link"
+        href="/categories/">Categories</a>
+    
+    
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/links/">Links</a>
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/tags/">Tags</a>
+    
+    
+    <a href="/feed.xml" target="_blank" class="page-link">RSS</a>
+</div>
+</header>
+
+      
+      <div class="navi">
+    
+    <a href="/" class="page-link">Blog</a>
+    
+    
+    
+    
+      <a class="page-link"
+        href="/about/">About</a>
+    
+    
+    
+      <a class="page-link"
+        href="/categories/">Categories</a>
+    
+    
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/links/">Links</a>
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/tags/">Tags</a>
+    
+    
+    <a href="/feed.xml" target="_blank" class="page-link">RSS</a>
+</div>
+
+
+      <div class="content">
+        <div class="articles">
+            <div class="entry post">
+
+	<div class="entry-content">
+	  <article class="entry-body">
+	  	
+	  		<h1 id="sơ-qua-về-câu-chuyện">Sơ qua về câu chuyện</h1>
+
+<p>Mình có làm project tạo bot chơi game <a href="https://github.com/Tulip4attoo/rl/tree/master/f-class/pong-v0">Pong-v0</a>. Vấn đề đặt ra là mình có làm replay buffer, để agent có thể train với random memory từ trước nữa. Nhưng mà, trong paper <a href="https://deepmind.com/research/publications/human-level-control-through-deep-reinforcement-learning/">Human-level control through deep reinforcement learning</a> của Deepmind (và cả cái tutorial mà mình học theo nữa), họ dùng memory size là 1 triệu. Hmm, theo tính toán, hiện tại với size 600, mình tốn 200MB RAM, tức là để đạt memory size là 1 triệu, mình cần khoảng 300GB RAM. Hmmm.</p>
+
+<p>Note lại là trong bài <a href="https://tulip4attoo.github.io/blog/tir-rl-hard/">RL hard</a>, người ta toàn train mấy trăm triệu frames.</p>
+
+<h1 id="cách-giải-quyết">Cách giải quyết</h1>
+
+<p>Có 2 cách giải quyết mình nghĩ tới:</p>
+<ul>
+  <li>điều chỉnh input khéo hơn:
+    <ul>
+      <li>giảm kích cỡ input về 40*40, cũng như điều chỉnh input cho memory khi load, cũng như có thể giảm stack xuống còn 3 –&gt; sẽ x8 được memory size.</li>
+      <li>điều chỉnh type của image, cụ thể float64 –&gt; np.float16, x4 memory size mà không cần điều chỉnh gì nhiều</li>
+    </ul>
+  </li>
+  <li>lưu input ra máy và load. Thực ra nên nhớ là các model bt cũng đều load data từ máy lên đó thôi, vài trăm GB ảnh thì đâu có lưu trong RAM.</li>
+</ul>
+
+<h2 id="tổng-kết-lại">Tổng kết lại</h2>
+
+<p>Đây là 1 vấn đề khó. Cách 1 là giải quyết tạm thời. Cách 2 là xử lý tốt cho sau này, tuy nhiên mình mới đang làm thôi. Note là cách 2 có thể view tốt được data và đảm bảo reproduce kết quả.</p>
+
+<h2 id="update">Update</h2>
+
+<p>Mình mới nhận ra là 8k * 8 * 4 ~ 240k.</p>
+
+<p>240k là 1 con số ổn, có thể so sánh với 1mil. Như vậy, việc áp dụng cả 2 phương pháp ở cách 1 cũng có thể train được ở mức độ vừa phải.</p>
+
+<p>Ưu điểm ở đây là dễ code và máy yếu (4GB RAM) vẫn có thể phà phà chạy tầm 50k, 100k memory size vô tư. Tất nhiên cách 2 vẫn là tối ưu hơn cho máy yếu, nwhng chưa biết tốc độ khi implement sẽ như thế nào, cái này cần thực chiến mới biết được.</p>
+
+<p>Update 2: 19 Nov 18: phat hiện ra kiểu save file và load chạy cực kỳ cực kỳ chậm. Suy nghĩ tới việc chuyển load cho 10/100 batch cho từng lần chạy, chú ý 100 batch thực ra chỉ là random trong 100/1mil = 0.0001 nên ảnh hưởng hầu như không đáng kể, có thể thực hiện được. Tuy nhiên, mình đọc được bài này: https://github.com/fg91/Deep-Q-Learning/blob/master/DQN.ipynb Ở đây có 1 cách khá hay là chuyển về dạng uint8 (so với np.float16 của mình), cũng như chuyển dạng lưu là 1mil frame, và khi load chỉ cần index sẽ kéo ra 5 frame, tạo thành state và next_state. Như vậy, memory_size có thể tăng lên thêm 2 * 8 = 16 lần, như giờ mình có thể train với 35k memory_size –&gt; 35k*16 = 560k, có thể coi là đã ổn rồi. Cheer! Vậy là mình nên đọc qua thêm vài github để coi họ có các hướng nào hay ho để học tập nữa, hehee.</p>
+
+  		
+	  </article>
+    </div>
+
+</div>
+
+<div class="article-meta">
+    2018-11-16
+     • Category: 
+        
+    
+     • Tag: 
+        
+    
+</div>
+
+
+
+	<div class="article-author">
+    <div class="avatar">
+    <img width="50" height="50" src="/images/header.jpg" alt=" Avatar"/>
+    </div>
+    <div class="name">
+        <h4><b>MonsterSlayer</b> </h4>
+        Just for fun!
+    </div>
+</div>
+
+
+	
+	    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'monsterslayer';
+	(function() {
+	    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+	    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+	
+
+
+<div class="cnzz"><script src="http://s4.cnzz.com/z_stat.php?id=1255123325&web_id=1255123325" language="JavaScript"></script> </div>
+
+
+        </div>
+      </div>
+    </div>
+
+    </body>
+</html>

@@ -1,12 +1,5 @@
-# package folder
-_site/
-.DS_Store
-*.swp
 .sass-cache
 *~
-
-# vscode
-.vscode/*
-
-# python
-*.pyc
+*.swp
+.idea
+.jekyll-cache/

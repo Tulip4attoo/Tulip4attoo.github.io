@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>My tech recap - 2023</title>
+
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="">
+
+    
+    
+
+    <link rel="canonical" href="http://localhost:4000/2024/01/05/My-tech-recap-2023/">
+    <link rel="icon" type="image/png" href="/images/logo.png">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/monster.css">
+
+    
+
+</head>
+
+
+    <body>
+    
+    <div class="wrapper">
+
+      <header class="header">
+
+  <div class="site-title">
+    
+    <h4 class="entry-title"><a href="/2024/01/05/My-tech-recap-2023/">My tech recap - 2023</a></h4>
+    
+  </div>
+
+<div class="links">
+    
+    <a href="/" class="page-link">Blog</a>
+    
+    
+    
+    
+      <a class="page-link"
+        href="/about/">About</a>
+    
+    
+    
+      <a class="page-link"
+        href="/categories/">Categories</a>
+    
+    
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/links/">Links</a>
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/tags/">Tags</a>
+    
+    
+    <a href="/feed.xml" target="_blank" class="page-link">RSS</a>
+</div>
+</header>
+
+      
+      <div class="navi">
+    
+    <a href="/" class="page-link">Blog</a>
+    
+    
+    
+    
+      <a class="page-link"
+        href="/about/">About</a>
+    
+    
+    
+      <a class="page-link"
+        href="/categories/">Categories</a>
+    
+    
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/links/">Links</a>
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/tags/">Tags</a>
+    
+    
+    <a href="/feed.xml" target="_blank" class="page-link">RSS</a>
+</div>
+
+
+      <div class="content">
+        <div class="articles">
+            <div class="entry post">
+
+	<div class="entry-content">
+	  <article class="entry-body">
+	  	
+	  		<p>Another new year is here. 2023 was all about GenAI, from its tech buzz to the drama. I took a U-turn, diving deep into AI once again. I want to recap what I learned and made last year and share my thoughts and plans for this year. So, let’s begin!</p>
+
+<h1 id="what-i-learned-in-2023">What I Learned in 2023</h1>
+
+<h2 id="genai---llms">GenAI - LLMs</h2>
+
+<p>As an AI person, of course I have to learn about LLM this year. I involved in some projects using it, from RAG with vector DB (yeah, everyone makes this too), to make query from user input, and using LLM to do many NLP tasks.. LLM has changed the NLP game forever.</p>
+
+<p>What fascinated me the most was the concept of agents. I believe it will need custom tweaks for each company, but eventually, most will adopt it.</p>
+
+<p>I write about GenAI here: https://tulip4attoo.substack.com/</p>
+
+<p>Some areas I haven’t explored much:</p>
+
+<ul>
+  <li>LLM training: It’s costly, but I think for around $10k-$50k, many companies could give it a shot.</li>
+  <li>LLM finetuning: I’ve mainly used prompt engineering instead. However, for my projects, I’d consider converting these into a finetuned model.</li>
+  <li>Agent: I’ve just started understanding how to tune a model into an agent. This seems promising.</li>
+  <li>Detailed techniques: There are various techniques to enhance results, like:</li>
+</ul>
+
+<div align="center">
+  <img src="../assets/img/recap/2023-RAG-techniques.png" width="100%" /><br />
+  <i></i>
+</div>
+
+<h2 id="genai---images">GenAI - Images</h2>
+
+<p>I’ve dabbled a bit here. The models are impressive. However, I’m not interested in making money from controversial content.</p>
+
+<p>My biggest regret in 2023 was failing to launch an AI avatar app (I got it in May, and you need ~1-5s to make this with only 1 photo)</p>
+
+<div align="center">
+  <img src="../assets/img/recap/2023-ai-avatar.jpg" width="100%" /><br />
+  <i></i>
+</div>
+
+<h2 id="serverless-gpu">Serverless GPU</h2>
+
+<p>In 2023, I realized that major cloud providers don’t offer Serverless GPU services. I used Modal to deploy my AI avatar app. It ran okay but was slow to wake up, even when not in a cold start. Maybe I need to improve this.</p>
+
+<p>I also tried Salad, but they lacked documentation and weren’t user-friendly.</p>
+
+<p>Dedicated GPU servers from smaller providers are much cheaper, but they require manual scaling, unlike serverless options which are easy to set up.</p>
+
+<h2 id="fastapi">FastAPI</h2>
+
+<p>I used this to create APIs. Nothing much to say here.</p>
+
+<h2 id="new-coding-paradigm">New Coding Paradigm</h2>
+
+<p>VSCode with Github Copilot and GPT-plus has changed how I code. Now, I manage a pilot to code rather than doing it myself. But I still read each line because delivering quality work is what matters most.</p>
+
+<h2 id="building-things-principles">Building Things Principles</h2>
+
+<p>Any principle could be right, but you need to choose what works for you and improves your results. For me, it’s about being fast and efficient.</p>
+
+<h1 id="my-current-stackflow">My current stack/flow</h1>
+
+<ul>
+  <li><strong>VSCode with Github Copilot:</strong> I’m considering canceling my subscription and looking for alternatives. I do think Mixtral one is the best replacement, and I even could host it somewhere to use it (or local with Mistral 7B).</li>
+  <li><strong>GPT-Plus for Coding and Research:</strong> I haven’t found anything that compares to GPT-Plus. It’s even better than GPT-4 for certain tasks.</li>
+  <li><strong>Gradio for Quick MVPs:</strong> It’s my go-to for creating minimum viable products.</li>
+  <li><strong>Obsidian for Logs and Notes:</strong> It’s fast and easy to organize. Combined with Git, it’s incredibly efficient.</li>
+  <li><strong>FastAPI for Backend:</strong> It’s my choice for backend development.</li>
+  <li><strong>Plotly/Dash for Visuals:</strong> Great for creating visual components.</li>
+</ul>
+
+<h1 id="what-i-plan-to-learnmake-in-2024">What I Plan to Learn/Make in 2024</h1>
+
+<h2 id="launch-a-complete-system-and-company">Launch a Complete System and Company</h2>
+
+<p>I’m aiming to launch a product or company, likely related to LLM, but I’m open to other areas as well.</p>
+
+<h2 id="rust--bevy">Rust + Bevy</h2>
+
+<ul>
+  <li><strong>Rust:</strong> I want to master Rust to develop quick and lightweight 2D prototypes. I’m not sure about smartphone development, but for game development, I’m interested in Bevy.</li>
+  <li><strong>Bevy for Game Development:</strong> I’m drawn to Bevy, especially as Unity isn’t very appealing right now. I’ll stick with Unreal Engine for 3D projects, but those are more time-consuming than I can manage at the moment.</li>
+</ul>
+
+<p>This YouTube clip inspired me to explore Bevy:</p>
+
+<div style="position:relative;padding-top:56.25%;">
+  <iframe src="https://www.youtube.com/embed/8kLWBDbVP0I" frameborder="0" style="position:absolute;top:0;left:0;width:100%;height:100%;" allowfullscreen="">
+    </iframe>
+</div>
+
+<p>Hope that I could proudly write much more in the next year.</p>
+
+  		
+	  </article>
+    </div>
+
+</div>
+
+<div class="article-meta">
+    2024-01-05
+     • Category: 
+        
+    
+     • Tag: 
+        
+    
+</div>
+
+
+
+	<div class="article-author">
+    <div class="avatar">
+    <img width="50" height="50" src="/images/header.jpg" alt=" Avatar"/>
+    </div>
+    <div class="name">
+        <h4><b>MonsterSlayer</b> </h4>
+        Just for fun!
+    </div>
+</div>
+
+
+	
+	    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'monsterslayer';
+	(function() {
+	    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+	    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+	
+
+
+<div class="cnzz"><script src="http://s4.cnzz.com/z_stat.php?id=1255123325&web_id=1255123325" language="JavaScript"></script> </div>
+
+
+        </div>
+      </div>
+    </div>
+
+    </body>
+</html>

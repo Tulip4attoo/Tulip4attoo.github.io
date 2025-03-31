@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Làm ảnh gif từ matplotlib</title>
+
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="">
+
+    
+    
+
+    <link rel="canonical" href="http://localhost:4000/2018/08/09/tao-anh-gif-bang-matplotlib/">
+    <link rel="icon" type="image/png" href="/images/logo.png">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/monster.css">
+
+    
+
+</head>
+
+
+    <body>
+    
+    <div class="wrapper">
+
+      <header class="header">
+
+  <div class="site-title">
+    
+    <h4 class="entry-title"><a href="/2018/08/09/tao-anh-gif-bang-matplotlib/">Làm ảnh gif từ matplotlib</a></h4>
+    
+  </div>
+
+<div class="links">
+    
+    <a href="/" class="page-link">Blog</a>
+    
+    
+    
+    
+      <a class="page-link"
+        href="/about/">About</a>
+    
+    
+    
+      <a class="page-link"
+        href="/categories/">Categories</a>
+    
+    
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/links/">Links</a>
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/tags/">Tags</a>
+    
+    
+    <a href="/feed.xml" target="_blank" class="page-link">RSS</a>
+</div>
+</header>
+
+      
+      <div class="navi">
+    
+    <a href="/" class="page-link">Blog</a>
+    
+    
+    
+    
+      <a class="page-link"
+        href="/about/">About</a>
+    
+    
+    
+      <a class="page-link"
+        href="/categories/">Categories</a>
+    
+    
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/links/">Links</a>
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/tags/">Tags</a>
+    
+    
+    <a href="/feed.xml" target="_blank" class="page-link">RSS</a>
+</div>
+
+
+      <div class="content">
+        <div class="articles">
+            <div class="entry post">
+
+	<div class="entry-content">
+	  <article class="entry-body">
+	  	
+	  		<h1 id="problem">Problem</h1>
+
+<p>Hôm nay, khi thực hiện code thử linear regression , lúc cần visualization lại cách mà gradient điều chỉnh rồi fit dần dần như thế nào, mình cần 1 cái ảnh gif để mình họa. Vấn đề là, <code class="language-plaintext highlighter-rouge">matpltlib</code>, công cụ visualization quen thuộc trong <code class="language-plaintext highlighter-rouge">python</code>, thì có 1 cách làm ảnh gif rất bất tiện.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="p">.</span><span class="n">pi</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>
+<span class="n">line</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">animate</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+    <span class="n">line</span><span class="p">.</span><span class="n">set_ydata</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">i</span><span class="o">/</span><span class="mf">10.0</span><span class="p">))</span>  <span class="c1"># update the data
+</span>    <span class="k">return</span> <span class="n">line</span><span class="p">,</span>
+
+<span class="c1"># Init only required for blitting to give a clean slate.
+</span><span class="k">def</span> <span class="nf">init</span><span class="p">():</span>
+    <span class="n">line</span><span class="p">.</span><span class="n">set_ydata</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">ma</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">line</span><span class="p">,</span>
+
+<span class="n">ani</span> <span class="o">=</span> <span class="n">animation</span><span class="p">.</span><span class="n">FuncAnimation</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">animate</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="n">init_func</span><span class="o">=</span><span class="n">init</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">blit</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Vấn đề của hàm <code class="language-plaintext highlighter-rouge">FuncAnimation</code> là hàm <code class="language-plaintext highlighter-rouge">animate</code> có vẻ không phù hợp cho các ảnh gif có độ tùy chỉnh cao, và nói chung đọc qua thì mình cảm thấy nó hơi phức tạp quá mức cần thiết.</p>
+
+<h1 id="cách-giải-quyết">Cách giải quyết</h1>
+
+<p>Để tạo ra ảnh gif, ta có thể lưu 1 list các ảnh, rồi kết nối các ảnh lại thành ảnh gif. Package sử dụng là imageio. Ta dùng hàm <code class="language-plaintext highlighter-rouge">mimsave</code> để tạo ra file gif từ 1 list các hình tĩnh.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># some lines not related to visualization
+</span>
+<span class="k">def</span> <span class="nf">plot_for_offset</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x_prime</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">loss_value</span><span class="p">):</span>
+    <span class="c1"># Data for plotting
+</span>    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s">'bo'</span><span class="p">,</span> <span class="n">x_prime</span><span class="p">,</span> <span class="n">x_prime</span> <span class="o">*</span> <span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">grid</span><span class="p">()</span>
+    <span class="n">ax</span><span class="p">.</span><span class="nb">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s">'X'</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s">'Y'</span><span class="p">,</span>
+           <span class="n">title</span><span class="o">=</span><span class="s">"Iter: {}, w: {}, b: {}, loss value: {}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">loss_value</span><span class="p">))</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+
+    <span class="c1"># IMPORTANT ANIMATION CODE HERE
+</span>    <span class="n">fig</span><span class="p">.</span><span class="n">canvas</span><span class="p">.</span><span class="n">draw</span><span class="p">()</span>       <span class="c1"># draw the canvas, cache the renderer
+</span>    <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">frombuffer</span><span class="p">(</span><span class="n">fig</span><span class="p">.</span><span class="n">canvas</span><span class="p">.</span><span class="n">tostring_rgb</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="s">'uint8'</span><span class="p">)</span>
+    <span class="n">image</span>  <span class="o">=</span> <span class="n">image</span><span class="p">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">fig</span><span class="p">.</span><span class="n">canvas</span><span class="p">.</span><span class="n">get_width_height</span><span class="p">()[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">3</span><span class="p">,))</span>
+
+    <span class="k">return</span> <span class="n">image</span>
+
+<span class="n">image_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">iter_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">14</span><span class="p">]</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">5e-3</span>
+
+<span class="k">with</span> <span class="n">tf</span><span class="p">.</span><span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">sess</span><span class="p">:</span>
+    <span class="n">sess</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">init_op</span><span class="p">)</span>
+    <span class="n">loss_value</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">while</span> <span class="n">loss_value</span> <span class="o">&gt;</span> <span class="n">epsilon</span><span class="p">:</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">loss_value</span> <span class="o">=</span> <span class="n">sess</span><span class="p">.</span><span class="n">run</span><span class="p">((</span><span class="n">train</span><span class="p">,</span> <span class="n">loss</span><span class="p">))</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">biases</span><span class="p">.</span><span class="nb">eval</span><span class="p">()</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">weights</span><span class="p">.</span><span class="nb">eval</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">iter_list</span> <span class="ow">or</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">image_list</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">plot_for_offset</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x_prime</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">loss_value</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="k">break</span>
+
+<span class="n">imageio</span><span class="p">.</span><span class="n">mimsave</span><span class="p">(</span><span class="s">'./linear_regression_fitting.gif'</span><span class="p">,</span> <span class="n">image_list</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Tada, và sản phẩm của chúng ta là:</p>
+
+<p align="center">
+  <img src="../assets/img/make-gif/linear_regression_fitting.gif" /><br />
+  <i>Sử dụng gradient để fit linear regression</i>
+</p>
+
+<h1 id="tham-khảo">Tham khảo</h1>
+
+<ol>
+  <li>https://ndres.me/post/matplotlib-animated-gifs-easily/</li>
+</ol>
+
+
+  		
+	  </article>
+    </div>
+
+</div>
+
+<div class="article-meta">
+    2018-08-09
+     • Category: 
+        
+    
+     • Tag: 
+        
+    
+</div>
+
+
+
+	<div class="article-author">
+    <div class="avatar">
+    <img width="50" height="50" src="/images/header.jpg" alt=" Avatar"/>
+    </div>
+    <div class="name">
+        <h4><b>MonsterSlayer</b> </h4>
+        Just for fun!
+    </div>
+</div>
+
+
+	
+	    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'monsterslayer';
+	(function() {
+	    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+	    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+	
+
+
+<div class="cnzz"><script src="http://s4.cnzz.com/z_stat.php?id=1255123325&web_id=1255123325" language="JavaScript"></script> </div>
+
+
+        </div>
+      </div>
+    </div>
+
+    </body>
+</html>

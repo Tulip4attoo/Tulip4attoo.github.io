@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Giải quyết bài toán FizzBuzz bằng Machine Learning sử dụng TensorFlow</title>
+
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="">
+
+    
+    
+
+    <link rel="canonical" href="http://localhost:4000/2017/03/20/dung-tensorflow-giai-quyet-fizzbuzz/">
+    <link rel="icon" type="image/png" href="/images/logo.png">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/monster.css">
+
+    
+
+</head>
+
+
+    <body>
+    
+    <div class="wrapper">
+
+      <header class="header">
+
+  <div class="site-title">
+    
+    <h4 class="entry-title"><a href="/2017/03/20/dung-tensorflow-giai-quyet-fizzbuzz/">Giải quyết bài toán FizzBuzz bằng Machine Learning sử dụng TensorFlow</a></h4>
+    
+  </div>
+
+<div class="links">
+    
+    <a href="/" class="page-link">Blog</a>
+    
+    
+    
+    
+      <a class="page-link"
+        href="/about/">About</a>
+    
+    
+    
+      <a class="page-link"
+        href="/categories/">Categories</a>
+    
+    
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/links/">Links</a>
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/tags/">Tags</a>
+    
+    
+    <a href="/feed.xml" target="_blank" class="page-link">RSS</a>
+</div>
+</header>
+
+      
+      <div class="navi">
+    
+    <a href="/" class="page-link">Blog</a>
+    
+    
+    
+    
+      <a class="page-link"
+        href="/about/">About</a>
+    
+    
+    
+      <a class="page-link"
+        href="/categories/">Categories</a>
+    
+    
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/links/">Links</a>
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/tags/">Tags</a>
+    
+    
+    <a href="/feed.xml" target="_blank" class="page-link">RSS</a>
+</div>
+
+
+      <div class="content">
+        <div class="articles">
+            <div class="entry post">
+
+	<div class="entry-content">
+	  <article class="entry-body">
+	  	
+	  		<h1 id="bài-toán-fizzbuzz">Bài toán FizzBuzz</h1>
+
+<p>FizzBuzz vốn là bài toán vui ở Anh để dạy cho cho trẻ con làm quen với phép chia. Sau đó, nó được thay đổi đôi chút để có thể làm 1 bài test đầu vào trong phỏng vấn các lập trình viên. Bạn có thể đọc thêm vài thứ liên quan tới bài toán FizzBizz tại blog <a href="https://vinacode.net/2014/08/18/lap-trinh-vien-khong-biet-code/">VinaCode</a>. Giờ đây, FizzBuzz có lẽ trở nên nổi tiếng hơn, và chắc kể cả các lập trình viên không biết code cũng biết đi tìm lời giải cho bài toán này.</p>
+
+<blockquote>
+  <p>Đề bài:
+Viết một chương trình để in ra các số từ 1 đến 100. Nhưng đối với các số là bội của 3 thì in ra chữ “Fizz” thay vì hiển thị số đó và đối với các số là bội của 5 thì in ra chữ “Buzz”. Đối với các số vừa là bội của 3 và 5 thì in ra chữ “FizzBuzz”.</p>
+</blockquote>
+
+<p align="center">
+  <img src="../assets/img/fizzbuzz-tf/rust-fizzbuzz.png" /><br />
+  <i>Minh hoạ bài toán FizzBuzz (nguồn ảnh: chrismorgan.info)</i>
+</p>
+
+<p>Khá dễ phải không nào? Thực lòng tôi chưa gặp 1 ai và cũng không nghĩ rằng có ai tự nhận là lập trình viên mà không giải quyết được bài toán này.</p>
+
+<h1 id="fizzbuzz-với-các-thuật-toán-machine-learning">FizzBuzz với các thuật toán Machine Learning</h1>
+
+<p>Lời giải cho bài toán FizzBuzz được thảo luận rất nhiều ở trên mạng, thậm chí có cả ở các <a href="https://daynhauhoc.com/t/fizzbuzz-nac-thang-len-thien-duong-cua-lap-trinh-vien/">diễn đàn của Việt Nam</a>. Các lời giải thì muôn hình muôn dạng, có lời giải đơn giản, có lời giải lại hướng tới sự tối giản (và đi kèm là khó đọc), hoặc như có người có thể bê tới hàng chục dòng code để giải quyết. Tuy nhiên, không biết đã bao giờ bạn từng nghĩ, liệu có thể dạy cho máy tính trả lời bài toán này hay chưa? Liệu có thuật toán Machine Learning nào có thể giải quyết bài toán này hay không?</p>
+
+<p>Được chứ. Tuy nhiên, ở đây có các hướng làm chính như sau:</p>
+
+<ul>
+  <li>
+    <p>Tạo ra các Features mới, thể hiện đặc tính chia hết cho 3 và chia hết cho 5. Bằng cách thêm vào các Features này, hầu hết các thuật toán Classify như Logistics Regression, Decision Tree,… đều có thể giải quyết bài toán một cách đơn giản, gọn gàng với độ chính xác tuyệt đối.</p>
+  </li>
+  <li>
+    <p>Không tạo ra các Features mang tính trực tiếp như vậy. Khi đó, mô hình của chúng ta phải học được cách để diễn tả tính chia hết cho 3, chia hết cho 5 (và chia hết cho 15, dĩ nhiên) của từng số.</p>
+  </li>
+  <li>
+    <p>Chuyển bài toán sang bài toán khác, cá nhân tôi không thích cách giải quyết này. Bạn có thể xem 1 lời giải như vậy ở trang <a href="http://blog.algorithmia.com/solve-fizzbuzz-machine-learning-scikit-learn/">Algorithmia</a>.</p>
+  </li>
+</ul>
+
+<p>Cách thứ nhất tuy rõ ràng, mang lại kết quả cao hơn (làm sao có thể đánh bại 1 kết quả chính xác tuyệt đối?), nhưng lại không mấy thú vị. Nếu làm theo cách này, chúng ta sẽ chẳng học được gì (nhưng bạn có thể qua vòng interview, thật tuyệt!). Về cách thứ 2, Neural Network là 1 lựa chọn tuyệt vời, và trong bài này tôi cũng sẽ giải quyết bài toán FizzBuzz bằng Neural Network, sử dụng TensorFlow.</p>
+
+<h1 id="giới-thiệu-tensorflow">Giới thiệu TensorFlow</h1>
+
+<p>TensorFlow là 1 thư viện về Machine Learning, chuyên về Deep Learning do Google phát triển, được công bố mã nguồn vào tháng 11/2015. Theo thông tin từ Google, TensorFlow được sử dụng trong nhiều dịch vụ và hoạt động của Google. Các bạn có thể xem mã nguồn của TensorFlow ở đây: <a href="https://github.com/tensorflow/tensorflow">Github</a></p>
+
+<p align="center">
+  <img src="/assets/img/fizzbuzz-tf/tf-logo.jpg" /><br />
+  <i>TensorFlow xử lý các model dưới dạng data flow graph (nguồn ảnh: tensorflow.org)</i>
+</p>
+
+<p>Dù có sử dụng interface là Python (và C++/Java/Go), nhưng performance của TensorFlow vẫn được đảm bảo do mã nguồn được viết bằng C++. TensorFlow có thể hoạt động tốt trên GPU, các hệ thống song song và phân tán, cũng như các thiết bị nhỏ như smartphone. TensorFlow mới ra phiên bản 1.0 gần đây, với nhiều nâng cấp. Nếu chọn 1 framework để làm việc với Deep Learning, TensorFlow sẽ là 1 lựa chọn không tệ. Hiện tại, TensorFlow đang có nhiều kế hoạch để người dùng có thể sử dụng TensorFlow dễ dàng hơn, ví như việc <a href="https://blog.keras.io/introducing-keras-2.html">Keras được tích hợp sẵn trong TensorFlow bản 1.2</a> mới thông báo gần đây chẳng hạn.</p>
+
+<h1 id="sử-dụng-tensorflow-để-giải-bài-toán-fizzbuzz">Sử dụng TensorFlow để giải bài toán FizzBuzz</h1>
+
+<p>Để thực hiện bài toán, đầu tiên chúng ta sẽ import các package cần thiết: TensorFlow (dĩ nhiên), numpy (để xử lý đầu vào bài toán), time (đo thừoi gian chạy)</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="n">tf</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">time</span>
+</code></pre></div></div>
+
+<p>Tiếp đó, chúng ta viết riêng các biến sẽ sử dụng trong bài để tiện thay đổi, nếu cần</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">NUM_DIGITS</span> <span class="o">=</span> <span class="mi">13</span>
+<span class="n">NUM_LABELS</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">X_WIDTH</span> <span class="o">=</span> <span class="n">NUM_DIGITS</span>
+<span class="n">NUM_NODES</span> <span class="o">=</span> <span class="mi">128</span>
+<span class="n">BATCH_SIZE</span> <span class="o">=</span> <span class="mi">128</span>
+<span class="n">GRADIENT_CONSTANT</span> <span class="o">=</span> <span class="mf">0.05</span>
+</code></pre></div></div>
+
+<p>Ngoài ra, là các hàm thay đổi input, tính toán độ chính xác của kết quả, print output</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">binary_encode</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">num_digits</span><span class="p">):</span>
+  <span class="k">return</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="n">i</span> <span class="o">&gt;&gt;</span> <span class="n">d</span> <span class="o">&amp;</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_digits</span><span class="p">)])[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">fizz_buzz_encode</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+  <span class="k">if</span>   <span class="n">i</span> <span class="o">%</span> <span class="mi">15</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+  <span class="k">elif</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">5</span>  <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+  <span class="k">elif</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">3</span>  <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+  <span class="k">else</span><span class="p">:</span>             <span class="k">return</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+
+<span class="k">def</span> <span class="nf">accuracy</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
+  <span class="k">return</span> <span class="p">(</span><span class="mf">100.0</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="n">np</span><span class="p">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+          <span class="o">/</span> <span class="n">predictions</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="k">def</span> <span class="nf">fizz_buzz</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">prediction</span><span class="p">):</span>
+  <span class="k">return</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="s">"fizz"</span><span class="p">,</span> <span class="s">"buzz"</span><span class="p">,</span> <span class="s">"fizzbuzz"</span><span class="p">][</span><span class="n">prediction</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>Và chúng ta cũng sẽ tạo nên tập train và tập test. Tập test, dĩ nhiên sẽ là các số từ 1 tới 100. Ngoài ra, labels kết quả sẽ thay đổi sang dạng one-hot column vector, đây là dạng labels thường gặp khi giải quyết các bài toán phân loại sử dụng Deep Learning, bởi lẽ nó rất phù hợp để sử dụng hàm Cross-entropy để đánh giá. Chúng ta sẽ sử dụng input là các chữ số của số khi đã được mã hoá nhị phân, điều này giúp cho chúng ta có đủ input đầu vào. Bạn có thể xem vài cách xử lý input khác trong phần sau.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">trX</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="n">binary_encode</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">NUM_DIGITS</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">101</span><span class="p">,</span> <span class="mi">2</span> <span class="o">**</span> <span class="n">NUM_DIGITS</span><span class="p">)])</span>
+<span class="n">trY</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="n">fizz_buzz_encode</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>          <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">101</span><span class="p">,</span> <span class="mi">2</span> <span class="o">**</span> <span class="n">NUM_DIGITS</span><span class="p">)])</span>
+<span class="n">trX</span> <span class="o">=</span> <span class="n">trX</span><span class="p">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">trY</span> <span class="o">=</span> <span class="n">trY</span><span class="p">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">float32</span><span class="p">)</span>
+
+<span class="n">teX</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="n">binary_encode</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">NUM_DIGITS</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">101</span><span class="p">)])</span>
+<span class="n">trY</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="n">fizz_buzz_encode</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>          <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">101</span><span class="p">)])</span>
+<span class="n">teX</span> <span class="o">=</span> <span class="n">teX</span><span class="p">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">teY</span> <span class="o">=</span> <span class="n">teY</span><span class="p">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">float32</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Sau khi đã khai báo input, các biến cố định sử dụng trong toàn chương trình, ta lại tiếp tục phải khai báo mô hình của chúng ta cho TensorFlow, thật lăng nhằng và mệt mỏi phải không nào? Ở đây, chúng ta sử dụng mô hình Neural Network với 1 hidden layer. Hàm loss là hàm Cross-entropy. Sử dụng Gradient Decent là phương pháp optimize (thực ra là Stochatic Gradient Decent - SGD). RELU được chọn làm hàm activation.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">graph</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">Graph</span><span class="p">()</span>
+<span class="k">with</span> <span class="n">graph</span><span class="p">.</span><span class="n">as_default</span><span class="p">():</span>
+
+  <span class="n">tf_train_dataset</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">placeholder</span><span class="p">(</span><span class="n">tf</span><span class="p">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">BATCH_SIZE</span><span class="p">,</span> <span class="n">X_WIDTH</span><span class="p">))</span>
+  <span class="n">tf_train_labels</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">placeholder</span><span class="p">(</span><span class="n">tf</span><span class="p">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">BATCH_SIZE</span><span class="p">,</span> <span class="n">NUM_LABELS</span><span class="p">))</span>
+  <span class="n">tf_test_dataset</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">constant</span><span class="p">(</span><span class="n">teX</span><span class="p">)</span>
+
+  <span class="n">weights_1</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">Variable</span><span class="p">(</span>
+    <span class="n">tf</span><span class="p">.</span><span class="n">truncated_normal</span><span class="p">([</span><span class="n">X_WIDTH</span><span class="p">,</span> <span class="n">NUM_NODES</span><span class="p">]))</span>
+  <span class="n">biases_1</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">tf</span><span class="p">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">NUM_NODES</span><span class="p">]))</span>
+  
+  <span class="n">tf_hidden_nodes</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">relu</span><span class="p">(</span><span class="n">tf</span><span class="p">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">tf_train_dataset</span><span class="p">,</span> <span class="n">weights_1</span><span class="p">)</span> <span class="o">+</span> <span class="n">biases_1</span><span class="p">)</span>
+
+  <span class="n">weights_2</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">Variable</span><span class="p">(</span>
+    <span class="n">tf</span><span class="p">.</span><span class="n">truncated_normal</span><span class="p">([</span><span class="n">NUM_NODES</span><span class="p">,</span> <span class="n">NUM_LABELS</span><span class="p">]))</span>
+  <span class="n">biases_2</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">tf</span><span class="p">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">NUM_LABELS</span><span class="p">]))</span>
+
+  <span class="n">logits</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">tf_hidden_nodes</span><span class="p">,</span> <span class="n">weights_2</span><span class="p">)</span> <span class="o">+</span> <span class="n">biases_2</span>
+
+  <span class="n">loss</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">reduce_mean</span><span class="p">(</span>
+    <span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">softmax_cross_entropy_with_logits</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="n">tf_train_labels</span><span class="p">,</span> <span class="n">logits</span><span class="o">=</span><span class="n">logits</span><span class="p">))</span>
+  <span class="n">optimizer</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">train</span><span class="p">.</span><span class="n">GradientDescentOptimizer</span><span class="p">(</span><span class="n">GRADIENT_CONSTANT</span><span class="p">).</span><span class="n">minimize</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
+
+  <span class="n">train_prediction</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">logits</span><span class="p">)</span>
+  <span class="n">test_prediction</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">tf</span><span class="p">.</span><span class="n">matmul</span><span class="p">(</span>
+    <span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">relu</span><span class="p">(</span><span class="n">tf</span><span class="p">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">tf_test_dataset</span><span class="p">,</span> <span class="n">weights_1</span><span class="p">)</span> <span class="o">+</span> <span class="n">biases_1</span><span class="p">),</span> <span class="n">weights_2</span><span class="p">)</span> <span class="o">+</span> <span class="n">biases_2</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Do đặc trưng của Neural Network là tính ngẫu nhiên khi khởi tạo các weight và bias ban đầu, từ đó mỗi lần chạy sẽ ra các kết quả khác nhau đôi chút, do đó chúng ta có thể viết thêm vài dòng cho việc lưu lại model.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">tf</span><span class="p">.</span><span class="n">add_to_collection</span><span class="p">(</span><span class="s">'params'</span><span class="p">,</span> <span class="n">weights_1</span><span class="p">)</span>
+  <span class="n">tf</span><span class="p">.</span><span class="n">add_to_collection</span><span class="p">(</span><span class="s">'params'</span><span class="p">,</span> <span class="n">biases_1</span><span class="p">)</span>
+  <span class="n">tf</span><span class="p">.</span><span class="n">add_to_collection</span><span class="p">(</span><span class="s">'params'</span><span class="p">,</span> <span class="n">weights_2</span><span class="p">)</span>
+  <span class="n">tf</span><span class="p">.</span><span class="n">add_to_collection</span><span class="p">(</span><span class="s">'params'</span><span class="p">,</span> <span class="n">biases_2</span><span class="p">)</span>
+  <span class="n">saver</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">train</span><span class="p">.</span><span class="n">Saver</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>Ok, tới đây thì đã khai báo xong. Chúng ta có thể chạy mô hình được rồi. Sử dụng SGD, chúng ta có thể train mô hình với số lượng vòng lặp rất lớn, ở đây tôi chọn NUM_STEPS = 120000 lần. Ngoài ra, mỗi 10000 bước, chúng ta lại in kết quả ra ngoài để tiện theo dõi, đồng thời lưu mô hình lại.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">with</span> <span class="n">tf</span><span class="p">.</span><span class="n">Session</span><span class="p">(</span><span class="n">graph</span><span class="o">=</span><span class="n">graph</span><span class="p">)</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
+  <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span>
+  <span class="n">tf</span><span class="p">.</span><span class="n">global_variables_initializer</span><span class="p">().</span><span class="n">run</span><span class="p">()</span>
+  <span class="k">print</span><span class="p">(</span><span class="s">'Initialized'</span><span class="p">)</span>
+  <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NUM_STEPS</span><span class="p">):</span>
+    <span class="n">offset</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">trX</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">BATCH_SIZE</span><span class="p">)</span>
+    <span class="n">batch_data</span> <span class="o">=</span> <span class="n">trX</span><span class="p">[</span><span class="n">offset</span><span class="p">]</span>
+    <span class="n">batch_labels</span> <span class="o">=</span> <span class="n">trY</span><span class="p">[</span><span class="n">offset</span><span class="p">]</span>
+
+    <span class="n">feed_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">tf_train_dataset</span><span class="p">:</span> <span class="n">batch_data</span><span class="p">,</span> <span class="n">tf_train_labels</span><span class="p">:</span> <span class="n">batch_labels</span><span class="p">}</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">predictions</span> <span class="o">=</span> <span class="n">session</span><span class="p">.</span><span class="n">run</span><span class="p">([</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">loss</span><span class="p">,</span> <span class="n">train_prediction</span><span class="p">],</span> <span class="n">feed_dict</span> <span class="o">=</span> <span class="n">feed_dict</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">step</span> <span class="o">%</span> <span class="mi">10000</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+      <span class="k">print</span><span class="p">(</span><span class="s">"Minibatch loss at step %d: %f"</span> <span class="o">%</span> <span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="n">l</span><span class="p">))</span>
+      <span class="k">print</span><span class="p">(</span><span class="s">"Minibatch accuracy: %.1f%%"</span> <span class="o">%</span> <span class="n">accuracy</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">batch_labels</span><span class="p">))</span>
+      <span class="n">saver</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="s">'my-model'</span><span class="p">,</span> <span class="n">global_step</span><span class="o">=</span><span class="n">step</span><span class="p">)</span>
+  <span class="k">print</span><span class="p">(</span><span class="s">'Test accuracy: %.1f%%'</span> <span class="o">%</span> <span class="n">accuracy</span><span class="p">(</span><span class="n">test_prediction</span><span class="p">.</span><span class="nb">eval</span><span class="p">(),</span> <span class="n">test_labels</span><span class="p">))</span>
+  <span class="k">print</span><span class="p">(</span><span class="s">"--- %s seconds ---"</span> <span class="o">%</span> <span class="p">(</span><span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>Và đây là kết quả, thật tuyệt!</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Initialized
+Minibatch loss at step 0: 11.771742
+Minibatch accuracy: 25.8%
+Minibatch loss at step 10000: 0.808692
+Minibatch accuracy: 69.5%
+Minibatch loss at step 20000: 0.458894
+Minibatch accuracy: 84.4%
+Minibatch loss at step 30000: 0.253919
+Minibatch accuracy: 90.6%
+Minibatch loss at step 40000: 0.248654
+Minibatch accuracy: 89.1%
+Minibatch loss at step 50000: 0.077893
+Minibatch accuracy: 98.4%
+Minibatch loss at step 60000: 0.038626
+Minibatch accuracy: 99.2%
+Minibatch loss at step 70000: 0.043113
+Minibatch accuracy: 99.2%
+Minibatch loss at step 80000: 0.036851
+Minibatch accuracy: 100.0%
+Minibatch loss at step 90000: 0.028547
+Minibatch accuracy: 100.0%
+Minibatch loss at step 100000: 0.030439
+Minibatch accuracy: 100.0%
+Minibatch loss at step 110000: 0.023854
+Minibatch accuracy: 100.0%
+Minibatch loss at step 120000: 0.016343
+Minibatch accuracy: 100.0%
+Test accuracy: 100.0%
+--- 78.5351741314 seconds ---
+</code></pre></div></div>
+
+<p>Bạn có thể load lại mô hình tại những điểm đã lưu.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">with</span> <span class="n">tf</span><span class="p">.</span><span class="n">Session</span><span class="p">(</span><span class="n">graph</span><span class="o">=</span><span class="n">graph</span><span class="p">)</span> <span class="k">as</span> <span class="n">sess</span><span class="p">:</span>
+  <span class="n">new_saver</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">train</span><span class="p">.</span><span class="n">import_meta_graph</span><span class="p">(</span><span class="s">'my-model-120000.meta'</span><span class="p">)</span>
+  <span class="n">new_saver</span><span class="p">.</span><span class="n">restore</span><span class="p">(</span><span class="n">sess</span><span class="p">,</span> <span class="n">tf</span><span class="p">.</span><span class="n">train</span><span class="p">.</span><span class="n">latest_checkpoint</span><span class="p">(</span><span class="s">'./'</span><span class="p">))</span>
+  <span class="n">all_vars</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">get_collection</span><span class="p">(</span><span class="s">'params'</span><span class="p">)</span>
+  <span class="n">weights_1</span><span class="p">,</span> <span class="n">biases_1</span><span class="p">,</span> <span class="n">weights_2</span><span class="p">,</span> <span class="n">biases_2</span> <span class="o">=</span> <span class="n">all_vars</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">all_vars</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> \
+                                                <span class="n">all_vars</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">all_vars</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+  <span class="n">tf_test_dataset</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">constant</span><span class="p">(</span><span class="n">teX</span><span class="p">)</span>
+  <span class="n">test_prediction</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">tf</span><span class="p">.</span><span class="n">matmul</span><span class="p">(</span>
+    <span class="n">tf</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">relu</span><span class="p">(</span><span class="n">tf</span><span class="p">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">tf_test_dataset</span><span class="p">,</span> <span class="n">weights_1</span><span class="p">)</span> <span class="o">+</span> <span class="n">biases_1</span><span class="p">),</span> <span class="n">weights_2</span><span class="p">)</span> <span class="o">+</span> <span class="n">biases_2</span><span class="p">)</span>
+  <span class="n">predict_op</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">test_prediction</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="n">teY</span><span class="p">,</span> <span class="n">tf_onehot_output</span> <span class="o">=</span> <span class="n">sess</span><span class="p">.</span><span class="n">run</span><span class="p">([</span><span class="n">predict_op</span><span class="p">,</span> <span class="n">test_prediction</span><span class="p">])</span>
+  <span class="n">output</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">vectorize</span><span class="p">(</span><span class="n">fizz_buzz</span><span class="p">)(</span><span class="n">numbers</span><span class="p">,</span> <span class="n">teY</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Và tới đây, ta có thể in ra kết quả như yêu cầu ban đầu.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>In [15]: output
+Out[15]: 
+array(['1', '2', 'fizz', '4', 'buzz', 'fizz', '7', '8', 'fizz', 'buzz',
+       '11', 'fizz', '13', '14', 'fizzbuzz', '16', '17', 'fizz', '19',
+       'buzz', 'fizz', '22', '23', 'fizz', 'buzz', '26', 'fizz', '28',
+       '29', 'fizzbuzz', '31', '32', 'fizz', '34', 'buzz', 'fizz', '37',
+       '38', 'fizz', 'buzz', '41', 'fizz', '43', '44', 'fizzbuzz', '46',
+       '47', 'fizz', '49', 'buzz', 'fizz', '52', '53', 'fizz', 'buzz',
+       '56', 'fizz', '58', '59', 'fizzbuzz', '61', '62', 'fizz', '64',
+       'buzz', 'fizz', '67', '68', 'fizz', 'buzz', '71', 'fizz', '73',
+       '74', 'fizzbuzz', '76', '77', 'fizz', '79', 'buzz', 'fizz', '82',
+       '83', 'fizz', 'buzz', '86', 'fizz', '88', '89', 'fizzbuzz', '91',
+       '92', 'fizz', '94', 'buzz', 'fizz', '97', '98', 'fizz', 'buzz'], 
+      dtype='|S8')
+</code></pre></div></div>
+
+<h1 id="những-phần-có-thể-tìm-hiểu-thêm">Những phần có thể tìm hiểu thêm</h1>
+
+<p>Tới đây đã xong chưa? Chưa, vốn ban đầu tôi định viết 1 bài dài đằng dặc tầm gấp 3 gấp 4 bài này, tuy nhiên vì quá mất công và tới giờ chưa xong nên tôi quyết định sẽ haonf thành bài viết này trước. Các bạn có thể tìm hiểu thêm rất nhiều phần như sau:</p>
+
+<ul>
+  <li>
+    <p>thay đổi output, 1 - 100 là 1 khoảng khá nhỏ, do đó kết quả có thể không thể hiện được kết quả thuật toán.</p>
+  </li>
+  <li>
+    <p>thử với các trường hợp encode khác, ví dụ như decimal encode (tôi từng thử và kết quả khá tệ), one-hot decimal encode (tôi tin kết quả trường hợp này sẽ tốt), hoặc các hệ cơ số khác.</p>
+  </li>
+  <li>
+    <p>tìm hiểu nếu thay 3 và 5 bằng các số khác, ví như 2 và 7 thì kết quả sẽ thay đổi như thế nào.</p>
+  </li>
+  <li>
+    <p>xem xét các trường hợp, tìm kiếm các thành phần có tỷ lệ còn chưa thật sự tốt, đưa ra nhận xét.</p>
+  </li>
+  <li>
+    <p>tìm hiểu xem việc chia hết cho 3, chia hết cho 5 được thể hiện bằng cách nào trong mô hình.</p>
+  </li>
+  <li>
+    <p>tim hiểu về việc rút ngắn thời gian chạy</p>
+  </li>
+  <li>
+    <p>nết như phát triển thành mô hình có 2 hidden layers thì sao?</p>
+  </li>
+</ul>
+
+<p>Có lẽ còn nhiều nữa, đào sâu thật sâu vấn đề bao giờ cũng nảy sinh vô vàn vấn đề khác nữa mà. Như vậy, bắt đầu bằng 1 bài toán đơn giản, khi thay đổi góc nhìn, ta có thể nhận được nhiều điều thú vị khác, cũng như mở ra nhiều vấn đề để tìm hiểu thêm. Có thể khi có kết quả, tôi sẽ viết thêm vài bài về vấn đề này. Code tôi sử dụng trong bài, các bạn có thể theo dõi đầy đủ ở đây: <a href="https://github.com/Tulip4attoo/FizzBuzz-TF">Github</a></p>
+
+<p>Note: bài viết của tôi lấy ý tưởng từ bài <a href="http://joelgrus.com/2016/05/23/fizz-buzz-in-tensorflow/">blog</a> này. Tất nhiên, tôi có thay đổi và sửa chửa ít nhiều, từ mặt ý tưởng cho tới code, do đó kết quả cũng có thay đổi, ví như tỷ lệ chính xác có thể lên tới 100% thay vì chỉ khoảngkhoảng 90% như trong bài chẳng hạn.</p>
+
+  		
+	  </article>
+    </div>
+
+</div>
+
+<div class="article-meta">
+    2017-03-20
+     • Category: 
+        
+    
+     • Tag: 
+        
+    
+</div>
+
+
+
+	<div class="article-author">
+    <div class="avatar">
+    <img width="50" height="50" src="/images/header.jpg" alt=" Avatar"/>
+    </div>
+    <div class="name">
+        <h4><b>MonsterSlayer</b> </h4>
+        Just for fun!
+    </div>
+</div>
+
+
+	
+	    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'monsterslayer';
+	(function() {
+	    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+	    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+	
+
+
+<div class="cnzz"><script src="http://s4.cnzz.com/z_stat.php?id=1255123325&web_id=1255123325" language="JavaScript"></script> </div>
+
+
+        </div>
+      </div>
+    </div>
+
+    </body>
+</html>

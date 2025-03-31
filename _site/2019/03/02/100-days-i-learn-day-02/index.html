@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>100 days I learn - day 2 - minus arguments in python</title>
+
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="">
+
+    
+    
+
+    <link rel="canonical" href="http://localhost:4000/2019/03/02/100-days-i-learn-day-02/">
+    <link rel="icon" type="image/png" href="/images/logo.png">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/monster.css">
+
+    
+
+</head>
+
+
+    <body>
+    
+    <div class="wrapper">
+
+      <header class="header">
+
+  <div class="site-title">
+    
+    <h4 class="entry-title"><a href="/2019/03/02/100-days-i-learn-day-02/">100 days I learn - day 2 - minus arguments in python</a></h4>
+    
+  </div>
+
+<div class="links">
+    
+    <a href="/" class="page-link">Blog</a>
+    
+    
+    
+    
+      <a class="page-link"
+        href="/about/">About</a>
+    
+    
+    
+      <a class="page-link"
+        href="/categories/">Categories</a>
+    
+    
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/links/">Links</a>
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/tags/">Tags</a>
+    
+    
+    <a href="/feed.xml" target="_blank" class="page-link">RSS</a>
+</div>
+</header>
+
+      
+      <div class="navi">
+    
+    <a href="/" class="page-link">Blog</a>
+    
+    
+    
+    
+      <a class="page-link"
+        href="/about/">About</a>
+    
+    
+    
+      <a class="page-link"
+        href="/categories/">Categories</a>
+    
+    
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/links/">Links</a>
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/tags/">Tags</a>
+    
+    
+    <a href="/feed.xml" target="_blank" class="page-link">RSS</a>
+</div>
+
+
+      <div class="content">
+        <div class="articles">
+            <div class="entry post">
+
+	<div class="entry-content">
+	  <article class="entry-body">
+	  	
+	  		<p>Hô khẩu hiệu xong cái quên luôn :)) thôi cố nhớ vậy</p>
+
+<p>Vậy hôm nay viết về điều gì? Viết về chuyện nhập arguments khi có số âm.</p>
+
+<h1 id="bài-toán">Bài toán</h1>
+
+<p>Mình viết 1 file python <code class="language-plaintext highlighter-rouge">main.py</code> với các arguments, trong đó có 1 argument đọc số float là -f. Khi ban đầu viết thì gọi lệnh rất đơn giản, ví dụ mình cần xử lý với float là 1.2</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python main.py -f 1.2
+</code></pre></div></div>
+
+<p>Tới lúc mình gửi qua thì gặp vấn đề, khi mà float mình là số âm, ví dụ -1.2, nó sẽ khiến <code class="language-plaintext highlighter-rouge">main.py</code> hiểu lần 1.2 là argument (hmm, really?), và thế là cần 1 cách giải quyết khác</p>
+
+<h1 id="thực-hiện">Thực hiện</h1>
+
+<p>Lúc dó mình nghĩ ra 2 cách:</p>
+
+<ul>
+  <li>chuyển đổi input về dạng đọc được, rồi xử lý thêm. Ví dụ (1.2) là cách nhập số âm của tài chính, rồi sau đó mình read như read string và thay ngoặc bằng dấu -. Cách này thực hiện được, nhưng hơi không hay lắm và có thể khiến user khó chịu.</li>
+  <li>tra google tới khi tìm được cách giải quyết =))</li>
+</ul>
+
+<p>May quá thì tra google cũng ra, cách giải quyết khá đơn giản, là thêm dấu = vào giữa, như thế này:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python main.py -f=-1.2
+</code></pre></div></div>
+
+<h1 id="kết-luận">Kết luận</h1>
+
+<p>Nếu vấn đề có vẻ đơn giản và thường gặp thì chịu khó tra Google với các keyword đa dạng tý, nhiều khả năng sẽ tìm 1 cách giải quyết khá gọn gàng đó.</p>
+
+<p>Cheer!</p>
+
+  		
+	  </article>
+    </div>
+
+</div>
+
+<div class="article-meta">
+    2019-03-02
+     • Category: 
+        
+    
+     • Tag: 
+        
+    
+</div>
+
+
+
+	<div class="article-author">
+    <div class="avatar">
+    <img width="50" height="50" src="/images/header.jpg" alt=" Avatar"/>
+    </div>
+    <div class="name">
+        <h4><b>MonsterSlayer</b> </h4>
+        Just for fun!
+    </div>
+</div>
+
+
+	
+	    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'monsterslayer';
+	(function() {
+	    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+	    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+	
+
+
+<div class="cnzz"><script src="http://s4.cnzz.com/z_stat.php?id=1255123325&web_id=1255123325" language="JavaScript"></script> </div>
+
+
+        </div>
+      </div>
+    </div>
+
+    </body>
+</html>
