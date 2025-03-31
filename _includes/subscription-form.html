@@ -1,29 +1,4 @@
----
-layout: default
----
-
-<div>
-
-  	{% assign index = true %}
-  	{% assign year  = '' %}
-
-    <ul class="article-list">
-    {% for post in site.posts %}
-		{% assign page = post %}
-        {% assign date = page.date | date: "%Y" %}
-
-        {% if year != date %}
-            {% assign year = date %}
-            <li class="list-year"> {{year}} </li>
-        {% endif%}
-
-        <li class="list-item">
-            <span class="list-date" >{{ page.date | date: "%Y-%m-%d" }}</span> <a href="{{ page.url }}">{{ page.title }}</a>
-        </li>
-    {% endfor %}
-</ul>
-
-<div class="subscription-form">
+<div class="subscription-form" style="display: none;">
   <h3>Subscribe to my newsletter</h3>
   <form id="subscription-form" action="https://formspree.io/f/mgvalbyj" method="POST">
     <input type="email" name="email" placeholder="Enter your email" required>
@@ -134,6 +109,4 @@ layout: default
       console.error('Error:', error);
     });
   });
-</script>
-
-</div>
+</script> 
