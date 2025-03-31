@@ -22,7 +22,7 @@ sass:
     style: :compressed
     sass_dir: _sass
 
-permalink: pretty
+permalink: /:title/
 excerpt_separator: "<!-- more -->"
 
 # path

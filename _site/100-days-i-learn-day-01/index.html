@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>100 days I learn - day 1 - ctypes</title>
+
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="">
+
+    
+    
+
+    <link rel="canonical" href="http://localhost:4000/100-days-i-learn-day-01/">
+    <link rel="icon" type="image/png" href="/images/logo.png">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/monster.css">
+
+    
+
+</head>
+
+
+    <body>
+    
+    <div class="wrapper">
+
+      <header class="header">
+
+  <div class="site-title">
+    
+    <h4 class="entry-title"><a href="/100-days-i-learn-day-01/">100 days I learn - day 1 - ctypes</a></h4>
+    
+  </div>
+
+<div class="links">
+    
+    <a href="/" class="page-link">Blog</a>
+    
+    
+    
+    
+      <a class="page-link"
+        href="/about/">About</a>
+    
+    
+    
+      <a class="page-link"
+        href="/categories/">Categories</a>
+    
+    
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/links/">Links</a>
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/tags/">Tags</a>
+    
+    
+    <a href="/feed.xml" target="_blank" class="page-link">RSS</a>
+</div>
+</header>
+
+      
+      <div class="navi">
+    
+    <a href="/" class="page-link">Blog</a>
+    
+    
+    
+    
+      <a class="page-link"
+        href="/about/">About</a>
+    
+    
+    
+      <a class="page-link"
+        href="/categories/">Categories</a>
+    
+    
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/links/">Links</a>
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/tags/">Tags</a>
+    
+    
+    <a href="/feed.xml" target="_blank" class="page-link">RSS</a>
+</div>
+
+
+      <div class="content">
+        <div class="articles">
+            <div class="entry post">
+
+	<div class="entry-content">
+	  <article class="entry-body">
+	  	
+	  		<p>Thiên hành kiện, quân tử dĩ tự cường bất tức.</p>
+
+<p>Trời đất biến chuyển mạnh mẽ, người quân tử phải không ngừng tự cường.</p>
+
+<p>Mỗi ngày đi làm 24h, nếu không học được điều gì mới thì đó là 1 điều đáng tiếc. Mình thực sự cũng đúc kết được rất nhiều điều mỗi ngày, mà cái nhớ, cái thì trôi tuột đi, đó là một điều đáng tiếc. Từ giờ, mình sẽ viết series này mỗi khi học được điều gì đó mới trong ngày (hy vọng ngày nào cũng có thể viết).</p>
+
+<p>Vậy hôm nay viết về điều gì? Viết về chuyện làm mình đau đầu mấy hôm trước, là chuyện về ctypes.</p>
+
+<h1 id="bài-toán">Bài toán</h1>
+
+<p>Bài toán mình gặp phải khi đó là: khách hàng có 1 package A xử lý job X có sẵn, tuy nhiên package này viết bằng C++. Bây giờ mình cần viết 1 cái demo có sử dụng package này để minh họa cho việc package A chạy tốt.</p>
+
+<p>Vấn đề xảy ra là mình hoàn toàn không biết gì về C++, ngôn ngữ mình tự tin chỉ có python. Tới đây có 2 lựa chọn cho mình:</p>
+
+<ul>
+  <li>viết demo sử dụng C++</li>
+  <li>viết demo bằng python, và bằng 1 cách nào đó móc được cái code C++ kia vào code mình.</li>
+</ul>
+
+<p>Dù được mọi người khuyên nên làm cách 1, nhưng mình có thể tưởng tượng đủ sự nhiêu khê khi debug (và thực tế debug bằng python cũng làm mình gần chết). Mình đã thử Google, sau đó thấy 1 vài giải pháp là sử dụng swig/boost, nhưng đấy đều là các giải pháp hơi phức tạp (deadline mình rất gấp, chỉ có ~2 ngày). Sau 1 cú gọi điện cầu cứu đại ca sếp mình ở tít Hà Nội, thì sếp gợi ý mình dùng ctypes.</p>
+
+<h1 id="thực-hiện">Thực hiện</h1>
+
+<p>Quá trình test ctypes rất nuột nà. Về cơ bản, thì việc dùng ctypes sẽ như thế này:</p>
+
+<ul>
+  <li>tạo ra file .dll cho file C++</li>
+  <li>đọc file .dll đó bằng ctypes</li>
+  <li>gọi hàm ctypes và chạy thôi</li>
+</ul>
+
+<p>Nhưng đúng là lúc chạy cũng lắm nhiêu khê. Nhiêu khê nhất là mấy vấn đề như này:</p>
+
+<ul>
+  <li>dạng arg truyền vào hàm C++. Ví dụ như string phải convert qua dạng bytes, encode utf-8 mới truyền được.</li>
+  <li>Error rất chung chung: OSError chẳng hạn. Kiểu wtf và debug cũng mệt</li>
+  <li>nếu hàm C++ truyền ra type lạ không có tương thích trong python thì quá mệt, thực ra mình cũng chưa biết cách giải quyết trong trường hợp này.</li>
+</ul>
+
+<p>Nhưng cuối cùng cũng xong, sau khi mình đã phải viết 1 hàm mới, may mà các hàm cần show demo thì trong file header nên không sao.</p>
+
+<h1 id="kết-luận">Kết luận</h1>
+
+<p>ctypes là package built-in của python, và nó giải quyết kahs tốt bài toán này trong trường hợp đơn giản. Nếu mọi thứ phức tạp, thực sự bạn nên tìm cách viết demo native. Ngoài ra thì nếu viết được kiểu api thì tốt nhất, đỡ lằng nhằng kiểu này.</p>
+
+<p>Đây không phải cái mình học hôm nay, nhưng nó là 1 thứ mình học gần đây rất đáng giá để ghi chép lại.</p>
+
+<p>Cheer!</p>
+
+  		
+	  </article>
+    </div>
+
+</div>
+
+<div class="article-meta">
+    2019-02-27
+     • Category: 
+        
+    
+     • Tag: 
+        
+    
+</div>
+
+
+
+	<div class="article-author">
+    <div class="avatar">
+    <img width="50" height="50" src="/images/header.jpg" alt=" Avatar"/>
+    </div>
+    <div class="name">
+        <h4><b>MonsterSlayer</b> </h4>
+        Just for fun!
+    </div>
+</div>
+
+
+	
+	    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'monsterslayer';
+	(function() {
+	    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+	    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+	
+
+
+<div class="cnzz"><script src="http://s4.cnzz.com/z_stat.php?id=1255123325&web_id=1255123325" language="JavaScript"></script> </div>
+
+
+        </div>
+      </div>
+    </div>
+
+    <div class="subscription-form" style="display: none;">
+  <h3>Subscribe to my newsletter</h3>
+  <form id="subscription-form" action="https://formspree.io/f/mgvalbyj" method="POST">
+    <input type="email" name="email" placeholder="Enter your email" required>
+    <button type="submit">Subscribe</button>
+  </form>
+  <div id="thank-you-message" style="display: none;">
+    Thank you for subscribing!
+  </div>
+</div>
+
+<style>
+  .subscription-form {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 2rem;
+    background: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    max-width: 400px;
+    width: 90%;
+  }
+  .subscription-form h3 {
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  .subscription-form input[type="email"] {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  .subscription-form button {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    background: #333;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .subscription-form button:hover {
+    background: #444;
+  }
+  #thank-you-message {
+    text-align: center;
+    margin-top: 1rem;
+    color: #28a745;
+    font-weight: bold;
+  }
+  .overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+</style>
+
+<div class="overlay" id="overlay"></div>
+
+<script>
+  function showSubscriptionForm() {
+    document.getElementById('overlay').style.display = 'block';
+    document.querySelector('.subscription-form').style.display = 'block';
+  }
+
+  function hideSubscriptionForm() {
+    document.getElementById('overlay').style.display = 'none';
+    document.querySelector('.subscription-form').style.display = 'none';
+  }
+
+  // Show form after 2 seconds
+  setTimeout(showSubscriptionForm, 2000);
+
+  // Close form when clicking overlay
+  document.getElementById('overlay').addEventListener('click', hideSubscriptionForm);
+
+  document.getElementById('subscription-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const form = this;
+    const thankYouMessage = document.getElementById('thank-you-message');
+    
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+        form.style.display = 'none';
+        thankYouMessage.style.display = 'block';
+        // Hide thank you message and form after 1 second
+        setTimeout(() => {
+          hideSubscriptionForm();
+        }, 1000);
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  });
+</script> 
+    </body>
+</html>

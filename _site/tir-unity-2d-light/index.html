@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>TIR - Today I read - Unity 2d light</title>
+
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="">
+
+    
+    
+
+    <link rel="canonical" href="http://localhost:4000/tir-unity-2d-light/">
+    <link rel="icon" type="image/png" href="/images/logo.png">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/monster.css">
+
+    
+
+</head>
+
+
+    <body>
+    
+    <div class="wrapper">
+
+      <header class="header">
+
+  <div class="site-title">
+    
+    <h4 class="entry-title"><a href="/tir-unity-2d-light/">TIR - Today I read - Unity 2d light</a></h4>
+    
+  </div>
+
+<div class="links">
+    
+    <a href="/" class="page-link">Blog</a>
+    
+    
+    
+    
+      <a class="page-link"
+        href="/about/">About</a>
+    
+    
+    
+      <a class="page-link"
+        href="/categories/">Categories</a>
+    
+    
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/links/">Links</a>
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/tags/">Tags</a>
+    
+    
+    <a href="/feed.xml" target="_blank" class="page-link">RSS</a>
+</div>
+</header>
+
+      
+      <div class="navi">
+    
+    <a href="/" class="page-link">Blog</a>
+    
+    
+    
+    
+      <a class="page-link"
+        href="/about/">About</a>
+    
+    
+    
+      <a class="page-link"
+        href="/categories/">Categories</a>
+    
+    
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/links/">Links</a>
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/tags/">Tags</a>
+    
+    
+    <a href="/feed.xml" target="_blank" class="page-link">RSS</a>
+</div>
+
+
+      <div class="content">
+        <div class="articles">
+            <div class="entry post">
+
+	<div class="entry-content">
+	  <article class="entry-body">
+	  	
+	  		<p>Mình đang cần code một quả bóng tỏa sáng màu xanh trong game Go down mình làm, do đây là game 2d nên mình cần tìm 1 cách phù hợp để làm 2d light. Mình google được 1 số cách (có thể chưa thật đầy đủ):</p>
+
+<h1 id="1-giả-2d-nhưng-thực-chất-là-3d">1, Giả 2D, nhưng thực chất là 3D</h1>
+
+<p>Nhìn ảnh này nè</p>
+
+<p align="center">
+  <img src="../assets/img/tir/psudo_2d.jpeg" /><br />
+  <i>Hình minh họa</i>
+</p>
+
+<h1 id="2-tạo-1-layer-khi-ánh-sáng-chiếu-vào">2, Tạo 1 layer khi ánh sáng chiếu vào</h1>
+
+<p>Cái này là tạo 1 layer màu trắng, kiểu khi vật được chiếu vào ấy. Sau đó khi mình render thì tùy vào xa gần mà mình sẽ activate bao nhiêu ở cái layer màu trắng kia, layer màu trắng thì sẽ set transperent rồi.</p>
+
+<h1 id="3-các-light-cố-định-ở-màn-hình">3, Các light cố định ở màn hình</h1>
+
+<p>Thì thực ra nó là các sprtie, được xếp lớp order cẩn thận thôi. Như này nè:</p>
+
+<p align="center">
+  <img src="../assets/img/tir/psudo_light_sprite.png" /><br />
+  <i>Hình minh họa</i>
+</p>
+
+
+  		
+	  </article>
+    </div>
+
+</div>
+
+<div class="article-meta">
+    2019-05-13
+     • Category: 
+        
+    
+     • Tag: 
+        
+    
+</div>
+
+
+
+	<div class="article-author">
+    <div class="avatar">
+    <img width="50" height="50" src="/images/header.jpg" alt=" Avatar"/>
+    </div>
+    <div class="name">
+        <h4><b>MonsterSlayer</b> </h4>
+        Just for fun!
+    </div>
+</div>
+
+
+	
+	    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'monsterslayer';
+	(function() {
+	    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+	    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+	
+
+
+<div class="cnzz"><script src="http://s4.cnzz.com/z_stat.php?id=1255123325&web_id=1255123325" language="JavaScript"></script> </div>
+
+
+        </div>
+      </div>
+    </div>
+
+    <div class="subscription-form" style="display: none;">
+  <h3>Subscribe to my newsletter</h3>
+  <form id="subscription-form" action="https://formspree.io/f/mgvalbyj" method="POST">
+    <input type="email" name="email" placeholder="Enter your email" required>
+    <button type="submit">Subscribe</button>
+  </form>
+  <div id="thank-you-message" style="display: none;">
+    Thank you for subscribing!
+  </div>
+</div>
+
+<style>
+  .subscription-form {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 2rem;
+    background: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    max-width: 400px;
+    width: 90%;
+  }
+  .subscription-form h3 {
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  .subscription-form input[type="email"] {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  .subscription-form button {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    background: #333;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .subscription-form button:hover {
+    background: #444;
+  }
+  #thank-you-message {
+    text-align: center;
+    margin-top: 1rem;
+    color: #28a745;
+    font-weight: bold;
+  }
+  .overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+</style>
+
+<div class="overlay" id="overlay"></div>
+
+<script>
+  function showSubscriptionForm() {
+    document.getElementById('overlay').style.display = 'block';
+    document.querySelector('.subscription-form').style.display = 'block';
+  }
+
+  function hideSubscriptionForm() {
+    document.getElementById('overlay').style.display = 'none';
+    document.querySelector('.subscription-form').style.display = 'none';
+  }
+
+  // Show form after 2 seconds
+  setTimeout(showSubscriptionForm, 2000);
+
+  // Close form when clicking overlay
+  document.getElementById('overlay').addEventListener('click', hideSubscriptionForm);
+
+  document.getElementById('subscription-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const form = this;
+    const thankYouMessage = document.getElementById('thank-you-message');
+    
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+        form.style.display = 'none';
+        thankYouMessage.style.display = 'block';
+        // Hide thank you message and form after 1 second
+        setTimeout(() => {
+          hideSubscriptionForm();
+        }, 1000);
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  });
+</script> 
+    </body>
+</html>

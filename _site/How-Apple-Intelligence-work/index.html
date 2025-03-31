@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>How Apple Intelligence works?</title>
+
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="">
+
+    
+    
+
+    <link rel="canonical" href="http://localhost:4000/How-Apple-Intelligence-work/">
+    <link rel="icon" type="image/png" href="/images/logo.png">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/monster.css">
+
+    
+
+</head>
+
+
+    <body>
+    
+    <div class="wrapper">
+
+      <header class="header">
+
+  <div class="site-title">
+    
+    <h4 class="entry-title"><a href="/How-Apple-Intelligence-work/">How Apple Intelligence works?</a></h4>
+    
+  </div>
+
+<div class="links">
+    
+    <a href="/" class="page-link">Blog</a>
+    
+    
+    
+    
+      <a class="page-link"
+        href="/about/">About</a>
+    
+    
+    
+      <a class="page-link"
+        href="/categories/">Categories</a>
+    
+    
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/links/">Links</a>
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/tags/">Tags</a>
+    
+    
+    <a href="/feed.xml" target="_blank" class="page-link">RSS</a>
+</div>
+</header>
+
+      
+      <div class="navi">
+    
+    <a href="/" class="page-link">Blog</a>
+    
+    
+    
+    
+      <a class="page-link"
+        href="/about/">About</a>
+    
+    
+    
+      <a class="page-link"
+        href="/categories/">Categories</a>
+    
+    
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/links/">Links</a>
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/tags/">Tags</a>
+    
+    
+    <a href="/feed.xml" target="_blank" class="page-link">RSS</a>
+</div>
+
+
+      <div class="content">
+        <div class="articles">
+            <div class="entry post">
+
+	<div class="entry-content">
+	  <article class="entry-body">
+	  	
+	  		<p>Bài viết ban đầu đăng ở đây: https://atekco.io/1718953622585-tich-phan-ve-ai-apple-intelligence/</p>
+
+<div align="center">
+  <img src="https://atekcostorage.blob.core.windows.net/post-image/2024/6/24/1718953622585/1719198969545_apple_intelligence_(1).jpg" width="100%" /><br />
+</div>
+
+<p>Đúng vậy, với Apple, AI = Apple Intelligence. Khác với rất nhiều công bố trước đây, AI luôn là 1 cụm từ Apple tránh nhắc tới, nhưng trong WWDC24 gần đây, AI (Apple Intelligence) lại là cụm từ nổi bật nhất. Theo như công bố, Apple Intelligence có thể tham gia các tác vụ và trải nghiệm người dùng như viết và tinh chỉnh văn bản, ưu tiên và tóm tắt thông báo, tạo hình ảnh vui nhộn cho các cuộc trò chuyện với gia đình và bạn bè, cũng như thực hiện các hành động trong ứng dụng để đơn giản hóa các tương tác giữa các ứng dụng.</p>
+
+<p>Nhiều quan ngại về privacy đã nổ ra khi Apple Intelligence được công bố, đặc biệt khi Apple tuyên bố OpenAI là đối tác cung cấp một số model. Điển hình như việc Elon Musk đã tweet rằng nếu Apple tích hợp OpenAI ở mức độ hệ điều hành, ông sẽ cấm các thiết bị Apple trong các công ty của mình.</p>
+
+<div align="center">
+  <img src="https://atekcostorage.blob.core.windows.net/post-image/2024/6/21/1718953622585/1718954267159_musk-tweet.png" width="100%" /><br />
+  <i>Nguồn: x.com</i>
+</div>
+
+<p>Rõ ràng Apple đã lường trước các phản ứng này. Vì vậy, Tim Cook đã nói rằng bất cứ khi nào có những thông tin cần đến OpenAI, người dùng sẽ nhận được thông báo xem có muốn thực hiện hay không, và dữ liệu sẽ chỉ được gửi đi khi có sự đồng thuận của người dùng. Do đó, ta có thể cho rằng, hầu hết các tác vụ của Apple Intelligence sẽ được thực hiện trên thiết bị hoặc trên hệ thống điện toán đám mây riêng của Apple. Nếu không, điều đó sẽ gây khó chịu về trải nghiệm người dùng.</p>
+
+<p>Vậy, Apple thực hiện điều này bằng cách nào?</p>
+
+<p>Trước hết, hãy xem xét những thách thức của on-device AI.</p>
+
+<h1 id="những-thách-thức-của-on-device-ai">Những thách thức của on-device AI</h1>
+
+<p>Có thể điểm ra những thách thức lớn nhất khi thực hiện on-device AI:</p>
+
+<ul>
+  <li>Specialization: Một trong những thách thức lớn nhất khi triển khai on-device AI là đảm bảo các mô hình AI có thể đảm bảo chất lượng của kết quả cho từng tác vụ cụ thể. Điều này đòi hỏi sự tinh chỉnh cẩn thận để đảm bảo rằng các mô hình có thể hiểu và thực hiện tốt các yêu cầu từ người dùng. Ví dụ, viết và tinh chỉnh văn bản đòi hỏi một loại mô hình AI khác với việc tạo hình ảnh vui nhộn cho các cuộc trò chuyện.</li>
+  <li>Size: Thách thức thứ hai là kích thước của các mô hình AI. Để các mô hình này có thể hoạt động hiệu quả trên các thiết bị như iPhone, chúng phải đủ nhỏ gọn. Ví dụ như iPhone 15 pro chỉ có 6GB RAM, do đó đây là một thách thức lớn. Hãy nhớ rằng mới chỉ đầu năm ngoái thôi, các mô hình tốt đều có ít nhất 7 tỷ parameters, chưa nói tới việc các model phổ biến là hàng trăm tỷ parameters. Ngoài ra, nhà phát triển cũng cần tìm cách để các mô hình chuyên môn hóa (Specialization) không tốn quá nhiều bộ nhớ - một điều vô cùng đắt đỏ đối với các sản phẩm nhà táo.</li>
+  <li>Performance: Cuối cùng, một thách thức không kém phần quan trọng là hiệu suất của các mô hình AI trong quá trình inference và tiêu thụ năng lượng. Các mô hình AI phải có khả năng cho ra kết quả nhanh chóng để cung cấp trải nghiệm người dùng mượt mà. Việc này đồng thời cũng khiến tiêu thụ năng lượng nhiều hơn, Apple phải tìm cách cân bằng giữa hiệu suất và tiêu thụ năng lượng để đảm bảo rằng người dùng có thể sử dụng các tính năng AI mà không lo lắng về việc sạc pin liên tục. Điều này đòi hỏi sự tối ưu hóa ở cả mức phần cứng và phần mềm, từ việc thiết kế chip xử lý cho đến việc tối ưu hóa thuật toán.</li>
+</ul>
+
+<p>Vậy, Apple làm gì để đối mặt với các thách thức này? Dưới đây là những dự đoán của mình, dựa trên những thông tin mà Apple đã thông báo.</p>
+
+<h1 id="coreml">CoreML</h1>
+
+<p>CoreML là framework của Apple, giúp tích hợp các machine learning model vào những thiết bị của mình, đồng thời loại bỏ những phức tạp liên quan đến NVIDIA/CUDA. Với sự chủ động này, Apple hoàn toàn không phụ thuộc vào bất kỳ nhà cung cấp bên ngoài nào và có thể tối ưu hóa các mô hình AI theo cách riêng của mình. Apple cũng đã tích hợp sẵn nhiều tối ưu hóa trong CoreML (ví dụ như Palettization - phương pháp sẽ nhắc tới phía sau), đảm bảo rằng các biện pháp này đã được kiểm tra kỹ lưỡng và sẵn sàng sử dụng trên các thiết bị của Apple.</p>
+
+<p>Một điểm lợi nữa khi chạy AI trên các thiết bị của Apple là khả năng tối ưu hóa để tiêu tốn ít năng lượng hơn. Các nhà phát triển ứng dụng trên Android thường phải đối mặt với sự đa dạng của chip/GPU trên các thiết bị và thiếu sự hỗ trợ của các API tối ưu, điều này làm cho việc triển khai AI trở nên phức tạp và ít hiệu quả hơn. Nhờ CoreML, Apple không chỉ cung cấp một môi trường phát triển thuận lợi mà còn đảm bảo rằng các tác vụ AI hoạt động mượt mà và hiệu quả trên các thiết bị của mình.</p>
+
+<h1 id="sử-dụng-các-foundation-model-với-kích-thước-nhỏ">Sử dụng các foundation model với kích thước nhỏ</h1>
+
+<p>Những demo của Apple Intelligence cho thấy, nhiều khả năng các model on device của Apple chưa phải thuộc dạng multimodal, mà chia ra làm hai dạng chính là language (text) và image.</p>
+
+<div align="center">
+  <img src="https://atekcostorage.blob.core.windows.net/post-image/2024/6/21/1718953622585/1718954264095_apple-intelligence-ecosystem.png" width="100%" /><br />
+  <i>Minh họa về hệ sinh thái của Apple Intelligence. Nguồn: Apple</i>
+</div>
+
+<h1 id="text">Text</h1>
+
+<p>Apple sử dụng một mô hình có 3 tỷ parameters (3b) để làm LLM giải quyết các tác vụ liên quan tới text. Đây là 1 model không lớn nhưng có kết quả rất tốt về Safety, Instruction-Following Eval (IFEval) và Writing.</p>
+
+<div align="center">
+  <img src="https://atekcostorage.blob.core.windows.net/post-image/2024/6/21/1718953622585/1718954266650_model-benchmarks.png" width="100%" /><br />
+  <i>Model của Apple so với các model cùng kích thước. Nguồn: Apple</i>
+</div>
+
+<p>Với kích thước 3b, có thể cho rằng foundation model mà Apple dùng chính là một bản đã hiệu chỉnh của OpenELM, đây là mô hình LLM open-source của Apple mới được tung ra cuối tháng 4 vừa rồi.</p>
+
+<p>Ngoài ra, LLM của Apple còn sử dụng thêm một số phương pháp để optimization bằng cách sử dụng grouped-query attention (tương tự như OpenELM) để tăng tốc độ text generation của model.</p>
+
+<p>Apple cũng sử dụng chung một bảng vocab embedding cho input và output, từ đó có thể giảm được một phần yêu cầu về bộ nhớ cần sử dụng. Ở các thiết bị, model dùng 49k token vocab size (một điểm khác so với chỉ 32k size của OpenELM-3B-Instruct). Trên private server, model sử dụng có vocab size lớn hơn là 100k.</p>
+
+<p>Apple cũng có dùng context pruning. Đây là một phương pháp giảm chi phí computation của LLM bằng việc bỏ bớt một số token không mang nhiều ý nghĩa khi thực hiện text generation.</p>
+
+<h1 id="image">Image</h1>
+
+<p>Apple không đưa ra nhiều thông tin về model mà họ sử dụng, nhưng chúng ta có thể cho rằng model mà Apple sử dụng vẫn dựa trên:</p>
+
+<ul>
+  <li>Text-encoder: text encoder là 1 thành phần rất quan trọng trong việc giúp những bức ảnh đầu ra có thể tuân theo đúng instruction và tạo ra được những bức ảnh với instruction phức tạp. Cuối năm ngoái, Apple ra mắt MobileCLIP, một họ text-encoder model thân thiện với mobile, nhỏ hơn và latency thấp hơn. Xem thêm tại đây.</li>
+</ul>
+
+<div align="center">
+  <img src="https://atekcostorage.blob.core.windows.net/post-image/2024/6/21/1718953622585/1718954265459_mobileclip.png" width="100%" /><br />
+  <i>Các loại camera view cơ bản</i>
+</div>
+
+<ul>
+  <li>Về phía Image decoder, không rõ Apple hiện sử dụng model gì. Ta chỉ có thể biết Apple sử dụng một diffusion model mà thôi. Rất có thể, đó là một version sử dụng low-bit palletization (Mixed-bit palettization), tương tự như model tại đây.</li>
+</ul>
+
+<h1 id="nén-model">Nén model</h1>
+
+<p>Hiện nay, các model chạy ở local ngoài việc có số lượng parameter không quá lớn, thì thường được dùng kèm các biện pháp nén (compression). Điều này có thể giảm kích thước của model vài lần, giúp giảm bộ nhớ sử dụng một cách rất đáng kể. Hai phương pháp chính mà Apple dùng gồm có low-bit pallettization và quantization.</p>
+
+<h2 id="low-bit-paletization">Low-bit paletization</h2>
+
+<p>Đây là một phương pháp nén model của Apple, có thể xem thêm tại Palettization Overview. Giải thích đơn giản, đây là phương pháp dựa trên weight clustering, ta tạo các cluster dựa trên weight của model, sau đó tạo một bảng lookup table (LUT) tương ứng với các centroid của cluster, và lưu các weight tương ứng với index của cluster mà weight thuộc về.</p>
+
+<div align="center">
+  <img src="https://atekcostorage.blob.core.windows.net/post-image/2024/6/21/1718953622585/1718954630770_palettization-overview.png" width="100%" /><br />
+  <i>Minh họa về Palettization. Nguồn: Apple</i>
+</div>
+
+<h2 id="quantization">Quantization</h2>
+
+<p>Quantization là phương pháp khá phổ biến hiện nay để giảm memory sử dụng khi thực hiện inference các LLM. Bản thân Apple cũng có một tool để có thể tối ưu việc lựa chọn bit rate cho các phép toán là Talaria . Apple thực hiện quantization ở activation cũng như embedding layers.</p>
+
+<p>Có thể xem thêm về thuật toán GPTQ và QAT Apple dùng tại đây.</p>
+
+<h2 id="kết-quả">Kết quả</h2>
+
+<p>Kết hợp giữa việc sử dụng các foundation model kích thước nhỏ, các biện pháp tối ưu và nén model, Apple có thể cho ra kết quả rất đáng kinh ngạc: trên iPhone 15 Pro, time-to-first-token latency chỉ khoảng 0.6ms (trên prompt token), cũng như generation rate đạt tới 30 tokens/s. Một con số rất ổn cho nhiều tác vụ trên một thiết bị vô cùng nhỏ gọn.</p>
+
+<h1 id="sử-dụng-các-adapter-lora">Sử dụng các Adapter (LoRA)</h1>
+
+<p>Để có thể thực hiện các tác vụ chuyên môn hóa tốt hơn, đặc biệt khi sử dụng các foundation với kích thước nhỏ và đã được nén nhiều lần, Apple sử dụng rất nhiều bộ Adapter cho nhiệm vụ này.</p>
+
+<div align="center">
+  <img src="https://atekcostorage.blob.core.windows.net/post-image/2024/6/21/1718953622585/1718954262951_adapters.png" width="100%" /><br />
+  <i>Nhiều Adapter ứng với nhiều tác vụ. Nguồn: Apple</i>
+</div>
+
+<p>Các Adapter, về cơ bản chính là các module neural network nhỏ, có thể ghép vào các layer của một model, sau đó được fine-tune cho các tác vụ chuyên biệt. Với việc sử dụng Adapters, foundation model vẫn được giữ nguyên, đảm bảo về memory cũng như các kiến thức chung, trong khi vẫn có thể cung cấp giải pháp chuyên môn hóa tối ưu cho từng tác vụ.</p>
+
+<p>Các Adapters cũng vì thế mà có kích thước vừa phải, chỉ khoảng vài chục MB. Kích thước nhỏ của các Adapters tạo điều kiện cho các thiết kế UX và workflow linh hoạt hơn.</p>
+
+<p>Để tìm hiểu thêm về Adapter, bạn có thể xem thêm về LoRA (Low-Rank Adaptation) và các biến thể khác.</p>
+
+<h1 id="agentic-workflow">Agentic workflow</h1>
+
+<p>Trong keynote của mình, Apple đã sử dụng rất nhiều ví dụ để cho thấy sự linh hoạt của Apple Intelligence với các input, ví dụ như:</p>
+
+<ul>
+  <li>Show me all the photo of Mom, Olivia and me</li>
+  <li>Pull up the files that Joz shared with me last week</li>
+  <li>Play the podcast that my wife sent the other day</li>
+</ul>
+
+<p>Với việc sử dụng nhiều foundation model và các adapter để điều chỉnh, Apple Intelligence không chỉ hoạt động như một model đơn lẻ, một công cụ hỗ trợ cho một tác vụ cụ thể mà cần phải linh hoạt trong các tác vụ, có thể tự động lựa chọn, điều phối các model liên quan dựa trên các yêu cầu của người dùng.</p>
+
+<p>Để làm được điều này, nhiều khả năng Apple đã sử dụng một hệ thống agentic để điều phối dựa trên context và yêu cầu của người dùng. Để hiểu thêm về agentic, bạn có thể xem thêm bài viết Agentic Workflow: Hiệu quả hơn nhờ ‘mô phỏng’ chuyên gia.</p>
+
+<p>Ví dụ như Apple sử dụng nhiều adapter (LoRA) cho các style image generation khác nhau, thì khi đó, việc chọn Adapter nào là phù hợp để dùng là một tác vụ cần agentic. Bạn có thể xem thêm một agentic workflow tương tự là Stylus.</p>
+
+<div align="center">
+  <img src="https://atekcostorage.blob.core.windows.net/post-image/2024/6/21/1718953622585/1718954268382_stylus-gif-final.gif" width="100%" /><br />
+</div>
+
+<h1 id="một-điều-nữa">Một điều nữa</h1>
+
+<div align="center">
+  <img src="https://atekcostorage.blob.core.windows.net/post-image/2024/6/21/1718953622585/1718954267668_siri-semantic-search.png" width="100%" /><br />
+</div>
+
+<p>Tuy không được nhắc tới, nhưng với tính năng Semantic search của Siri, có lẽ Apple đã sử dụng RAG để thực hiện tính năng này. Để có thể tìm kiếm dựa trên ý nghĩa thay vì keyword, nhiều khả năng Apple thực hiện:</p>
+
+<ul>
+  <li>Một vector database xây dựng sẵn trong thiết bị, và index là multimodal (text, images, record)</li>
+  <li>Nhiều khả năng Apple cũng có kèm theo một re-ranking model để cho ra kết quả tốt hơn, điều thường gặp ở Advanced RAG</li>
+</ul>
+
+<h1 id="vài-suy-nghĩ-cuối">Vài suy nghĩ cuối</h1>
+
+<p>Một trong những vấn đề lớn của GenAI là việc nó cần nguồn tài nguyên khổng lồ để có thể hoạt động. Tuy nhiên, Apple đã chứng minh rằng việc đưa các mô hình GenAI lên thiết bị di động không chỉ khả thi mà còn có thể đạt được hiệu suất và chất lượng cao.</p>
+
+<p>Từ những điều mà Apple đã làm, chúng ta có thể học hỏi được rất nhiều kỹ thuật trong việc ứng dụng các mô hình GenAI trong các ứng dụng, và phần lớn những phương pháp này có thể ứng dụng rộng khắp, không chỉ riêng trên các thiết bị của Apple mà ở bất cứ đâu.</p>
+
+<h1 id="tham-khảo">Tham khảo</h1>
+
+<p>WWDC24: Platforms State of the Union</p>
+
+<p>From WWDC 2024, Apple Intelligence to the race of Open-Source model: Uncovering the Story Behind Apple’s Lightweight On-Device GenAI Language Model</p>
+
+<p>Introducing Apple’s On-Device and Server Foundation Models - Apple Machine Learning Research</p>
+
+<p>Talking Tech and AI with Tim Cook!</p>
+
+<p>Understanding Apple’s On-Device and Server Foundation Models release</p>
+
+<p>Use Core ML Tools for machine learning model compression</p>
+
+
+  		
+	  </article>
+    </div>
+
+</div>
+
+<div class="article-meta">
+    2024-06-24
+     • Category: 
+        
+    
+     • Tag: 
+        
+    
+</div>
+
+
+
+	<div class="article-author">
+    <div class="avatar">
+    <img width="50" height="50" src="/images/header.jpg" alt=" Avatar"/>
+    </div>
+    <div class="name">
+        <h4><b>MonsterSlayer</b> </h4>
+        Just for fun!
+    </div>
+</div>
+
+
+	
+	    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'monsterslayer';
+	(function() {
+	    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+	    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+	
+
+
+<div class="cnzz"><script src="http://s4.cnzz.com/z_stat.php?id=1255123325&web_id=1255123325" language="JavaScript"></script> </div>
+
+
+        </div>
+      </div>
+    </div>
+
+    <div class="subscription-form" style="display: none;">
+  <h3>Subscribe to my newsletter</h3>
+  <form id="subscription-form" action="https://formspree.io/f/mgvalbyj" method="POST">
+    <input type="email" name="email" placeholder="Enter your email" required>
+    <button type="submit">Subscribe</button>
+  </form>
+  <div id="thank-you-message" style="display: none;">
+    Thank you for subscribing!
+  </div>
+</div>
+
+<style>
+  .subscription-form {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 2rem;
+    background: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    max-width: 400px;
+    width: 90%;
+  }
+  .subscription-form h3 {
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  .subscription-form input[type="email"] {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  .subscription-form button {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    background: #333;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .subscription-form button:hover {
+    background: #444;
+  }
+  #thank-you-message {
+    text-align: center;
+    margin-top: 1rem;
+    color: #28a745;
+    font-weight: bold;
+  }
+  .overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+</style>
+
+<div class="overlay" id="overlay"></div>
+
+<script>
+  function showSubscriptionForm() {
+    document.getElementById('overlay').style.display = 'block';
+    document.querySelector('.subscription-form').style.display = 'block';
+  }
+
+  function hideSubscriptionForm() {
+    document.getElementById('overlay').style.display = 'none';
+    document.querySelector('.subscription-form').style.display = 'none';
+  }
+
+  // Show form after 2 seconds
+  setTimeout(showSubscriptionForm, 2000);
+
+  // Close form when clicking overlay
+  document.getElementById('overlay').addEventListener('click', hideSubscriptionForm);
+
+  document.getElementById('subscription-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const form = this;
+    const thankYouMessage = document.getElementById('thank-you-message');
+    
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+        form.style.display = 'none';
+        thankYouMessage.style.display = 'block';
+        // Hide thank you message and form after 1 second
+        setTimeout(() => {
+          hideSubscriptionForm();
+        }, 1000);
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  });
+</script> 
+    </body>
+</html>

@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Truly multimodal</title>
+
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="">
+
+    
+    
+
+    <link rel="canonical" href="http://localhost:4000/Truly-multimodal/">
+    <link rel="icon" type="image/png" href="/images/logo.png">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/monster.css">
+
+    
+
+</head>
+
+
+    <body>
+    
+    <div class="wrapper">
+
+      <header class="header">
+
+  <div class="site-title">
+    
+    <h4 class="entry-title"><a href="/Truly-multimodal/">Truly multimodal</a></h4>
+    
+  </div>
+
+<div class="links">
+    
+    <a href="/" class="page-link">Blog</a>
+    
+    
+    
+    
+      <a class="page-link"
+        href="/about/">About</a>
+    
+    
+    
+      <a class="page-link"
+        href="/categories/">Categories</a>
+    
+    
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/links/">Links</a>
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/tags/">Tags</a>
+    
+    
+    <a href="/feed.xml" target="_blank" class="page-link">RSS</a>
+</div>
+</header>
+
+      
+      <div class="navi">
+    
+    <a href="/" class="page-link">Blog</a>
+    
+    
+    
+    
+      <a class="page-link"
+        href="/about/">About</a>
+    
+    
+    
+      <a class="page-link"
+        href="/categories/">Categories</a>
+    
+    
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/links/">Links</a>
+    
+    
+    
+    
+    
+      <a class="page-link"
+        href="/tags/">Tags</a>
+    
+    
+    <a href="/feed.xml" target="_blank" class="page-link">RSS</a>
+</div>
+
+
+      <div class="content">
+        <div class="articles">
+            <div class="entry post">
+
+	<div class="entry-content">
+	  <article class="entry-body">
+	  	
+	  		<h1 id="i-giới-thiệu">I. Giới thiệu</h1>
+
+<p>Năm ngoái, GPT-4o ra mắt, với “o” là “omni”, ám chỉ việc đây là một model multimodal đích thực, không chỉ còn là việc đơn giản plug với các model khác. Những ngày vừa qua, Gemini và Grok cũng theo đó cho ra những model có khả năng output trực tiếp ra hình ảnh.</p>
+
+<p>Ngay hôm nay, GPT-4o cuối cùng đã ra mắt image generation, với khả năng tạo ra những bức ảnh rất choáng ngợp. Dễ dàng tạo những bức ảnh vô cùng phức tạp với những prompt đơn giản, dễ dàng fix lỗi bằng mô tả. Quá nhiều thứ thay đổi trong image generation.</p>
+
+<div align="center">
+  <img src="../assets/img/truly-multimodal/comic.png" width="100%" /><br />
+  <i>Fix lỗi ở comic. First shot.</i>
+</div>
+
+<p>OpenAI, mặc dù thường không tiết lộ chi tiết kỹ thuật cụ thể, lần này đã đưa ra một thông tin về model trong tài liệu công bố GPT-4o (“GPT-4o System Card – March 25, 2025”):</p>
+
+<blockquote>
+  <p>“Unlike DALL-E, which operates as a diffusion model, 4o image generation is an autoregressive model natively embedded within ChatGPT.”</p>
+</blockquote>
+
+<p>Vậy, chúng ta cùng tìm hiểu cách mà GPT-4o và các model khác thực hiện điều này.</p>
+
+<h1 id="ii-one-big-autoregressive-transformer">II. One Big Autoregressive Transformer</h1>
+
+<p>Về cơ bản, mô hình autoregressive transformer hoạt động theo nguyên lý dự đoán token tiếp theo dựa trên các token đã có trước đó:</p>
+
+<ul>
+  <li><strong>Token hoá dữ liệu</strong>: Ví dụ, text có token riêng, hình ảnh có token riêng, audio có token riêng.</li>
+  <li><strong>Transformer xử lý tuần tự các token</strong>: Không phân biệt loại dữ liệu; từ đó học được ngữ cảnh rộng lớn từ sự tương quan giữa các dạng thông tin này.</li>
+</ul>
+
+<p>Quy trình đơn giản là:</p>
+
+<ul>
+  <li>Token đầu vào → Transformer autoregressive → Token đầu ra (text/hình ảnh/audio)</li>
+  <li>Token đầu ra → Được decode trở lại dạng mong muốn (âm thanh hoặc pixel ảnh)</li>
+</ul>
+
+<h1 id="iii-một-số-đặc-điểm-chính-của-gpt-4o-mới">III. Một số đặc điểm chính của GPT-4o mới</h1>
+
+<p>OpenAI thậm chí còn tung 1 hình ảnh về đặc điểm cơ bản của việc tích hợp output hình ảnh vào LLM</p>
+
+<div align="center">
+  <img src="../assets/img/truly-multimodal/properties.png" width="100%" /><br />
+  <i>Các đặc điểm của GPT-4o</i>
+</div>
+
+<h2 id="1-ưu-điểm">1. Ưu điểm:</h2>
+
+<ul>
+  <li><strong>Tạo ảnh với hiểu biết có sẵn từ LLM (world knowledge)</strong>: Transformer đã học được lượng kiến thức khổng lồ trong quá trình huấn luyện, nay được khai thác để tạo ra hình ảnh giàu ngữ cảnh hơn.</li>
+  <li><strong>Khả năng hiển thị, kết hợp text trong ảnh</strong>: Dễ dàng và chính xác hơn trong việc nhúng thông tin (text) vào hình ảnh, điều rất khó đạt chất lượng cao bằng diffusion model trước đây (như DALL-E).</li>
+  <li><strong>Khả năng hiểu trực tiếp từ context</strong>: Model có khả năng hiểu và tuân thủ instruction, thậm chí các semantic instruction từ input là ảnh khác.</li>
+  <li><strong>Chỉ còn 1 stack</strong>: Thay vì phải plug với nhiều stack (GPT + agent + DALL-E…), nay chỉ thuần túy là GPT-4o input và output.</li>
+</ul>
+
+<h2 id="2-thách-thức">2. Thách thức:</h2>
+
+<ul>
+  <li><strong>Bit-rate khác nhau lớn giữa các loại hình data</strong>:
+    <ul>
+      <li>Text: Token đặc trưng bởi vocab lớn (~50.000 tokens → 16 bit/token).</li>
+      <li>Images: Token hình ảnh thường có vocab nhỏ hơn (~8192 tokens → 13 bit/token), mỗi token encode lượng lớn thông tin thị giác, độ chi tiết bị mất đáng kể so với pixel nguyên thuỷ.</li>
+    </ul>
+  </li>
+  <li><strong>Tốn kém tính toán, chưa tối ưu (compute not adaptive)</strong>: Transformer model autoregressive ban đầu không tối ưu tốt cho data dạng “nặng” (hình ảnh, audio) dẫn tới quá tải tính toán, giảm hiệu quả và tăng độ trễ khi output hình ảnh lớn hoặc độ phân giải cao. Với GPT-4o, ảnh có độ chi tiết và sắc nét rất cao, dẫn tới một lần gen ảnh có thể mất khoảng 30 giây, ảnh hưởng lớn tới UX.</li>
+</ul>
+
+<h2 id="3-phương-án-openai-áp-dụng-để-giải-quyết-thách-thức">3. Phương án OpenAI áp dụng để giải quyết thách thức:</h2>
+
+<ul>
+  <li><strong>Sử dụng các phương pháp nén (compressed representations)</strong>: Thay vì directly output pixel, transformer output các token nén cô đọng, hiệu quả tính toán và thông tin cao hơn.</li>
+  <li><strong>Phối hợp giữa transformer autoregressive và powerful decoder</strong>: Mô hình giải mã mạnh hơn, diffusion decoder.</li>
+</ul>
+
+<h1 id="iv-tổng-kết">IV. Tổng kết</h1>
+
+<p>GPT-4o thực sự đánh dấu bước ngoặt mới cho sự phát triển các AI model thế hệ tiếp theo. Truly multimodal mở ra nhiều khả năng mới cho UX, có thể dẫn đến các ứng dụng sáng tạo hơn, như các trợ lý cá nhân AI đa phương tiện.</p>
+
+<p>Tính toán lớn, tốn kém vẫn là vấn đề trong tương lai. Các công ty cần tối ưu hoá sâu hơn. Tuy vậy, với computational power tiếp tục tăng nhanh, một trợ lý ảo như Samantha không còn xa vời.</p>
+
+  		
+	  </article>
+    </div>
+
+</div>
+
+<div class="article-meta">
+    2025-03-26
+     • Category: 
+        
+    
+     • Tag: 
+        
+    
+</div>
+
+
+
+	<div class="article-author">
+    <div class="avatar">
+    <img width="50" height="50" src="/images/header.jpg" alt=" Avatar"/>
+    </div>
+    <div class="name">
+        <h4><b>MonsterSlayer</b> </h4>
+        Just for fun!
+    </div>
+</div>
+
+
+	
+	    <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'monsterslayer';
+	(function() {
+	    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+	    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+	
+
+
+<div class="cnzz"><script src="http://s4.cnzz.com/z_stat.php?id=1255123325&web_id=1255123325" language="JavaScript"></script> </div>
+
+
+        </div>
+      </div>
+    </div>
+
+    <div class="subscription-form" style="display: none;">
+  <h3>Subscribe to my newsletter</h3>
+  <form id="subscription-form" action="https://formspree.io/f/mgvalbyj" method="POST">
+    <input type="email" name="email" placeholder="Enter your email" required>
+    <button type="submit">Subscribe</button>
+  </form>
+  <div id="thank-you-message" style="display: none;">
+    Thank you for subscribing!
+  </div>
+</div>
+
+<style>
+  .subscription-form {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 2rem;
+    background: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    max-width: 400px;
+    width: 90%;
+  }
+  .subscription-form h3 {
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  .subscription-form input[type="email"] {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  .subscription-form button {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    background: #333;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .subscription-form button:hover {
+    background: #444;
+  }
+  #thank-you-message {
+    text-align: center;
+    margin-top: 1rem;
+    color: #28a745;
+    font-weight: bold;
+  }
+  .overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+</style>
+
+<div class="overlay" id="overlay"></div>
+
+<script>
+  function showSubscriptionForm() {
+    document.getElementById('overlay').style.display = 'block';
+    document.querySelector('.subscription-form').style.display = 'block';
+  }
+
+  function hideSubscriptionForm() {
+    document.getElementById('overlay').style.display = 'none';
+    document.querySelector('.subscription-form').style.display = 'none';
+  }
+
+  // Show form after 2 seconds
+  setTimeout(showSubscriptionForm, 2000);
+
+  // Close form when clicking overlay
+  document.getElementById('overlay').addEventListener('click', hideSubscriptionForm);
+
+  document.getElementById('subscription-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const form = this;
+    const thankYouMessage = document.getElementById('thank-you-message');
+    
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+        form.style.display = 'none';
+        thankYouMessage.style.display = 'block';
+        // Hide thank you message and form after 1 second
+        setTimeout(() => {
+          hideSubscriptionForm();
+        }, 1000);
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  });
+</script> 
+    </body>
+</html>
