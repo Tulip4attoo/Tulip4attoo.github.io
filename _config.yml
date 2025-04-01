@@ -1,14 +1,14 @@
 # Site settings
-title: 生命不止，折腾不息
-author: MonsterSlayer
-author_avatar: /images/header.jpg
-email: alias@domain.tld
-description: 生命不止，折腾不息 
-url: "https://dongyadoit.com"
-domain: "http://dongyadoit.com"
-github_username: dongyado
-github_site_repo: dongyado/dongyado.github.io
-disqus: monsterslayer
+title: Tulip's blog
+author: Tulip4attoo
+author_avatar: /assets/img/tulip4attoo.jpg
+email: huylinh.nguyen@outlook.com
+description: Gamer, Reader, Dreamer, Programmer 
+url: "https://tulip4attoo.github.io/"
+domain: "https://tulip4attoo.github.io/"
+github_username: tulip4attoo
+github_site_repo: tulip4attoo/tulip4attoo.github.io
+disqus: tulip4attoo-github-io
 
 # MathJax configuration
 mathjax: true

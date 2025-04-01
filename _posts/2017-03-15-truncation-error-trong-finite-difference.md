@@ -25,7 +25,7 @@ Truncation Error (có thể gọi là lỗi sai số, lỗi làm tròn, tuy nhi�
 
 Trong trường hợp chúng ta có hàm số: $y = f(x)$, khi đó đạo hàm của hàm số, ký hiệu là $f'(x)$ được tính bằng:
 
-$$f'(x_{0}) = \lim_{\Delta x\to0} \frac{f(x_{0} + \Delta x) - f(x_{0})}{\Delta x}$$
+\\[f'(x_{0}) = \lim_{\Delta x\to0} \frac{f(x_{0} + \Delta x) - f(x_{0})}{\Delta x}\\]
 
 Tuy nhiên, trong thực tế, chúng ta không thể lấy được giá trị $\Delta x$ nào để có thể thoả mãn được biểu thức bên trên cả. Chúng ta chỉ có thể sử dụng các hằng số nhỏ khác để thay thế. Tuy nhiên, khi tính toán trên các đơn vị quá bé, máy tính sẽ không đưa ra được kết quả thật sự chính xác, vì vậy đây cũng là 1 vấn đề đáng cân nhắc. Chúng ta sẽ chọn $\Delta x$ đủ bé để giá trị xấp xỉ gần với giá trị đạo hàm thực tế, đồng thời phải chọn $\Delta x$ không quá bé để tránh lỗi tính toán nói trên. Một giải pháp cho vấn đề này là lựa chọn hàm xấp xỉ có Truncation Error thấp hơn, khi đó chúng ta không cần $\Delta x$ phải quá bé nữa.
 
@@ -33,15 +33,15 @@ Tuy nhiên, trong thực tế, chúng ta không thể lấy được giá trị 
 
 * Forward: 
 
-$$f'(x_{0}) = \lim_{\Delta x\to0} \frac{f(x_{0} + \Delta x) - f(x_{0})}{\Delta x}$$
+\\[f'(x_{0}) = \lim_{\Delta x\to0} \frac{f(x_{0} + \Delta x) - f(x_{0})}{\Delta x}\\]
 
 * Backward: 
 
-$$f'(x_{0}) = \lim_{\Delta x\to0} \frac{f(x_{0}) - f(x_{0} - \Delta x)}{\Delta x}$$
+\\[f'(x_{0}) = \lim_{\Delta x\to0} \frac{f(x_{0}) - f(x_{0} - \Delta x)}{\Delta x}\\]
 
 * Central: 
 
-$$f'(x_{0}) = \lim_{\Delta x\to0} \frac{f(x_{0} + \frac{1}{2}\Delta x) - f(x_{0} - \frac{1}{2}\Delta x)}{\Delta x}$$
+\\[f'(x_{0}) = \lim_{\Delta x\to0} \frac{f(x_{0} + \frac{1}{2}\Delta x) - f(x_{0} - \frac{1}{2}\Delta x)}{\Delta x}\\]
 
 
 Trong phần tiếp theo, chúng ta sẽ tính lần lượt Truncation error của 3 công thức, từ đó chọn ra công thức có Truncation error nhỏ nhất.

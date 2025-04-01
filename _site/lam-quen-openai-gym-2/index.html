@@ -24,17 +24,24 @@
       window.MathJax = {
         tex: {
           inlineMath: [['$', '$']],
-          displayMath: [['$$', '$$']],
+          displayMath: [['\\[', '\\]']],
           processEscapes: true,
-          processEnvironments: true
+          processEnvironments: true,
+          tags: 'ams'
         },
         options: {
-          skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+          skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+          processHtmlClass: 'tex2jax_process'
+        },
+        startup: {
+          ready: function() {
+            MathJax.startup.defaultReady();
+          }
         }
       };
     </script>
     <script type="text/javascript" id="MathJax-script" async
-      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
     </script>
     
 
@@ -339,10 +346,10 @@ decay_rate = 0.01             # Exponential decay rate for exploration prob
 
 	<div class="article-author">
     <div class="avatar">
-    <img width="50" height="50" src="/images/header.jpg" alt=" Avatar"/>
+    <img width="50" height="50" src="/assets/img/tulip4attoo.jpg" alt=" Avatar"/>
     </div>
     <div class="name">
-        <h4><b>MonsterSlayer</b> </h4>
+        <h4><b>Tulip4attoo</b> </h4>
         Just for fun!
     </div>
 </div>
@@ -351,7 +358,7 @@ decay_rate = 0.01             # Exponential decay rate for exploration prob
 	
 	    <div id="disqus_thread"></div>
 <script type="text/javascript">
-    var disqus_shortname = 'monsterslayer';
+    var disqus_shortname = 'tulip4attoo-github-io';
 	(function() {
 	    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
 	    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
@@ -488,5 +495,16 @@ decay_rate = 0.01             # Exponential decay rate for exploration prob
     });
   });
 </script> 
+    <footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-content">
+      <p>© 2025 Tulip4attoo. All rights reserved.</p>
+      
+      <p><a href="https://github.com/tulip4attoo">GitHub</a></p>
+      
+    </div>
+  </div>
+</footer>
+
     </body>
 </html>
