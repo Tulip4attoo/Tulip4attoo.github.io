@@ -6,6 +6,10 @@ body {
     //font: 14px/18px "Helvetica Neue", Arial, sans-serif;
     padding-bottom: 40px;
     font-family: Exo,'-apple-system','Open Sans',HelveticaNeue-Light,'Helvetica Neue Light','Helvetica Neue','Hiragino Sans GB','Microsoft YaHei',Helvetica,Arial,sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
 }
 
 /** common style **/
@@ -49,6 +53,7 @@ em {
     max-width: 800px;
     margin: 0 auto;
     padding: 0 30px;
+    flex: 1;
 }
 
 .header {
@@ -380,6 +385,13 @@ em {
     } 
 }
 
+footer {
+    margin-top: auto;
+    padding: 20px 0;
+    text-align: center;
+    background-color: #f8f8f8;
+    width: 100%;
+}
 
 @import "base";
 @import "syntax-highlighting";
