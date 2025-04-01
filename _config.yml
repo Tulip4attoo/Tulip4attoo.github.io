@@ -8,7 +8,6 @@ url: "https://tulip4attoo.github.io/"
 domain: "https://tulip4attoo.github.io/"
 github_username: tulip4attoo
 github_site_repo: tulip4attoo/tulip4attoo.github.io
-disqus: tulip4attoo-github-io
 
 # MathJax configuration
 mathjax: true
