@@ -5,9 +5,46 @@
     <description>Gamer, Reader, Dreamer, Programmer</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 01 Apr 2025 14:19:07 +0700</pubDate>
-    <lastBuildDate>Tue, 01 Apr 2025 14:19:07 +0700</lastBuildDate>
+    <pubDate>Tue, 01 Apr 2025 14:29:34 +0700</pubDate>
+    <lastBuildDate>Tue, 01 Apr 2025 14:29:34 +0700</lastBuildDate>
     <generator>Jekyll v4.3.4</generator>
+    
+      <item>
+        <title>Get rid of disqus</title>
+        <description>&lt;p&gt;Recently, I decided it was time for a major cleanup of my blog (proudly hosted on GitHub Pages!). Part of this cleanup involved rethinking my choice of commenting system—specifically, saying goodbye to Disqus.&lt;/p&gt;
+
+&lt;p&gt;I never liked Disqus that much anyway:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;It’s bulky and slows down my page load times.&lt;/li&gt;
+  &lt;li&gt;Visitors are required to log in before commenting, which feels cumbersome.&lt;/li&gt;
+  &lt;li&gt;Notifications about comments didn’t always arrive, making it hard for me to keep track of conversations.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;With these points in mind, I searched for alternatives—something lightweight, fast, privacy-friendly, and free (or at least generous with a free tier). Luckily, there are plenty of good options around:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Static solutions&lt;/strong&gt; like &lt;strong&gt;Utterances&lt;/strong&gt; and &lt;strong&gt;Giscus&lt;/strong&gt; use GitHub Issues or Discussions. They’re developer-friendly and require minimal to no management. But commenters must use GitHub accounts, which might be restrictive.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Fully static approaches&lt;/strong&gt; like &lt;strong&gt;Staticman&lt;/strong&gt;, which turn comments into pull requests on GitHub. No third-party services are required, providing privacy and independence, but the setup is more complicated as you’d need separate backend hosting.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Third-party hosted options&lt;/strong&gt; such as &lt;strong&gt;Cusdis&lt;/strong&gt; and &lt;strong&gt;Commento&lt;/strong&gt;: both lightweight, privacy-focused, open-source commenting services. They don’t force commenters to create an account, have a smooth modern UI, and are easy to integrate without additional infrastructure.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;After comparing these options, Both &lt;strong&gt;Cusdis&lt;/strong&gt; and &lt;strong&gt;Commento&lt;/strong&gt; look great. RNG god tells me to choose &lt;strong&gt;Cusdis&lt;/strong&gt;. Very fast intergration (5 min I guess).&lt;/p&gt;
+
+&lt;p&gt;So here we are—no more forcing visitors to log into Disqus, no more missed notifications. Enjoy the new Cusdis commenting system below. Feel free to test it out right here!&lt;/p&gt;
+</description>
+        <pubDate>Tue, 01 Apr 2025 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/get-rid-of-disqus/</link>
+        <guid isPermaLink="true">http://localhost:4000/get-rid-of-disqus/</guid>
+        
+        
+      </item>
     
       <item>
         <title>Alexander’s Unusual Resilience</title>
@@ -810,93 +847,6 @@
         <pubDate>Fri, 05 Jan 2024 00:00:00 +0700</pubDate>
         <link>http://localhost:4000/My-tech-recap-2023/</link>
         <guid isPermaLink="true">http://localhost:4000/My-tech-recap-2023/</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>Collision Filtering trong UE</title>
-        <description>&lt;p&gt;Bài này nói về chuyện collide (va chạm) trong UE, những cái responses khác nhau với collision, cách dùng channels để filter collisions, cũng như liệt ra các điểm khác nhau giữ simple và complex collision geometry.&lt;/p&gt;
-
-&lt;h1 id=&quot;blocking-overlapping-và-ignoring&quot;&gt;Blocking, Overlapping và Ignoring&lt;/h1&gt;
-
-&lt;p&gt;Tương tự bên Unity, có 3 kiểu: blocking, overlapping và ignoring. Một wall có thể “block” player, nhưng trigger có thể “overlap” nó, và trigger có thể xuyên qua. 2 trường hợp đều tạo ra 1 event, nhưng mà khác biệt nhau: “hit” và “overlap”.&lt;/p&gt;
-
-&lt;p&gt;“Ignore” là bỏ qua luôn. Không có event không có gì hết.&lt;/p&gt;
-
-&lt;p&gt;Tức là có tổng cộng 3 kiểu responses types.&lt;/p&gt;
-
-&lt;h1 id=&quot;trace-channels-and-object-channels&quot;&gt;&lt;strong&gt;Trace Channels and Object Channels&lt;/strong&gt;&lt;/h1&gt;
-
-&lt;p&gt;Hãy tưởng tượng ta có 1 thiết kế như này: Player thì sẽ bị wall block, còn đi xuyên cây. Vì ta set cả Shrub và Wall là WorldStatic, nên làm cách nào để Player có thể chỉ đi xuyên qua Shrub?&lt;/p&gt;
-
-&lt;div align=&quot;center&quot;&gt;
-  &lt;img src=&quot;../assets/img/collision-filtering-ue/tinh-huong.png&quot; width=&quot;100%&quot; /&gt;&lt;br /&gt;
-  &lt;i&gt;Các loại camera view cơ bản&lt;/i&gt;
-&lt;/div&gt;
-
-&lt;p&gt;UE đã giải quyết nó bằng cách tạo ra 2 lớp đối chiếu: khi vật A collide với vật B, thì ta sẽ đồng thời tính toán:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Vật A sẽ response với vật B như nào (Blocking, Overlapping và Ignoring)&lt;/li&gt;
-  &lt;li&gt;Vật B sẽ response với vật A như nào (Blocking, Overlapping và Ignoring)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Sau khi có 2 thông tin này, ta sẽ tổng hợp lại theo bảng sau:&lt;/p&gt;
-
-&lt;div align=&quot;center&quot;&gt;
-  &lt;img src=&quot;../assets/img/collision-filtering-ue/table.png&quot; width=&quot;100%&quot; /&gt;&lt;br /&gt;
-  &lt;i&gt;Bảng đối chiếu response&lt;/i&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Dễ thấy Player và Shrub là Block + Overlap = Overlap, còn Player với Wall là Block + Block = Block.&lt;/p&gt;
-
-&lt;p&gt;Do đó, kết quả là như này:&lt;/p&gt;
-
-&lt;div align=&quot;center&quot;&gt;
-  &lt;img src=&quot;../assets/img/collision-filtering-ue/shrub.png&quot; width=&quot;100%&quot; /&gt;&lt;br /&gt;
-  &lt;i&gt;Kết quả các event&lt;/i&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Nếu trong game, ta có 2 player và muốn 1 player trở nên “ghostly”, ta chỉ việc đổi cái response to Pawn channel từ Block sang Ignore mà thôi.&lt;/p&gt;
-
-&lt;h1 id=&quot;collision-presets&quot;&gt;&lt;strong&gt;Collision Presets&lt;/strong&gt;&lt;/h1&gt;
-
-&lt;p&gt;Tuy nhiên setup tay cũng mệt, UE có sẵn 1 số cái preset cho nhiều built (invi wall, physic actors,…)&lt;/p&gt;
-
-&lt;div align=&quot;center&quot;&gt;
-  &lt;img src=&quot;../assets/img/collision-filtering-ue/preset.png&quot; width=&quot;100%&quot; /&gt;&lt;br /&gt;
-  &lt;i&gt;Collision preset&lt;/i&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Nếu không muốn thì ta có thể custom&lt;/p&gt;
-
-&lt;div align=&quot;center&quot;&gt;
-  &lt;img src=&quot;../assets/img/collision-filtering-ue/custom.png&quot; width=&quot;100%&quot; /&gt;&lt;br /&gt;
-  &lt;i&gt;Collision custom set&lt;/i&gt;
-&lt;/div&gt;
-
-&lt;h1 id=&quot;simple-and-complex-collision&quot;&gt;&lt;strong&gt;Simple and Complex Collision&lt;/strong&gt;&lt;/h1&gt;
-
-&lt;p&gt;Ở UE, mỗi object có thể có “complex” và “simple” collision representation. Complex Collision thì refers về việc sử dụng cái rendering geometry cho collision. Cái này thì vd như weapon traces, ta muốn bắn thì trúng tường hay các vị trí mà ta nhìn thấy (cũng ko quá nhiều cases). Simple thì đơn giản hơn và nhẹ hơn.&lt;/p&gt;
-
-&lt;div align=&quot;center&quot;&gt;
-  &lt;img src=&quot;../assets/img/collision-filtering-ue/just_collision.png&quot; width=&quot;100%&quot; /&gt;&lt;br /&gt;
-  &lt;i&gt;&lt;/i&gt;
-&lt;/div&gt;
-
-&lt;div align=&quot;center&quot;&gt;
-  &lt;img src=&quot;../assets/img/collision-filtering-ue/collision_view.png&quot; width=&quot;100%&quot; /&gt;&lt;br /&gt;
-  &lt;i&gt;Collision view&lt;/i&gt;
-&lt;/div&gt;
-
-&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
-
-&lt;p&gt;Vậy là hết rùi đó. Cũng đơn giản dễ hiểu, và khá khá giống Unity nhỉ hehe.&lt;/p&gt;
-</description>
-        <pubDate>Sat, 21 May 2022 00:00:00 +0700</pubDate>
-        <link>http://localhost:4000/Collision-Filtering-trong-UE/</link>
-        <guid isPermaLink="true">http://localhost:4000/Collision-Filtering-trong-UE/</guid>
         
         
       </item>
