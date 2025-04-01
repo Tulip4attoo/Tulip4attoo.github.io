@@ -6,50 +6,35 @@ comments: false
 author_footer: false
 ---
 
-## 个人信息
+I love to hear your voice. Any comments, or asking about projects, invite me to some exciting one? Please email me.
 
-dongyado, 90, HangZhou
+### Where to find me
+You can 📫 reach me at huylinh.nguyen@outlook.com 
 
-* 生命不止，折腾不息 
+<p style="display: flex; gap: 10px; align-items: center;">
+    <a href="https://github.com/tulip4attoo" target="_blank">
+        <img alt="Github" src="https://img.shields.io/badge/GitHub-%2312100E.svg?&style=for-the-badge&logo=Github&logoColor=white" />
+    </a> 
+    <a href="https://tulip4attoo.github.io/" target="_blank">
+        <img alt="Github Pages" src="https://img.shields.io/static/v1?style=for-the-badge&message=GitHub+Pages&color=222222&logo=GitHub+Pages&logoColor=FFFFFF&label=" />
+    </a>
+    <a href="https://www.goodreads.com/user/show/43976309-tulip" target="_blank">
+        <img alt="Goodreads" src="https://img.shields.io/badge/Goodreads-372213?style=for-the-badge&logo=goodreads&logoColor=white" />
+    </a>
+</p>
 
-* Just for fun -- by linus
+------------------
 
-## 参与项目
+You can check out some of my works here:
 
-#### 1. ip2region
+1. [🎯 Soul-like Game in UE5](https://github.com/Tulip4attoo/Soul-like-Game-UE5)  
+   ![Gameplay](https://raw.githubusercontent.com/Tulip4attoo/Soul-like-Game-UE5/master/Readme_Media/Gameplay_Screenshot.png)
 
-准确率 99.9% 的 ip 到地名的映射库，0.0x 毫秒级查询,数据库文件大小只有 1.5M, 
-提供了 java, php, c, python, php 扩展等查询客户端
+2. [🤖 End-to-end Bot for Chrome Dinosaur Game](https://github.com/Tulip4attoo/chrome_trex) — Created a bot that plays Chrome’s Dinosaur game, using screenshots as model input.  
+   ![Chrome Dinosaur Bot](https://github.com/Tulip4attoo/tulip4attoo/assets/11815368/92538af2-6bf9-48c6-8d33-efeec4026eef)
 
-* [ip2region@github][]
-* [ip2region@osc][] 
+3. [🧩 Python Tetris in Terminal](https://github.com/Tulip4attoo/tetris_python)  
+   ![Terminal Tetris](https://media.giphy.com/media/hrFrcC8xh3jg5k80Oz/giphy.gif)
 
-#### 2. Jcseg
+4. [✍️ My Blog](https://tulip4attoo.github.io/) — where I write about technical things and some thoughts.
 
-Jcseg 是基于 mmseg 算法的一个轻量级中文分词器
-
-* [Jcseg@osc][] 
-* [Jcseg@github][] 
-
-#### 3. friso
-
-friso 是基于 mmseg 算法的一个轻量级中文分词器(基于 C, 已支持 php5, php7 扩展)
-
-* [friso@github][] 
-
-## 关于本站
-
-基于 jekyll，后端工程师搭博客的神器。让大家可以使用简洁的 markdown 语法，
-在 vim 编辑器里码出自己的文字，然后 push 到 github 上直接发布，nice！
-感谢jekyll的作者，一个不可思议的轮子。
-
-## 相关链接
-[博客源码][] - 如果喜欢这个博客模板，欢迎 fork 使用！
- 
-
-[博客源码]: https://github.com/dongyado/dongyado.github.io
-[Jcseg@github]: https://github.com/lionsoul2014/jcseg
-[Jcseg@osc]: http://git.oschina.net/lionsoul/jcseg
-[ip2region@github]: https://github.com/lionsoul2014/ip2region
-[ip2region@osc]: http://git.oschina.net/lionsoul/ip2region
-[friso@github]: https://github.com/lionsoul2014/friso
