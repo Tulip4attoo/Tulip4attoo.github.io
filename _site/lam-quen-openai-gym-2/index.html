@@ -18,6 +18,26 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/monster.css">
 
+    <!-- MathJax Configuration -->
+    
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$']],
+          displayMath: [['$$', '$$']],
+          processEscapes: true,
+          processEnvironments: true
+        },
+        options: {
+          skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+        }
+      };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+    
+
     
 
 </head>
@@ -246,27 +266,27 @@ decay_rate = 0.01             # Exponential decay rate for exploration prob
 
 <p>Sau đó, ta chỉ việc cập nhật Q table thông qua các episodes</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">episode</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">total_episodes</span><span class="p">):</span>
-    <span class="n">state</span> <span class="o">=</span> <span class="n">env</span><span class="p">.</span><span class="n">reset</span><span class="p">()</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">episode</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">total_episodes</span><span class="p">):</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="n">env</span><span class="p">.</span><span class="nf">reset</span><span class="p">()</span>
     <span class="n">done</span> <span class="o">=</span> <span class="bp">False</span>
-    <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_steps</span><span class="p">):</span>
-        <span class="n">epsilon</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">min_epsilon</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">*</span><span class="n">decay_rate</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">max_steps</span><span class="p">):</span>
+        <span class="n">epsilon</span> <span class="o">=</span> <span class="nf">min</span><span class="p">(</span><span class="n">min_epsilon</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">*</span><span class="n">decay_rate</span><span class="p">)</span>
         <span class="c1"># check if we exploit or not
-</span>        <span class="k">if</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">rand</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">epsilon</span><span class="p">:</span>
+</span>        <span class="k">if</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="nf">rand</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">epsilon</span><span class="p">:</span>
             <span class="c1"># exploit
-</span>            <span class="n">action</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">q_table</span><span class="p">[</span><span class="n">state</span><span class="p">])</span>
+</span>            <span class="n">action</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">argmax</span><span class="p">(</span><span class="n">q_table</span><span class="p">[</span><span class="n">state</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">action</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">action_size</span><span class="p">)</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="nf">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">action_size</span><span class="p">)</span>
         <span class="c1"># get the reward and the next state
-</span>        <span class="n">new_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">done</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">env</span><span class="p">.</span><span class="n">step</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+</span>        <span class="n">new_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">done</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">env</span><span class="p">.</span><span class="nf">step</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
         <span class="c1"># update the q_table via Bellman equation
-</span>        <span class="n">update</span> <span class="o">=</span> <span class="n">reward</span> <span class="o">+</span> <span class="n">discount_rate</span><span class="o">*</span><span class="n">q_table</span><span class="p">[</span><span class="n">new_state</span><span class="p">].</span><span class="nb">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">q_table</span><span class="p">[</span><span class="n">state</span><span class="p">,</span><span class="n">action</span><span class="p">]</span>
+</span>        <span class="n">update</span> <span class="o">=</span> <span class="n">reward</span> <span class="o">+</span> <span class="n">discount_rate</span><span class="o">*</span><span class="n">q_table</span><span class="p">[</span><span class="n">new_state</span><span class="p">].</span><span class="nf">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">q_table</span><span class="p">[</span><span class="n">state</span><span class="p">,</span><span class="n">action</span><span class="p">]</span>
         <span class="n">q_table</span><span class="p">[</span><span class="n">state</span><span class="p">,</span><span class="n">action</span><span class="p">]</span> <span class="o">=</span> <span class="n">q_table</span><span class="p">[</span><span class="n">state</span><span class="p">,</span><span class="n">action</span><span class="p">]</span> <span class="o">+</span> <span class="n">learning_rate</span><span class="o">*</span><span class="n">update</span>
         <span class="n">state</span> <span class="o">=</span> <span class="n">new_state</span>
         <span class="k">if</span> <span class="n">done</span><span class="p">:</span>
             <span class="k">break</span>
     <span class="k">if</span> <span class="n">episode</span> <span class="o">%</span> <span class="mf">1e3</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">"done episode "</span><span class="p">,</span> <span class="n">episode</span><span class="p">)</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">done episode </span><span class="sh">"</span><span class="p">,</span> <span class="n">episode</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>Mình sẽ giải thích qua về flow của code. Đầu tiên, ta chạy một vòng lặp qua tất cả các episodes, trong đó mỗi episode ta lại làm như sau:</p>
@@ -287,38 +307,38 @@ decay_rate = 0.01             # Exponential decay rate for exploration prob
 
 <p>Khi chạy đủ 5000 episodes (total_episodes), chúng ta sẽ thu được 1 bảng q_table.Tới đây, ta có thể lưu kết quả q_table lại để sau có thể dùng</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">np</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="n">FILE_SAVE</span><span class="p">,</span> <span class="n">q_table</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">np</span><span class="p">.</span><span class="nf">save</span><span class="p">(</span><span class="n">FILE_SAVE</span><span class="p">,</span> <span class="n">q_table</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>Về cơ bản chúng ta đã train xong model. Để thực hiện việc xem xét model chạy như thế nào, ta có thể chạy đoạn code sau, khá tương tự đoạn code training ở trên:</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">env</span><span class="p">.</span><span class="n">reset</span><span class="p">()</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">env</span><span class="p">.</span><span class="nf">reset</span><span class="p">()</span>
 <span class="n">rewards</span> <span class="o">=</span> <span class="p">[]</span>
 
-<span class="k">for</span> <span class="n">episode</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">total_test_episodes</span><span class="p">):</span>
-    <span class="n">state</span> <span class="o">=</span> <span class="n">env</span><span class="p">.</span><span class="n">reset</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">episode</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">total_test_episodes</span><span class="p">):</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="n">env</span><span class="p">.</span><span class="nf">reset</span><span class="p">()</span>
     <span class="n">step</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">done</span> <span class="o">=</span> <span class="bp">False</span>
     <span class="n">total_rewards</span> <span class="o">=</span> <span class="mi">0</span>
 
-    <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_steps</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">max_steps</span><span class="p">):</span>
         <span class="c1"># UNCOMMENT IT IF YOU WANT TO SEE OUR AGENT PLAYING
 </span>        <span class="c1"># env.render()
 </span>        <span class="c1"># Take the action (index) that have the maximum expected future reward given that state
-</span>        <span class="n">action</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">q_table</span><span class="p">[</span><span class="n">state</span><span class="p">,:])</span>
+</span>        <span class="n">action</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">argmax</span><span class="p">(</span><span class="n">q_table</span><span class="p">[</span><span class="n">state</span><span class="p">,:])</span>
         
-        <span class="n">new_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">done</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">env</span><span class="p">.</span><span class="n">step</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
-        <span class="n">env</span><span class="p">.</span><span class="n">render</span><span class="p">()</span>
+        <span class="n">new_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">done</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">env</span><span class="p">.</span><span class="nf">step</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+        <span class="n">env</span><span class="p">.</span><span class="nf">render</span><span class="p">()</span>
         <span class="n">total_rewards</span> <span class="o">+=</span> <span class="n">reward</span>
-        <span class="k">print</span><span class="p">(</span><span class="n">total_rewards</span><span class="p">)</span>
-        <span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="nf">print</span><span class="p">(</span><span class="n">total_rewards</span><span class="p">)</span>
+        <span class="n">time</span><span class="p">.</span><span class="nf">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
         
         <span class="k">if</span> <span class="n">done</span><span class="p">:</span>
-            <span class="n">rewards</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">total_rewards</span><span class="p">)</span>
+            <span class="n">rewards</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">total_rewards</span><span class="p">)</span>
             <span class="k">break</span>
         <span class="n">state</span> <span class="o">=</span> <span class="n">new_state</span>
-<span class="n">env</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
-<span class="k">print</span> <span class="p">(</span><span class="s">"Score over time: "</span> <span class="o">+</span>  <span class="nb">str</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">rewards</span><span class="p">)</span><span class="o">/</span><span class="n">total_test_episodes</span><span class="p">))</span>
+<span class="n">env</span><span class="p">.</span><span class="nf">close</span><span class="p">()</span>
+<span class="nf">print </span><span class="p">(</span><span class="sh">"</span><span class="s">Score over time: </span><span class="sh">"</span> <span class="o">+</span>  <span class="nf">str</span><span class="p">(</span><span class="nf">sum</span><span class="p">(</span><span class="n">rewards</span><span class="p">)</span><span class="o">/</span><span class="n">total_test_episodes</span><span class="p">))</span>
 </code></pre></div></div>
 <p align="center">
   <img src="../assets/img/rl/taxi-v2.gif" /><br />

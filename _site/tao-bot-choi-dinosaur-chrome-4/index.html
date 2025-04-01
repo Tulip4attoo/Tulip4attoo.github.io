@@ -18,6 +18,26 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/monster.css">
 
+    <!-- MathJax Configuration -->
+    
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$']],
+          displayMath: [['$$', '$$']],
+          processEscapes: true,
+          processEnvironments: true
+        },
+        options: {
+          skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+        }
+      };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+    
+
     
 
 </head>
@@ -163,11 +183,11 @@
 
 <p>Trước hết chúng ta cần import các package cần thiết. Chúng ta sẽ dùng  2 file <code class="language-plaintext highlighter-rouge">trex_nn</code> và <code class="language-plaintext highlighter-rouge">capturing_objects</code> để chạy môi trường, cùng vài package quen thuộc khác.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
-<span class="kn">import</span> <span class="nn">trex_nn</span>
-<span class="kn">import</span> <span class="nn">capturing_objects</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">import</span> <span class="nn">logging</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="n">trex_nn</span>
+<span class="kn">import</span> <span class="n">capturing_objects</span>
+<span class="kn">import</span> <span class="n">time</span>
+<span class="kn">import</span> <span class="n">logging</span>
 </code></pre></div></div>
 
 <p>Tiếp đó, chúng ta khai báo các hằng số được sử dụng</p>
@@ -180,63 +200,63 @@
 <span class="n">MUTATION_PROB</span> <span class="o">=</span> <span class="mf">0.1</span>
 <span class="n">N_SIZE</span> <span class="o">=</span> <span class="mi">4</span>
 <span class="n">RANDOM_SET</span> <span class="o">=</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
-<span class="n">BODY_KEYS</span> <span class="o">=</span> <span class="p">[</span><span class="s">"W1"</span><span class="p">,</span> <span class="s">"W2"</span><span class="p">,</span> <span class="s">"b1"</span><span class="p">,</span> <span class="s">"b2"</span><span class="p">]</span> <span class="c1"># thu tu cac layer trong sequence
+<span class="n">BODY_KEYS</span> <span class="o">=</span> <span class="p">[</span><span class="sh">"</span><span class="s">W1</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">W2</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">b1</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">b2</span><span class="sh">"</span><span class="p">]</span> <span class="c1"># thu tu cac layer trong sequence
 </span><span class="n">MUTATION_RANGE</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.005</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">]</span> <span class="c1"># he so nhan cua mutation
 </span></code></pre></div></div>
 
 <p>Đầu tiên, ta cần 1 hàm chuyển các <code class="language-plaintext highlighter-rouge">parameters_set</code> (tức là các hệ số trong NN) sang <code class="language-plaintext highlighter-rouge">sequence (chromosome/DNA)</code> và 1 hàm theo chiều ngược lại.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">cv_to_sequence</span><span class="p">(</span><span class="n">body</span><span class="p">):</span>
-    <span class="s">"""
+    <span class="sh">"""</span><span class="s">
     cv body aka parameters_set to ADN aka sequence
-    """</span>
+    </span><span class="sh">"""</span>
     <span class="n">sequence</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">BODY_KEYS</span><span class="p">:</span>
-        <span class="n">sequence</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">body</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
-    <span class="n">sequence_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span>
-    <span class="n">sequence_str</span> <span class="o">=</span> <span class="n">sequence_str</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="s">"["</span><span class="p">,</span> <span class="s">""</span><span class="p">).</span><span class="n">replace</span><span class="p">(</span><span class="s">"array"</span><span class="p">,</span> <span class="s">""</span><span class="p">)</span>
-    <span class="n">sequence_str</span> <span class="o">=</span> <span class="n">sequence_str</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="s">"]"</span><span class="p">,</span> <span class="s">""</span><span class="p">).</span><span class="n">replace</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="s">""</span><span class="p">)</span>
-    <span class="n">sequence_str</span> <span class="o">=</span> <span class="n">sequence_str</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="s">"("</span><span class="p">,</span> <span class="s">""</span><span class="p">).</span><span class="n">replace</span><span class="p">(</span><span class="s">")"</span><span class="p">,</span> <span class="s">""</span><span class="p">)</span>
-    <span class="n">sequence_str</span> <span class="o">=</span> <span class="n">sequence_str</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="s">" "</span><span class="p">,</span> <span class="s">""</span><span class="p">)</span>
-    <span class="n">sequence_adj</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">sequence_str</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">","</span><span class="p">))</span>
+        <span class="n">sequence</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">body</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+    <span class="n">sequence_str</span> <span class="o">=</span> <span class="nf">str</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span>
+    <span class="n">sequence_str</span> <span class="o">=</span> <span class="n">sequence_str</span><span class="p">.</span><span class="nf">replace</span><span class="p">(</span><span class="sh">"</span><span class="s">[</span><span class="sh">"</span><span class="p">,</span> <span class="sh">""</span><span class="p">).</span><span class="nf">replace</span><span class="p">(</span><span class="sh">"</span><span class="s">array</span><span class="sh">"</span><span class="p">,</span> <span class="sh">""</span><span class="p">)</span>
+    <span class="n">sequence_str</span> <span class="o">=</span> <span class="n">sequence_str</span><span class="p">.</span><span class="nf">replace</span><span class="p">(</span><span class="sh">"</span><span class="s">]</span><span class="sh">"</span><span class="p">,</span> <span class="sh">""</span><span class="p">).</span><span class="nf">replace</span><span class="p">(</span><span class="sh">"</span><span class="se">\n</span><span class="sh">"</span><span class="p">,</span> <span class="sh">""</span><span class="p">)</span>
+    <span class="n">sequence_str</span> <span class="o">=</span> <span class="n">sequence_str</span><span class="p">.</span><span class="nf">replace</span><span class="p">(</span><span class="sh">"</span><span class="s">(</span><span class="sh">"</span><span class="p">,</span> <span class="sh">""</span><span class="p">).</span><span class="nf">replace</span><span class="p">(</span><span class="sh">"</span><span class="s">)</span><span class="sh">"</span><span class="p">,</span> <span class="sh">""</span><span class="p">)</span>
+    <span class="n">sequence_str</span> <span class="o">=</span> <span class="n">sequence_str</span><span class="p">.</span><span class="nf">replace</span><span class="p">(</span><span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">,</span> <span class="sh">""</span><span class="p">)</span>
+    <span class="n">sequence_adj</span> <span class="o">=</span> <span class="nf">map</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">sequence_str</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sh">"</span><span class="s">,</span><span class="sh">"</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">sequence_adj</span>
 
 <span class="k">def</span> <span class="nf">cv_to_body</span><span class="p">(</span><span class="n">adn</span><span class="p">):</span>
-    <span class="s">"""
+    <span class="sh">"""</span><span class="s">
     cv ADN aka sequence to body aka parameters_set
     tam thoi hard code 1 ty chu ko chac chet luon =))
-    """</span>
+    </span><span class="sh">"""</span>
     <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">params</span><span class="p">[</span><span class="s">"W1"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">adn</span><span class="p">[:</span><span class="mi">9</span><span class="p">],</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-    <span class="n">params</span><span class="p">[</span><span class="s">"W2"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">adn</span><span class="p">[</span><span class="mi">9</span><span class="p">:</span><span class="mi">12</span><span class="p">],</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-    <span class="n">params</span><span class="p">[</span><span class="s">"b1"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">adn</span><span class="p">[</span><span class="mi">12</span><span class="p">:</span><span class="mi">15</span><span class="p">],</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-    <span class="n">params</span><span class="p">[</span><span class="s">"b2"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">adn</span><span class="p">[</span><span class="mi">15</span><span class="p">],</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">params</span><span class="p">[</span><span class="sh">"</span><span class="s">W1</span><span class="sh">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">reshape</span><span class="p">(</span><span class="n">adn</span><span class="p">[:</span><span class="mi">9</span><span class="p">],</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="n">params</span><span class="p">[</span><span class="sh">"</span><span class="s">W2</span><span class="sh">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">reshape</span><span class="p">(</span><span class="n">adn</span><span class="p">[</span><span class="mi">9</span><span class="p">:</span><span class="mi">12</span><span class="p">],</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="n">params</span><span class="p">[</span><span class="sh">"</span><span class="s">b1</span><span class="sh">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">reshape</span><span class="p">(</span><span class="n">adn</span><span class="p">[</span><span class="mi">12</span><span class="p">:</span><span class="mi">15</span><span class="p">],</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">params</span><span class="p">[</span><span class="sh">"</span><span class="s">b2</span><span class="sh">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">reshape</span><span class="p">(</span><span class="n">adn</span><span class="p">[</span><span class="mi">15</span><span class="p">],</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">params</span>
 </code></pre></div></div>
 
 <p>Ta cũng quy định hàm <code class="language-plaintext highlighter-rouge">do_mutation</code> để thực hiện tạo đột biến cho các cá thể. Cách tạo đột biến mình có mô tả phía trên.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">do_mutation</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">mutation_prob</span> <span class="o">=</span> <span class="n">MUTATION_PROB</span><span class="p">):</span>
-    <span class="n">mutation_rate</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">random</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">mutation_rate</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="nf">random</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
     <span class="n">new_child</span> <span class="o">=</span> <span class="n">child</span><span class="p">[:]</span>
-    <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="nf">xrange</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">mutation_rate</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">mutation_prob</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">ind</span> <span class="o">&lt;</span> <span class="mi">9</span><span class="p">:</span>
-                <span class="n">new_child</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">+=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">randn</span><span class="p">()</span> <span class="o">*</span> <span class="n">MUTATION_RANGE</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">new_child</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">+=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="nf">randn</span><span class="p">()</span> <span class="o">*</span> <span class="n">MUTATION_RANGE</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
             <span class="k">elif</span> <span class="n">ind</span> <span class="o">&lt;</span> <span class="mi">12</span><span class="p">:</span>
-                <span class="n">new_child</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">+=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">randn</span><span class="p">()</span> <span class="o">*</span> <span class="n">MUTATION_RANGE</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">new_child</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">+=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="nf">randn</span><span class="p">()</span> <span class="o">*</span> <span class="n">MUTATION_RANGE</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
             <span class="k">elif</span> <span class="n">ind</span> <span class="o">&lt;</span> <span class="mi">15</span><span class="p">:</span>
-                <span class="n">new_child</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">+=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">randn</span><span class="p">()</span> <span class="o">*</span> <span class="n">MUTATION_RANGE</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+                <span class="n">new_child</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">+=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="nf">randn</span><span class="p">()</span> <span class="o">*</span> <span class="n">MUTATION_RANGE</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">new_child</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">+=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">randn</span><span class="p">()</span> <span class="o">*</span> <span class="n">MUTATION_RANGE</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+                <span class="n">new_child</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">+=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="nf">randn</span><span class="p">()</span> <span class="o">*</span> <span class="n">MUTATION_RANGE</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">new_child</span>
 </code></pre></div></div>
 
 <p>Ta cần 1 hàm tạo ra <code class="language-plaintext highlighter-rouge">generation</code> đầu tiên, đây là các cá thể được tạo random. Trong suy nghĩ của mình, có thể có những lần fail hoàn toàn do <code class="language-plaintext highlighter-rouge">generation</code> đầu quá tệ, yeah mình chạy thử thì cũng có 1 2 lần như vậy.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">genesis</span><span class="p">(</span><span class="n">pop_size</span> <span class="o">=</span> <span class="n">POP_SIZE</span><span class="p">):</span>
-    <span class="n">trex_clan</span> <span class="o">=</span> <span class="p">[</span><span class="n">trex_nn</span><span class="p">.</span><span class="n">initialize_parameters</span><span class="p">(</span><span class="n">N_X</span><span class="p">,</span> <span class="n">N_H</span><span class="p">,</span> <span class="n">N_Y</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">POP_SIZE</span><span class="p">)]</span>
-    <span class="n">trex_clan</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">trex_clan</span><span class="p">)</span>
+    <span class="n">trex_clan</span> <span class="o">=</span> <span class="p">[</span><span class="n">trex_nn</span><span class="p">.</span><span class="nf">initialize_parameters</span><span class="p">(</span><span class="n">N_X</span><span class="p">,</span> <span class="n">N_H</span><span class="p">,</span> <span class="n">N_Y</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">xrange</span><span class="p">(</span><span class="n">POP_SIZE</span><span class="p">)]</span>
+    <span class="n">trex_clan</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">(</span><span class="n">trex_clan</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">trex_clan</span>
 </code></pre></div></div>
 
@@ -248,119 +268,119 @@
     <span class="n">bias_adam</span> <span class="o">=</span> <span class="n">adam</span><span class="p">[</span><span class="mi">12</span><span class="p">:]</span>
     <span class="n">bias_eva</span> <span class="o">=</span> <span class="n">eva</span><span class="p">[</span><span class="mi">12</span><span class="p">:]</span>
 
-    <span class="n">cut_1</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
-    <span class="n">cut_2</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span> <span class="o">-</span> <span class="mi">12</span>
+    <span class="n">cut_1</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="nf">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+    <span class="n">cut_2</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="nf">randint</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span> <span class="o">-</span> <span class="mi">12</span>
 
     <span class="n">childs</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">childs</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">weight_adam</span><span class="p">[:</span><span class="n">cut_1</span><span class="p">]</span> <span class="o">+</span> <span class="n">weight_eva</span><span class="p">[</span><span class="n">cut_1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">bias_adam</span><span class="p">[:</span><span class="n">cut_2</span><span class="p">]</span> <span class="o">+</span> <span class="n">bias_eva</span><span class="p">[</span><span class="n">cut_2</span><span class="p">:])</span>
-    <span class="n">childs</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">weight_adam</span><span class="p">[:</span><span class="n">cut_1</span><span class="p">]</span> <span class="o">+</span> <span class="n">weight_eva</span><span class="p">[</span><span class="n">cut_1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">bias_eva</span><span class="p">[:</span><span class="n">cut_2</span><span class="p">]</span> <span class="o">+</span> <span class="n">bias_adam</span><span class="p">[</span><span class="n">cut_2</span><span class="p">:])</span>
-    <span class="n">childs</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">weight_eva</span><span class="p">[:</span><span class="n">cut_1</span><span class="p">]</span> <span class="o">+</span> <span class="n">weight_adam</span><span class="p">[</span><span class="n">cut_1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">bias_adam</span><span class="p">[:</span><span class="n">cut_2</span><span class="p">]</span> <span class="o">+</span> <span class="n">bias_eva</span><span class="p">[</span><span class="n">cut_2</span><span class="p">:])</span>
-    <span class="n">childs</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">weight_eva</span><span class="p">[:</span><span class="n">cut_1</span><span class="p">]</span> <span class="o">+</span> <span class="n">weight_adam</span><span class="p">[</span><span class="n">cut_1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">bias_eva</span><span class="p">[:</span><span class="n">cut_2</span><span class="p">]</span> <span class="o">+</span> <span class="n">bias_adam</span><span class="p">[</span><span class="n">cut_2</span><span class="p">:])</span>
-    <span class="n">selected_child</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="n">childs</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">weight_adam</span><span class="p">[:</span><span class="n">cut_1</span><span class="p">]</span> <span class="o">+</span> <span class="n">weight_eva</span><span class="p">[</span><span class="n">cut_1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">bias_adam</span><span class="p">[:</span><span class="n">cut_2</span><span class="p">]</span> <span class="o">+</span> <span class="n">bias_eva</span><span class="p">[</span><span class="n">cut_2</span><span class="p">:])</span>
+    <span class="n">childs</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">weight_adam</span><span class="p">[:</span><span class="n">cut_1</span><span class="p">]</span> <span class="o">+</span> <span class="n">weight_eva</span><span class="p">[</span><span class="n">cut_1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">bias_eva</span><span class="p">[:</span><span class="n">cut_2</span><span class="p">]</span> <span class="o">+</span> <span class="n">bias_adam</span><span class="p">[</span><span class="n">cut_2</span><span class="p">:])</span>
+    <span class="n">childs</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">weight_eva</span><span class="p">[:</span><span class="n">cut_1</span><span class="p">]</span> <span class="o">+</span> <span class="n">weight_adam</span><span class="p">[</span><span class="n">cut_1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">bias_adam</span><span class="p">[:</span><span class="n">cut_2</span><span class="p">]</span> <span class="o">+</span> <span class="n">bias_eva</span><span class="p">[</span><span class="n">cut_2</span><span class="p">:])</span>
+    <span class="n">childs</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">weight_eva</span><span class="p">[:</span><span class="n">cut_1</span><span class="p">]</span> <span class="o">+</span> <span class="n">weight_adam</span><span class="p">[</span><span class="n">cut_1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">bias_eva</span><span class="p">[:</span><span class="n">cut_2</span><span class="p">]</span> <span class="o">+</span> <span class="n">bias_adam</span><span class="p">[</span><span class="n">cut_2</span><span class="p">:])</span>
+    <span class="n">selected_child</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="nf">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">childs</span><span class="p">[</span><span class="n">selected_child</span><span class="p">]</span>
 </code></pre></div></div>
 
 <p>Ta sẽ tiến hành <code class="language-plaintext highlighter-rouge">select_survivals</code> từ điểm fitness của các cá thể, sau đó <code class="language-plaintext highlighter-rouge">random_match</code> các cha mẹ lại, tiếp đó ta sẽ liên tục <code class="language-plaintext highlighter-rouge">breed_a_child</code> cho tới khi đạt tới size yêu cầu của generation (theo hàm <code class="language-plaintext highlighter-rouge">gen_to_max_size</code>)</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">select_survivals</span><span class="p">(</span><span class="n">tribal</span><span class="p">,</span> <span class="n">score</span><span class="p">):</span>
-    <span class="n">fitness_scores</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
-    <span class="n">survival_inds</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">fitness_scores</span><span class="p">).</span><span class="n">argsort</span><span class="p">()[:</span><span class="mi">4</span><span class="p">]</span>
+    <span class="n">fitness_scores</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+    <span class="n">survival_inds</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">fitness_scores</span><span class="p">).</span><span class="nf">argsort</span><span class="p">()[:</span><span class="mi">4</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">tribal</span><span class="p">[</span><span class="n">survival_inds</span><span class="p">],</span> <span class="n">survival_inds</span>
 
 <span class="k">def</span> <span class="nf">random_match</span><span class="p">(</span><span class="n">random_set</span> <span class="o">=</span> <span class="n">RANDOM_SET</span><span class="p">):</span>
     <span class="n">number</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
-    <span class="n">curr_number</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">RANDOM_SET</span><span class="p">)</span>
-    <span class="n">lucky_number</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">curr_number</span><span class="p">)</span>
+    <span class="n">curr_number</span> <span class="o">=</span> <span class="nf">sum</span><span class="p">(</span><span class="n">RANDOM_SET</span><span class="p">)</span>
+    <span class="n">lucky_number</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="nf">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">curr_number</span><span class="p">)</span>
     <span class="k">while</span> <span class="n">lucky_number</span> <span class="o">&lt;</span> <span class="n">curr_number</span><span class="p">:</span>
         <span class="n">number</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="n">curr_number</span> <span class="o">-=</span> <span class="n">RANDOM_SET</span><span class="p">[</span><span class="n">number</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">number</span>
 
 <span class="k">def</span> <span class="nf">breed_a_child</span><span class="p">(</span><span class="n">survivals</span><span class="p">):</span>
-    <span class="s">"""
+    <span class="sh">"""</span><span class="s">
     chon 2 cha me tu survivals va crossver
     sau do cho child mutation
-    """</span>
-    <span class="n">adam_ind</span> <span class="o">=</span> <span class="n">random_match</span><span class="p">(</span><span class="n">RANDOM_SET</span><span class="p">)</span>
-    <span class="n">eva_ind</span> <span class="o">=</span> <span class="n">random_match</span><span class="p">(</span><span class="n">RANDOM_SET</span><span class="p">)</span>
+    </span><span class="sh">"""</span>
+    <span class="n">adam_ind</span> <span class="o">=</span> <span class="nf">random_match</span><span class="p">(</span><span class="n">RANDOM_SET</span><span class="p">)</span>
+    <span class="n">eva_ind</span> <span class="o">=</span> <span class="nf">random_match</span><span class="p">(</span><span class="n">RANDOM_SET</span><span class="p">)</span>
     <span class="c1"># boi vi so ok kha it --&gt; co the cu de tu breed cung dc di
-</span>    <span class="n">expected_cain</span> <span class="o">=</span> <span class="n">crossver</span><span class="p">(</span><span class="n">survivals</span><span class="p">[</span><span class="n">adam_ind</span><span class="p">],</span> <span class="n">survivals</span><span class="p">[</span><span class="n">eva_ind</span><span class="p">])</span>
-    <span class="n">real_cain</span> <span class="o">=</span> <span class="n">do_mutation</span><span class="p">(</span><span class="n">expected_cain</span><span class="p">)</span>
+</span>    <span class="n">expected_cain</span> <span class="o">=</span> <span class="nf">crossver</span><span class="p">(</span><span class="n">survivals</span><span class="p">[</span><span class="n">adam_ind</span><span class="p">],</span> <span class="n">survivals</span><span class="p">[</span><span class="n">eva_ind</span><span class="p">])</span>
+    <span class="n">real_cain</span> <span class="o">=</span> <span class="nf">do_mutation</span><span class="p">(</span><span class="n">expected_cain</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">real_cain</span>
 
 <span class="k">def</span> <span class="nf">gen_to_max_size</span><span class="p">(</span><span class="n">survivals</span><span class="p">,</span> <span class="n">pop_size</span> <span class="o">=</span> <span class="n">POP_SIZE</span><span class="p">):</span>
     <span class="n">curr_len</span> <span class="o">=</span> <span class="n">N_SIZE</span>
-    <span class="n">dna_survivals</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">cv_to_sequence</span><span class="p">,</span> <span class="n">survivals</span><span class="p">)</span>
+    <span class="n">dna_survivals</span> <span class="o">=</span> <span class="nf">map</span><span class="p">(</span><span class="n">cv_to_sequence</span><span class="p">,</span> <span class="n">survivals</span><span class="p">)</span>
     <span class="n">dna_tribal</span> <span class="o">=</span> <span class="n">dna_survivals</span><span class="p">[:]</span>
     <span class="k">while</span> <span class="n">curr_len</span> <span class="o">&lt;</span> <span class="n">pop_size</span><span class="p">:</span>
-        <span class="n">new_born</span> <span class="o">=</span> <span class="n">breed_a_child</span><span class="p">(</span><span class="n">dna_survivals</span><span class="p">)</span>
-        <span class="n">dna_tribal</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_born</span><span class="p">)</span>
+        <span class="n">new_born</span> <span class="o">=</span> <span class="nf">breed_a_child</span><span class="p">(</span><span class="n">dna_survivals</span><span class="p">)</span>
+        <span class="n">dna_tribal</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">new_born</span><span class="p">)</span>
         <span class="n">curr_len</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="n">new_gen</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">cv_to_body</span><span class="p">,</span> <span class="n">dna_tribal</span><span class="p">)</span>
-    <span class="n">new_gen</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">new_gen</span><span class="p">)</span>
+    <span class="n">new_gen</span> <span class="o">=</span> <span class="nf">map</span><span class="p">(</span><span class="n">cv_to_body</span><span class="p">,</span> <span class="n">dna_tribal</span><span class="p">)</span>
+    <span class="n">new_gen</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">(</span><span class="n">new_gen</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">new_gen</span>
 </code></pre></div></div>
 
 <p>Để quan sát được diễn biến, cũng như lưu lại kết quả, mình cần setup file log. Mình lưu lại 2 file log để tiện theo dõi, 1 log là <code class="language-plaintext highlighter-rouge">brief</code>, nhằm lưu qua các thông tin cơ bản (như điểm <code class="language-plaintext highlighter-rouge">fitness</code> của 1 generation thôi), 1 log là <code class="language-plaintext highlighter-rouge">survival</code>, lưu lại toàn bộ các <code class="language-plaintext highlighter-rouge">parameters_set</code>. Các bạn có thể xem vài file log mình chạy trên <a href="https://github.com/Tulip4attoo/chrome_trex/tree/master/logs">github của mình</a></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">setup_logger</span><span class="p">(</span><span class="n">logger_name</span><span class="p">,</span> <span class="n">log_file</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="p">.</span><span class="n">INFO</span><span class="p">):</span>
-    <span class="n">l</span> <span class="o">=</span> <span class="n">logging</span><span class="p">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">logger_name</span><span class="p">)</span>
-    <span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="p">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s">'%(asctime)s : %(message)s'</span><span class="p">)</span>
-    <span class="n">fileHandler</span> <span class="o">=</span> <span class="n">logging</span><span class="p">.</span><span class="n">FileHandler</span><span class="p">(</span><span class="n">log_file</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">'w'</span><span class="p">)</span>
-    <span class="n">fileHandler</span><span class="p">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
-    <span class="n">streamHandler</span> <span class="o">=</span> <span class="n">logging</span><span class="p">.</span><span class="n">StreamHandler</span><span class="p">()</span>
-    <span class="n">streamHandler</span><span class="p">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="n">logging</span><span class="p">.</span><span class="nf">getLogger</span><span class="p">(</span><span class="n">logger_name</span><span class="p">)</span>
+    <span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="p">.</span><span class="nc">Formatter</span><span class="p">(</span><span class="sh">'</span><span class="s">%(asctime)s : %(message)s</span><span class="sh">'</span><span class="p">)</span>
+    <span class="n">fileHandler</span> <span class="o">=</span> <span class="n">logging</span><span class="p">.</span><span class="nc">FileHandler</span><span class="p">(</span><span class="n">log_file</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="sh">'</span><span class="s">w</span><span class="sh">'</span><span class="p">)</span>
+    <span class="n">fileHandler</span><span class="p">.</span><span class="nf">setFormatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
+    <span class="n">streamHandler</span> <span class="o">=</span> <span class="n">logging</span><span class="p">.</span><span class="nc">StreamHandler</span><span class="p">()</span>
+    <span class="n">streamHandler</span><span class="p">.</span><span class="nf">setFormatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
 
-    <span class="n">l</span><span class="p">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
-    <span class="n">l</span><span class="p">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">fileHandler</span><span class="p">)</span>
-    <span class="n">l</span><span class="p">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">streamHandler</span><span class="p">)</span>    
+    <span class="n">l</span><span class="p">.</span><span class="nf">setLevel</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
+    <span class="n">l</span><span class="p">.</span><span class="nf">addHandler</span><span class="p">(</span><span class="n">fileHandler</span><span class="p">)</span>
+    <span class="n">l</span><span class="p">.</span><span class="nf">addHandler</span><span class="p">(</span><span class="n">streamHandler</span><span class="p">)</span>    
 
-<span class="n">log_file_name_1</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">"./logs/%Y-%m-%d_%H:%M:%S_brief.log"</span><span class="p">)</span>
-<span class="n">log_file_name_2</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">"./logs/%Y-%m-%d_%H:%M:%S_survival.log"</span><span class="p">)</span>
+<span class="n">log_file_name_1</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="nf">strftime</span><span class="p">(</span><span class="sh">"</span><span class="s">./logs/%Y-%m-%d_%H:%M:%S_brief.log</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">log_file_name_2</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="nf">strftime</span><span class="p">(</span><span class="sh">"</span><span class="s">./logs/%Y-%m-%d_%H:%M:%S_survival.log</span><span class="sh">"</span><span class="p">)</span>
 
-<span class="n">setup_logger</span><span class="p">(</span><span class="s">'log1'</span><span class="p">,</span> <span class="n">log_file_name_1</span><span class="p">)</span>
-<span class="n">setup_logger</span><span class="p">(</span><span class="s">'log2'</span><span class="p">,</span> <span class="n">log_file_name_2</span><span class="p">)</span>
+<span class="nf">setup_logger</span><span class="p">(</span><span class="sh">'</span><span class="s">log1</span><span class="sh">'</span><span class="p">,</span> <span class="n">log_file_name_1</span><span class="p">)</span>
+<span class="nf">setup_logger</span><span class="p">(</span><span class="sh">'</span><span class="s">log2</span><span class="sh">'</span><span class="p">,</span> <span class="n">log_file_name_2</span><span class="p">)</span>
 
-<span class="n">log1</span> <span class="o">=</span> <span class="n">logging</span><span class="p">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s">'log1'</span><span class="p">)</span>
-<span class="n">log2</span> <span class="o">=</span> <span class="n">logging</span><span class="p">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s">'log2'</span><span class="p">)</span>
+<span class="n">log1</span> <span class="o">=</span> <span class="n">logging</span><span class="p">.</span><span class="nf">getLogger</span><span class="p">(</span><span class="sh">'</span><span class="s">log1</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">log2</span> <span class="o">=</span> <span class="n">logging</span><span class="p">.</span><span class="nf">getLogger</span><span class="p">(</span><span class="sh">'</span><span class="s">log2</span><span class="sh">'</span><span class="p">)</span>
 
-<span class="n">logging</span><span class="p">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">log_file_name_1</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="p">.</span><span class="n">INFO</span><span class="p">,</span> 
-                    <span class="nb">format</span><span class="o">=</span><span class="s">"%(asctime)s %(levelname)s %(message)s"</span><span class="p">)</span>
-<span class="n">logging</span><span class="p">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">log_file_name_2</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="p">.</span><span class="n">INFO</span><span class="p">,</span> 
-                    <span class="nb">format</span><span class="o">=</span><span class="s">"%(asctime)s %(levelname)s %(message)s"</span><span class="p">)</span>
-<span class="n">log1</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s">"Start"</span><span class="p">)</span>
-<span class="n">log2</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s">"Start"</span><span class="p">)</span>
+<span class="n">logging</span><span class="p">.</span><span class="nf">basicConfig</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">log_file_name_1</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="p">.</span><span class="n">INFO</span><span class="p">,</span> 
+                    <span class="nb">format</span><span class="o">=</span><span class="sh">"</span><span class="s">%(asctime)s %(levelname)s %(message)s</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">logging</span><span class="p">.</span><span class="nf">basicConfig</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">log_file_name_2</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="p">.</span><span class="n">INFO</span><span class="p">,</span> 
+                    <span class="nb">format</span><span class="o">=</span><span class="sh">"</span><span class="s">%(asctime)s %(levelname)s %(message)s</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">log1</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="sh">"</span><span class="s">Start</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">log2</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="sh">"</span><span class="s">Start</span><span class="sh">"</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>Cuối cùng là hàm <code class="language-plaintext highlighter-rouge">evolve</code> để tập hợp các hàm phía trên, tiến hành train liên tục và chuyển sang các generation khác. Các thông tin khi chạy đều được lưu vào log.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">evolve</span><span class="p">():</span>
-    <span class="n">adam_eva</span> <span class="o">=</span> <span class="n">genesis</span><span class="p">(</span><span class="n">POP_SIZE</span><span class="p">)</span>
-    <span class="n">curr_gen</span> <span class="o">=</span> <span class="n">adam_eva</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">adam_eva</span> <span class="o">=</span> <span class="nf">genesis</span><span class="p">(</span><span class="n">POP_SIZE</span><span class="p">)</span>
+    <span class="n">curr_gen</span> <span class="o">=</span> <span class="n">adam_eva</span><span class="p">.</span><span class="nf">copy</span><span class="p">()</span>
     <span class="n">count_gen</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-        <span class="n">log1</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s">"-------------------------------------------------------"</span><span class="p">)</span>
-        <span class="n">log2</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s">"-------------------------------------------------------"</span><span class="p">)</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">"-------------------------------------------------------"</span><span class="p">)</span>
-        <span class="n">log1</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s">"Generation: {}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">count_gen</span><span class="p">))</span>
-        <span class="n">log1</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s">"a new day has come"</span><span class="p">)</span>
+        <span class="n">log1</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="sh">"</span><span class="s">-------------------------------------------------------</span><span class="sh">"</span><span class="p">)</span>
+        <span class="n">log2</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="sh">"</span><span class="s">-------------------------------------------------------</span><span class="sh">"</span><span class="p">)</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">-------------------------------------------------------</span><span class="sh">"</span><span class="p">)</span>
+        <span class="n">log1</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="sh">"</span><span class="s">Generation: {}</span><span class="sh">"</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span><span class="n">count_gen</span><span class="p">))</span>
+        <span class="n">log1</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="sh">"</span><span class="s">a new day has come</span><span class="sh">"</span><span class="p">)</span>
         <span class="n">score</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">trex</span> <span class="ow">in</span> <span class="n">curr_gen</span><span class="p">:</span>
-            <span class="n">count_cactus</span> <span class="o">=</span> <span class="n">capturing_objects</span><span class="p">.</span><span class="n">play_game</span><span class="p">(</span><span class="n">trex</span><span class="p">)</span>
-            <span class="n">score</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">count_cactus</span><span class="p">)</span>
-        <span class="n">log1</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
-        <span class="n">survivals</span><span class="p">,</span> <span class="n">survival_inds</span> <span class="o">=</span> <span class="n">select_survivals</span><span class="p">(</span><span class="n">curr_gen</span><span class="p">,</span> <span class="n">score</span><span class="p">)</span>
-        <span class="n">log1</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">survival_inds</span><span class="p">)</span>
-        <span class="n">log1</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s">"genarating next gen"</span><span class="p">)</span>
-        <span class="n">curr_gen</span> <span class="o">=</span> <span class="n">gen_to_max_size</span><span class="p">(</span><span class="n">survivals</span><span class="p">,</span> <span class="n">POP_SIZE</span><span class="p">)</span>
+            <span class="n">count_cactus</span> <span class="o">=</span> <span class="n">capturing_objects</span><span class="p">.</span><span class="nf">play_game</span><span class="p">(</span><span class="n">trex</span><span class="p">)</span>
+            <span class="n">score</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">count_cactus</span><span class="p">)</span>
+        <span class="n">log1</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+        <span class="n">survivals</span><span class="p">,</span> <span class="n">survival_inds</span> <span class="o">=</span> <span class="nf">select_survivals</span><span class="p">(</span><span class="n">curr_gen</span><span class="p">,</span> <span class="n">score</span><span class="p">)</span>
+        <span class="n">log1</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="n">survival_inds</span><span class="p">)</span>
+        <span class="n">log1</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="sh">"</span><span class="s">genarating next gen</span><span class="sh">"</span><span class="p">)</span>
+        <span class="n">curr_gen</span> <span class="o">=</span> <span class="nf">gen_to_max_size</span><span class="p">(</span><span class="n">survivals</span><span class="p">,</span> <span class="n">POP_SIZE</span><span class="p">)</span>
         <span class="n">count_gen</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="n">log2</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">survivals</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">max</span><span class="p">(</span><span class="n">score</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">15</span><span class="p">:</span>
-            <span class="n">log1</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">survivals</span><span class="p">)</span>
+        <span class="n">log2</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="n">survivals</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nf">max</span><span class="p">(</span><span class="n">score</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">15</span><span class="p">:</span>
+            <span class="n">log1</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="n">survivals</span><span class="p">)</span>
             <span class="k">continue</span>
         <span class="k">elif</span> <span class="n">count_gen</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">log1</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">survivals</span><span class="p">)</span>
-        <span class="n">log1</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s">""</span><span class="p">)</span>
+            <span class="n">log1</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="n">survivals</span><span class="p">)</span>
+        <span class="n">log1</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="sh">""</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>Để tiến hành train, các bạn chỉ cần chạy file <a href="https://github.com/Tulip4attoo/chrome_trex/blob/master/trex_lord.py"><code class="language-plaintext highlighter-rouge">trex_lod.py</code></a> là được.</p>
@@ -393,12 +413,12 @@
 
 <p>Các bạn có thể lấy tham số bot này ở file <a href="https://github.com/Tulip4attoo/chrome_trex/blob/master/clever_bot.py"><code class="language-plaintext highlighter-rouge">clever_bot.py</code></a>. Hoặc copy từ đây. Các bạn có thể chạy thẳng file <code class="language-plaintext highlighter-rouge">clever_bot.py</code> để xem bot chạy với hệ param đó luôn.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">clever_params</span> <span class="o">=</span> <span class="p">{</span><span class="s">'b2'</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([[</span> <span class="mf">0.27304736</span><span class="p">]]),</span> 
-                 <span class="s">'W2'</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([[</span> <span class="mf">0.91572382</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.29862268</span><span class="p">,</span>  <span class="mf">0.30955728</span><span class="p">]]),</span> 
-                 <span class="s">'W1'</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mf">0.02062025</span><span class="p">,</span>  <span class="mf">0.00016742</span><span class="p">,</span>  <span class="mf">0.00381535</span><span class="p">],</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">clever_params</span> <span class="o">=</span> <span class="p">{</span><span class="sh">'</span><span class="s">b2</span><span class="sh">'</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">([[</span> <span class="mf">0.27304736</span><span class="p">]]),</span> 
+                 <span class="sh">'</span><span class="s">W2</span><span class="sh">'</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">([[</span> <span class="mf">0.91572382</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.29862268</span><span class="p">,</span>  <span class="mf">0.30955728</span><span class="p">]]),</span> 
+                 <span class="sh">'</span><span class="s">W1</span><span class="sh">'</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">([[</span><span class="o">-</span><span class="mf">0.02062025</span><span class="p">,</span>  <span class="mf">0.00016742</span><span class="p">,</span>  <span class="mf">0.00381535</span><span class="p">],</span>
        <span class="p">[</span> <span class="mf">0.00226537</span><span class="p">,</span>  <span class="mf">0.01325698</span><span class="p">,</span>  <span class="mf">0.02389935</span><span class="p">],</span>
        <span class="p">[</span> <span class="mf">0.02300561</span><span class="p">,</span>  <span class="mf">0.01351209</span><span class="p">,</span>  <span class="mf">0.00588823</span><span class="p">]]),</span> 
-       <span class="s">'b1'</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mf">0.73119972</span><span class="p">],</span>
+       <span class="sh">'</span><span class="s">b1</span><span class="sh">'</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">([[</span><span class="o">-</span><span class="mf">0.73119972</span><span class="p">],</span>
        <span class="p">[</span><span class="o">-</span><span class="mf">0.05157346</span><span class="p">],</span>
        <span class="p">[</span><span class="o">-</span><span class="mf">0.00290758</span><span class="p">]])}</span>
 </code></pre></div></div>

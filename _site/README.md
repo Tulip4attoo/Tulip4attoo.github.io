@@ -1,13 +1,11 @@
-dongyado's blog
+Tulip4attoo's blog
 =====
 
-visit with : http://dongyadoit.com
+Please visit: https://tulip4attoo.github.io/
 
 ### 
-- notes of development
-- some thoughts.
+- technical writing, with focus on AI.
+- some thoughts - great minds, timeless ideas.
 
 ### 
-- Based on jekyll and github pages.
-
-If you like the theme of this blog, just use it.
+- Based on this theme: https://github.com/dongyado/dongyado.github.io

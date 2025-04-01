@@ -18,6 +18,26 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/monster.css">
 
+    <!-- MathJax Configuration -->
+    
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$']],
+          displayMath: [['$$', '$$']],
+          processEscapes: true,
+          processEnvironments: true
+        },
+        options: {
+          skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+        }
+      };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+    
+
     
 
 </head>
@@ -156,24 +176,24 @@
 
 <p>Trước hết chúng ta import các package cần thiết. Ở đây ta import <code class="language-plaintext highlighter-rouge">numpy</code> để thực hiện tính toán, và <code class="language-plaintext highlighter-rouge">chrome_trex_api</code> để tiến hành chuyển từ output của model ra hành động.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
-<span class="kn">import</span> <span class="nn">chrome_trex_api</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="n">chrome_trex_api</span>
 </code></pre></div></div>
 
 <p>Chúng ta define 2 hàm activation function trong NN là <code class="language-plaintext highlighter-rouge">relu</code> và <code class="language-plaintext highlighter-rouge">sigmoid</code></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">relu</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">np</span><span class="p">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="mf">0.</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="p">.</span><span class="nf">maximum</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="mf">0.</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="n">z</span><span class="p">):</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="p">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">z</span><span class="p">))</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="p">.</span><span class="nf">exp</span><span class="p">(</span><span class="o">-</span><span class="n">z</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">s</span>
 </code></pre></div></div>
 
 <p>Chúng ta cần 1 hàm <code class="language-plaintext highlighter-rouge">initialize_parameters</code> để tạo ra các giá trị random ban đầu cho NN. Input đầu vào sẽ là kích thước của NN. Chú ý, chúng ta sẽ nhân các weight và bias với các hệ số riêng, lý do là để scale các giá trị lại với nhau để model hội tụ nhanh hơn.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">initialize_parameters</span><span class="p">(</span><span class="n">n_x</span><span class="p">,</span> <span class="n">n_h</span><span class="p">,</span> <span class="n">n_y</span><span class="p">):</span>
-    <span class="s">"""
+    <span class="sh">"""</span><span class="s">
     Argument:
     n_x -- size of the input layer
     n_h -- size of the hidden layer
@@ -185,17 +205,17 @@
                     b1 -- bias vector of shape (n_h, 1)
                     W2 -- weight matrix of shape (n_y, n_h)
                     b2 -- bias vector of shape (n_y, 1)
-    """</span>
+    </span><span class="sh">"""</span>
     
-    <span class="n">W1</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n_h</span><span class="p">,</span> <span class="n">n_x</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.01</span>
-    <span class="n">b1</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n_h</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span>
-    <span class="n">W2</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n_y</span><span class="p">,</span> <span class="n">n_h</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1.5</span>
-    <span class="n">b2</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n_y</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.15</span>
+    <span class="n">W1</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="nf">randn</span><span class="p">(</span><span class="n">n_h</span><span class="p">,</span> <span class="n">n_x</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.01</span>
+    <span class="n">b1</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="nf">randn</span><span class="p">(</span><span class="n">n_h</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span>
+    <span class="n">W2</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="nf">randn</span><span class="p">(</span><span class="n">n_y</span><span class="p">,</span> <span class="n">n_h</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1.5</span>
+    <span class="n">b2</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="nf">randn</span><span class="p">(</span><span class="n">n_y</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.15</span>
     
-    <span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s">"W1"</span><span class="p">:</span> <span class="n">W1</span><span class="p">,</span>
-                  <span class="s">"b1"</span><span class="p">:</span> <span class="n">b1</span><span class="p">,</span>
-                  <span class="s">"W2"</span><span class="p">:</span> <span class="n">W2</span><span class="p">,</span>
-                  <span class="s">"b2"</span><span class="p">:</span> <span class="n">b2</span><span class="p">}</span>
+    <span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="sh">"</span><span class="s">W1</span><span class="sh">"</span><span class="p">:</span> <span class="n">W1</span><span class="p">,</span>
+                  <span class="sh">"</span><span class="s">b1</span><span class="sh">"</span><span class="p">:</span> <span class="n">b1</span><span class="p">,</span>
+                  <span class="sh">"</span><span class="s">W2</span><span class="sh">"</span><span class="p">:</span> <span class="n">W2</span><span class="p">,</span>
+                  <span class="sh">"</span><span class="s">b2</span><span class="sh">"</span><span class="p">:</span> <span class="n">b2</span><span class="p">}</span>
     
     <span class="k">return</span> <span class="n">parameters</span>
 </code></pre></div></div>
@@ -203,29 +223,29 @@
 <p>Có 1 hàm nhỏ ta cũng phải xài là <code class="language-plaintext highlighter-rouge">re_shape_X</code> nhằm reshape lại input. Lý do là input chúng ta có dạng ma trận ngang <code class="language-plaintext highlighter-rouge">input_set = [distance, speed, size]</code>, cần chỉnh sửa đôi chút về dạng ma trận dọc.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">re_shape_X</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">n_x</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">np</span><span class="p">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="p">(</span><span class="n">n_x</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">np</span><span class="p">.</span><span class="nf">reshape</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="p">(</span><span class="n">n_x</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 </code></pre></div></div>
 
 <p>Chúng ta dùng hàm <code class="language-plaintext highlighter-rouge">tRex_model</code> để tính toán output thông qua input là bộ input <code class="language-plaintext highlighter-rouge">X, parameters</code>. Ở đây, <code class="language-plaintext highlighter-rouge">parameters</code> là 1 dictionary chứa các parameters. Activation function được sử dụng là <code class="language-plaintext highlighter-rouge">sigmoid</code>.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">tRex_model</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
-    <span class="s">"""
+    <span class="sh">"""</span><span class="s">
     Argument:
     X -- input data of size (n_x, m)
     parameters -- python dictionary containing your parameters (output of initialization function)
     
     Returns:
     A2 -- The sigmoid output of the second activation
-    """</span>
-    <span class="n">W1</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s">'W1'</span><span class="p">]</span>
-    <span class="n">b1</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s">'b1'</span><span class="p">]</span>
-    <span class="n">W2</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s">'W2'</span><span class="p">]</span>
-    <span class="n">b2</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s">'b2'</span><span class="p">]</span>
+    </span><span class="sh">"""</span>
+    <span class="n">W1</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="sh">'</span><span class="s">W1</span><span class="sh">'</span><span class="p">]</span>
+    <span class="n">b1</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="sh">'</span><span class="s">b1</span><span class="sh">'</span><span class="p">]</span>
+    <span class="n">W2</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="sh">'</span><span class="s">W2</span><span class="sh">'</span><span class="p">]</span>
+    <span class="n">b2</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="sh">'</span><span class="s">b2</span><span class="sh">'</span><span class="p">]</span>
 
-    <span class="n">Z1</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">dot</span><span class="p">(</span><span class="n">W1</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span> <span class="o">+</span> <span class="n">b1</span>
-    <span class="n">A1</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">Z1</span><span class="p">)</span>
-    <span class="n">Z2</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">dot</span><span class="p">(</span><span class="n">W2</span><span class="p">,</span> <span class="n">A1</span><span class="p">)</span> <span class="o">+</span> <span class="n">b2</span>
-    <span class="n">A2</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">Z2</span><span class="p">)</span>
+    <span class="n">Z1</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">dot</span><span class="p">(</span><span class="n">W1</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span> <span class="o">+</span> <span class="n">b1</span>
+    <span class="n">A1</span> <span class="o">=</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="n">Z1</span><span class="p">)</span>
+    <span class="n">Z2</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">dot</span><span class="p">(</span><span class="n">W2</span><span class="p">,</span> <span class="n">A1</span><span class="p">)</span> <span class="o">+</span> <span class="n">b2</span>
+    <span class="n">A2</span> <span class="o">=</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="n">Z2</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">A2</span>
 </code></pre></div></div>
 
@@ -233,12 +253,12 @@
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">from_model_to_action</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">threshold</span> <span class="o">=</span> <span class="mf">0.6</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">:</span>
-        <span class="n">chrome_trex_api</span><span class="p">.</span><span class="n">press_up</span><span class="p">()</span>
+        <span class="n">chrome_trex_api</span><span class="p">.</span><span class="nf">press_up</span><span class="p">()</span>
 
 <span class="k">def</span> <span class="nf">wrap_model</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">n_x</span><span class="p">):</span>
-    <span class="n">X_adj</span> <span class="o">=</span> <span class="n">re_shape_X</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">n_x</span><span class="p">)</span>
-    <span class="n">action_value</span> <span class="o">=</span> <span class="n">tRex_model</span><span class="p">(</span><span class="n">X_adj</span><span class="p">,</span> <span class="n">parameters</span><span class="p">).</span><span class="n">item</span><span class="p">()</span>
-    <span class="n">from_model_to_action</span><span class="p">(</span><span class="n">action_value</span><span class="p">,</span> <span class="n">threshold</span> <span class="o">=</span> <span class="mf">0.6</span><span class="p">)</span>
+    <span class="n">X_adj</span> <span class="o">=</span> <span class="nf">re_shape_X</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">n_x</span><span class="p">)</span>
+    <span class="n">action_value</span> <span class="o">=</span> <span class="nf">tRex_model</span><span class="p">(</span><span class="n">X_adj</span><span class="p">,</span> <span class="n">parameters</span><span class="p">).</span><span class="nf">item</span><span class="p">()</span>
+    <span class="nf">from_model_to_action</span><span class="p">(</span><span class="n">action_value</span><span class="p">,</span> <span class="n">threshold</span> <span class="o">=</span> <span class="mf">0.6</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>Cụ thể hơn bạn có thể xem file ở <a href="https://github.com/Tulip4attoo/chrome_trex/blob/master/trex_nn.py">github mình</a></p>
@@ -251,36 +271,36 @@
 
 <p>Đầu tiên vẫn là màn import các package cần thiết. Chúng ta sẽ dùng  <code class="language-plaintext highlighter-rouge">mss</code> để chụp màn hình, <code class="language-plaintext highlighter-rouge">pyautogui</code> để output ra ngoài, <code class="language-plaintext highlighter-rouge">webbrowser</code> cùng <code class="language-plaintext highlighter-rouge">_thread</code> (ở python 2 nó là <code class="language-plaintext highlighter-rouge">thread</code>) phục vụ việc mở browser và vào game (cảm ơn anh <a href="https://kipalog.com/users/huytd/mypage">Huy Trần</a>) đã nhắc) và vài package quen thuộc khác. Ta cũng import <code class="language-plaintext highlighter-rouge">trex_nn</code> để lấy model cho bot.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pyautogui</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
-<span class="kn">import</span> <span class="nn">cv2</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">webbrowser</span>
-<span class="kn">import</span> <span class="nn">_thread</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">pyautogui</span>
+<span class="kn">import</span> <span class="n">time</span>
+<span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="n">cv2</span>
+<span class="kn">import</span> <span class="n">os</span>
+<span class="kn">import</span> <span class="n">webbrowser</span>
+<span class="kn">import</span> <span class="n">_thread</span>
 
-<span class="kn">import</span> <span class="nn">trex_nn</span>
+<span class="kn">import</span> <span class="n">trex_nn</span>
 
-<span class="kn">from</span> <span class="nn">mss</span> <span class="kn">import</span> <span class="n">mss</span>
+<span class="kn">from</span> <span class="n">mss</span> <span class="kn">import</span> <span class="n">mss</span>
 </code></pre></div></div>
 
 <p>Để thuận tiện cho các bạn sử dụng, mình có viết cả phần setup môi trường chạy, bao gồm việc mở chrome, truy nhập website, co màn hình lại. Do đặc thù của package <code class="language-plaintext highlighter-rouge">webbrowser</code>, ta cần mở thêm 1 thread để chạy lệnh <code class="language-plaintext highlighter-rouge">webbrowser.open</code>. Chi tiết hơn có thể xem dưới đây.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">open_url_on_chrome</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
-    <span class="n">chrome_path</span> <span class="o">=</span> <span class="s">'/usr/bin/google-chrome %s'</span>
-    <span class="n">webbrowser</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">chrome_path</span><span class="p">).</span><span class="nb">open</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">"opening..."</span><span class="p">)</span>
+    <span class="n">chrome_path</span> <span class="o">=</span> <span class="sh">'</span><span class="s">/usr/bin/google-chrome %s</span><span class="sh">'</span>
+    <span class="n">webbrowser</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">chrome_path</span><span class="p">).</span><span class="nf">open</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">opening...</span><span class="sh">"</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">chrome_setup</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
-    <span class="n">_thread</span><span class="p">.</span><span class="n">start_new_thread</span><span class="p">(</span><span class="n">open_url_on_chrome</span><span class="p">,</span> <span class="p">(</span><span class="n">url</span><span class="p">,))</span>
-    <span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">pyautogui</span><span class="p">.</span><span class="n">hotkey</span><span class="p">(</span><span class="s">'ctrl'</span><span class="p">,</span> <span class="s">'winleft'</span><span class="p">,</span> <span class="s">'left'</span><span class="p">)</span>
+    <span class="n">_thread</span><span class="p">.</span><span class="nf">start_new_thread</span><span class="p">(</span><span class="n">open_url_on_chrome</span><span class="p">,</span> <span class="p">(</span><span class="n">url</span><span class="p">,))</span>
+    <span class="n">time</span><span class="p">.</span><span class="nf">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">pyautogui</span><span class="p">.</span><span class="nf">hotkey</span><span class="p">(</span><span class="sh">'</span><span class="s">ctrl</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">winleft</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">left</span><span class="sh">'</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>Chúng ta sẽ khai báo các hằng số, bao gồm: <code class="language-plaintext highlighter-rouge">GAMEOVER_BOX</code> để chứa thông tin vị trí xuất hiện chữ <code class="language-plaintext highlighter-rouge">GAME OVER</code> (chú ý là giá trị này ứng với giá trị của màn hình game, nên không cần điều chỉnh), <code class="language-plaintext highlighter-rouge">MAX_SPEED_STEP</code> là bước chuyển tối đa cho speed (vd speed hiện tại là 300 thì speed trong frame kế tiếp không vượt quá 315), <code class="language-plaintext highlighter-rouge">INIT_SPEED</code> là speed ban đầu của màn chơi. Ngoài ra còn có thêm một vài hằng số được dùng từ bài trước.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">GAMEOVER_BOX</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Y_GAMEOVER'</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span> <span class="s">'X_GAMEOVER'</span><span class="p">:</span> <span class="mi">115</span><span class="p">,</span> 
-                <span class="s">'W_GAMEOVER'</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="s">'H_GAMEOVER'</span><span class="p">:</span> <span class="mi">15</span><span class="p">}</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">GAMEOVER_BOX</span> <span class="o">=</span> <span class="p">{</span><span class="sh">'</span><span class="s">Y_GAMEOVER</span><span class="sh">'</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span> <span class="sh">'</span><span class="s">X_GAMEOVER</span><span class="sh">'</span><span class="p">:</span> <span class="mi">115</span><span class="p">,</span> 
+                <span class="sh">'</span><span class="s">W_GAMEOVER</span><span class="sh">'</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="sh">'</span><span class="s">H_GAMEOVER</span><span class="sh">'</span><span class="p">:</span> <span class="mi">15</span><span class="p">}</span>
 <span class="n">GAMEOVER_RANGE</span> <span class="o">=</span> <span class="p">[</span><span class="mi">630000</span><span class="p">,</span> <span class="mi">670000</span><span class="p">]</span>
 <span class="n">TIME_BETWEEN_FRAMES</span> <span class="o">=</span> <span class="mf">0.01</span>
 <span class="n">TIME_BETWEEN_GAMES</span> <span class="o">=</span> <span class="mf">0.5</span>
@@ -302,30 +322,30 @@
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">find_game_position</span><span class="p">(</span><span class="n">sct</span><span class="p">,</span> <span class="n">threshold</span><span class="p">):</span>
     <span class="c1"># ham de tim game position 
-</span>    <span class="n">dino_template</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">imread</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="s">'templates'</span><span class="p">,</span> <span class="s">'dino.png'</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+</span>    <span class="n">dino_template</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="nf">imread</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="sh">'</span><span class="s">templates</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">dino.png</span><span class="sh">'</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
     <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">dino_template</span><span class="p">.</span><span class="n">shape</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">landscape_template</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">imread</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="s">'templates'</span><span class="p">,</span> <span class="s">'dino_landscape.png'</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">landscape_template</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="nf">imread</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="sh">'</span><span class="s">templates</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">dino_landscape.png</span><span class="sh">'</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
     <span class="n">lw</span><span class="p">,</span> <span class="n">lh</span> <span class="o">=</span> <span class="n">landscape_template</span><span class="p">.</span><span class="n">shape</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
     <span class="n">landscape</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="c1"># mac dinh la se hien thi o screenshot 1, du chung ta co 1 hay nhieu man hinh
 </span>    <span class="n">monitor</span> <span class="o">=</span> <span class="n">sct</span><span class="p">.</span><span class="n">monitors</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">sct</span><span class="p">.</span><span class="n">grab</span><span class="p">(</span><span class="n">monitor</span><span class="p">))[:,:,:</span><span class="mi">3</span><span class="p">]</span>
-    <span class="n">gray_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
-    <span class="n">res</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">matchTemplate</span><span class="p">(</span><span class="n">gray_image</span><span class="p">,</span> <span class="n">dino_template</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">TM_CCOEFF_NORMED</span><span class="p">)</span>
-    <span class="n">loc</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">where</span><span class="p">(</span><span class="n">res</span> <span class="o">&gt;=</span> <span class="n">threshold</span><span class="p">)</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
-        <span class="n">pt</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">loc</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])))</span>
-        <span class="n">landscape</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">monitor</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">lh</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">top</span><span class="o">=</span><span class="n">pt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">lh</span> <span class="o">+</span> <span class="n">h</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">lw</span><span class="p">)</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">(</span><span class="n">sct</span><span class="p">.</span><span class="nf">grab</span><span class="p">(</span><span class="n">monitor</span><span class="p">))[:,:,:</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">gray_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="nf">cvtColor</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="nf">matchTemplate</span><span class="p">(</span><span class="n">gray_image</span><span class="p">,</span> <span class="n">dino_template</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">TM_CCOEFF_NORMED</span><span class="p">)</span>
+    <span class="n">loc</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="n">res</span> <span class="o">&gt;=</span> <span class="n">threshold</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nf">len</span><span class="p">(</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">pt</span> <span class="o">=</span> <span class="nf">next</span><span class="p">(</span><span class="nf">iter</span><span class="p">(</span><span class="nf">zip</span><span class="p">(</span><span class="o">*</span><span class="n">loc</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])))</span>
+        <span class="n">landscape</span> <span class="o">=</span> <span class="nf">dict</span><span class="p">(</span><span class="n">monitor</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">lh</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">top</span><span class="o">=</span><span class="n">pt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">lh</span> <span class="o">+</span> <span class="n">h</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">lw</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">landscape</span>
 
 <span class="k">def</span> <span class="nf">get_game_landscape_and_set_focus_or_die</span><span class="p">(</span><span class="n">sct</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.7</span><span class="p">):</span>
     <span class="c1"># ham ho tro
-</span>    <span class="n">landscape</span> <span class="o">=</span> <span class="n">find_game_position</span><span class="p">(</span><span class="n">sct</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+</span>    <span class="n">landscape</span> <span class="o">=</span> <span class="nf">find_game_position</span><span class="p">(</span><span class="n">sct</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">landscape</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">"Can't find the game!"</span><span class="p">)</span>
-        <span class="nb">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">pyautogui</span><span class="p">.</span><span class="n">click</span><span class="p">(</span><span class="n">landscape</span><span class="p">[</span><span class="s">"left"</span><span class="p">],</span> <span class="n">landscape</span><span class="p">[</span><span class="s">'top'</span><span class="p">]</span> <span class="o">+</span> <span class="n">landscape</span><span class="p">[</span><span class="s">'height'</span><span class="p">])</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Can</span><span class="sh">'</span><span class="s">t find the game!</span><span class="sh">"</span><span class="p">)</span>
+        <span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">pyautogui</span><span class="p">.</span><span class="nf">click</span><span class="p">(</span><span class="n">landscape</span><span class="p">[</span><span class="sh">"</span><span class="s">left</span><span class="sh">"</span><span class="p">],</span> <span class="n">landscape</span><span class="p">[</span><span class="sh">'</span><span class="s">top</span><span class="sh">'</span><span class="p">]</span> <span class="o">+</span> <span class="n">landscape</span><span class="p">[</span><span class="sh">'</span><span class="s">height</span><span class="sh">'</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">landscape</span>
 </code></pre></div></div>
 
@@ -335,27 +355,27 @@
     <span class="c1"># tu thong tin ve landscape, ta lay ra duoc 1 vung chua day du cac vat the can
 </span>    <span class="c1"># xem xet, nhung lai nho hon landscape (do do giam duoc khoi luong tinh toan)
 </span>    <span class="n">ground_height</span> <span class="o">=</span> <span class="mi">12</span>
-    <span class="n">y1</span> <span class="o">=</span> <span class="n">landscape</span><span class="p">[</span><span class="s">'height'</span><span class="p">]</span> <span class="o">-</span> <span class="mi">44</span>
-    <span class="n">y2</span> <span class="o">=</span> <span class="n">landscape</span><span class="p">[</span><span class="s">'height'</span><span class="p">]</span> <span class="o">-</span> <span class="n">ground_height</span>
+    <span class="n">y1</span> <span class="o">=</span> <span class="n">landscape</span><span class="p">[</span><span class="sh">'</span><span class="s">height</span><span class="sh">'</span><span class="p">]</span> <span class="o">-</span> <span class="mi">44</span>
+    <span class="n">y2</span> <span class="o">=</span> <span class="n">landscape</span><span class="p">[</span><span class="sh">'</span><span class="s">height</span><span class="sh">'</span><span class="p">]</span> <span class="o">-</span> <span class="n">ground_height</span>
     <span class="n">x1</span> <span class="o">=</span> <span class="mi">44</span> <span class="o">+</span> <span class="mi">24</span>
-    <span class="n">x2</span> <span class="o">=</span> <span class="n">landscape</span><span class="p">[</span><span class="s">'width'</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">x2</span> <span class="o">=</span> <span class="n">landscape</span><span class="p">[</span><span class="sh">'</span><span class="s">width</span><span class="sh">'</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
     <span class="k">return</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span>
 </code></pre></div></div>
 
 <p>Ta thực hiện tính toán các chỉ số như 2 hàm dưới đây. Để lấy được <code class="language-plaintext highlighter-rouge">distance</code> (khoảng cách từ khủng long tới cây xương rồng gần nhất), ta sẽ quét từ khủng long cho tới vùng đổi màu gần nhất, trong trường hợp không có xương rồng, ta sẽ gán <code class="language-plaintext highlighter-rouge">distance = max_distance</code> với max_distance được ta tự quy định. <code class="language-plaintext highlighter-rouge">size</code> thì lấy tương tự. Riêng về <code class="language-plaintext highlighter-rouge">speed</code>, ta tính bằng cách lấy quãng đường thay đổi chia cho thời gian. Tuy nhiên, vì cắt cảnh thường không mượt nên ta cần thêm vài mốc để có <code class="language-plaintext highlighter-rouge">speed</code> mượt hơn.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">compute_distance_and_size</span><span class="p">(</span><span class="n">roi</span><span class="p">,</span> <span class="n">max_distance</span><span class="p">):</span>
-    <span class="s">"""
+    <span class="sh">"""</span><span class="s">
     minh chi check vung region_of_interest thoi vung nay chi co xuong rong 
     --&gt; co mau la thi` minh se biet do la co xuong rong. Lay vung do thoi.
     Doan nay hard code de co size.
     Khong hay lam, nhung cung chap nhan duoc
-    """</span>
+    </span><span class="sh">"""</span>
     <span class="n">obstacle_found</span> <span class="o">=</span> <span class="bp">False</span>
     <span class="n">distance</span> <span class="o">=</span> <span class="n">max_distance</span>
-    <span class="n">roi_mean_color</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">floor</span><span class="p">(</span><span class="n">roi</span><span class="p">.</span><span class="n">mean</span><span class="p">())</span>
+    <span class="n">roi_mean_color</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">floor</span><span class="p">(</span><span class="n">roi</span><span class="p">.</span><span class="nf">mean</span><span class="p">())</span>
     <span class="n">last_column</span> <span class="o">=</span> <span class="n">distance</span>
-    <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">np</span><span class="p">.</span><span class="n">unique</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">where</span><span class="p">(</span><span class="n">roi</span> <span class="o">&lt;</span> <span class="n">roi_mean_color</span><span class="p">)[</span><span class="mi">1</span><span class="p">]):</span>
+    <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">np</span><span class="p">.</span><span class="nf">unique</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="n">roi</span> <span class="o">&lt;</span> <span class="n">roi_mean_color</span><span class="p">)[</span><span class="mi">1</span><span class="p">]):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">obstacle_found</span><span class="p">:</span>
             <span class="n">distance</span> <span class="o">=</span> <span class="n">column</span>
             <span class="n">obstacle_found</span> <span class="o">=</span> <span class="bp">True</span>
@@ -365,41 +385,41 @@
     <span class="k">return</span> <span class="n">distance</span><span class="p">,</span> <span class="n">last_column</span> <span class="o">-</span> <span class="n">distance</span>
 
 <span class="k">def</span> <span class="nf">compute_speed</span><span class="p">(</span><span class="n">distance_array</span><span class="p">,</span> <span class="n">last_distance</span><span class="p">,</span> <span class="n">last_speed</span><span class="p">,</span> <span class="n">loop_time</span><span class="p">,</span> <span class="n">max_speed_step</span> <span class="o">=</span> <span class="mi">15</span><span class="p">):</span>
-    <span class="s">"""
+    <span class="sh">"""</span><span class="s">
     tinh dua theo ca quang duong va thoi gian no di tren ca quang duong day
     boi vi co vai lag nen doi khi speed se bi noi ra rat rong, nen ta can co
     1 max_speed_step de gioi han
-    """</span>
+    </span><span class="sh">"""</span>
     <span class="n">speed</span> <span class="o">=</span> <span class="p">(</span><span class="n">distance_array</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">last_distance</span><span class="p">)</span> <span class="o">/</span> <span class="n">loop_time</span>
-    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">speed</span><span class="p">,</span> <span class="n">last_speed</span> <span class="o">+</span> <span class="n">max_speed_step</span><span class="p">),</span> <span class="n">last_speed</span> <span class="o">-</span> <span class="n">max_speed_step</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nf">max</span><span class="p">(</span><span class="nf">min</span><span class="p">(</span><span class="n">speed</span><span class="p">,</span> <span class="n">last_speed</span> <span class="o">+</span> <span class="n">max_speed_step</span><span class="p">),</span> <span class="n">last_speed</span> <span class="o">-</span> <span class="n">max_speed_step</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>Ta define thêm vài hàm phụ trợ. Các hàm phần lớn có trong file <code class="language-plaintext highlighter-rouge">chrome_trex_api.py</code> nhưng mình có sửa thêm để tránh hard code, có thể chạy với các máy khác nhau.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">reset_game</span><span class="p">():</span>
-    <span class="n">pyautogui</span><span class="p">.</span><span class="n">hotkey</span><span class="p">(</span><span class="s">'ctrl'</span><span class="p">,</span> <span class="s">'r'</span><span class="p">)</span>
-    <span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">pyautogui</span><span class="p">.</span><span class="nf">hotkey</span><span class="p">(</span><span class="sh">'</span><span class="s">ctrl</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">r</span><span class="sh">'</span><span class="p">)</span>
+    <span class="n">time</span><span class="p">.</span><span class="nf">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">reset_game_2</span><span class="p">(</span><span class="n">landscape</span><span class="p">):</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="mi">65</span> <span class="o">+</span> <span class="n">landscape</span><span class="p">[</span><span class="s">'top'</span><span class="p">]</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="mi">235</span> <span class="o">+</span> <span class="n">landscape</span><span class="p">[</span><span class="s">"left"</span><span class="p">]</span>
-    <span class="n">pyautogui</span><span class="p">.</span><span class="n">click</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-    <span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="mi">65</span> <span class="o">+</span> <span class="n">landscape</span><span class="p">[</span><span class="sh">'</span><span class="s">top</span><span class="sh">'</span><span class="p">]</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="mi">235</span> <span class="o">+</span> <span class="n">landscape</span><span class="p">[</span><span class="sh">"</span><span class="s">left</span><span class="sh">"</span><span class="p">]</span>
+    <span class="n">pyautogui</span><span class="p">.</span><span class="nf">click</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="n">time</span><span class="p">.</span><span class="nf">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">start_game</span><span class="p">():</span>
-    <span class="n">pyautogui</span><span class="p">.</span><span class="n">press</span><span class="p">(</span><span class="s">'space'</span><span class="p">)</span>
-    <span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">1.5</span><span class="p">)</span>
+    <span class="n">pyautogui</span><span class="p">.</span><span class="nf">press</span><span class="p">(</span><span class="sh">'</span><span class="s">space</span><span class="sh">'</span><span class="p">)</span>
+    <span class="n">time</span><span class="p">.</span><span class="nf">sleep</span><span class="p">(</span><span class="mf">1.5</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">check_gameover</span><span class="p">(</span><span class="n">img_landscape</span><span class="p">,</span> <span class="n">gameover_range</span> <span class="o">=</span> <span class="n">GAMEOVER_RANGE</span><span class="p">,</span> <span class="n">gameover_box</span> <span class="o">=</span> <span class="n">GAMEOVER_BOX</span><span class="p">):</span>
     <span class="n">result</span> <span class="o">=</span> <span class="bp">False</span>
-    <span class="n">y1</span> <span class="o">=</span> <span class="n">GAMEOVER_BOX</span><span class="p">[</span><span class="s">"Y_GAMEOVER"</span><span class="p">]</span>
-    <span class="n">y2</span> <span class="o">=</span> <span class="n">GAMEOVER_BOX</span><span class="p">[</span><span class="s">"Y_GAMEOVER"</span><span class="p">]</span> <span class="o">+</span> <span class="n">GAMEOVER_BOX</span><span class="p">[</span><span class="s">"H_GAMEOVER"</span><span class="p">]</span>
-    <span class="n">x1</span> <span class="o">=</span> <span class="n">GAMEOVER_BOX</span><span class="p">[</span><span class="s">"X_GAMEOVER"</span><span class="p">]</span>
-    <span class="n">x2</span> <span class="o">=</span> <span class="n">GAMEOVER_BOX</span><span class="p">[</span><span class="s">"X_GAMEOVER"</span><span class="p">]</span> <span class="o">+</span> <span class="n">GAMEOVER_BOX</span><span class="p">[</span><span class="s">"W_GAMEOVER"</span><span class="p">]</span>
-    <span class="n">gray_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img_landscape</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+    <span class="n">y1</span> <span class="o">=</span> <span class="n">GAMEOVER_BOX</span><span class="p">[</span><span class="sh">"</span><span class="s">Y_GAMEOVER</span><span class="sh">"</span><span class="p">]</span>
+    <span class="n">y2</span> <span class="o">=</span> <span class="n">GAMEOVER_BOX</span><span class="p">[</span><span class="sh">"</span><span class="s">Y_GAMEOVER</span><span class="sh">"</span><span class="p">]</span> <span class="o">+</span> <span class="n">GAMEOVER_BOX</span><span class="p">[</span><span class="sh">"</span><span class="s">H_GAMEOVER</span><span class="sh">"</span><span class="p">]</span>
+    <span class="n">x1</span> <span class="o">=</span> <span class="n">GAMEOVER_BOX</span><span class="p">[</span><span class="sh">"</span><span class="s">X_GAMEOVER</span><span class="sh">"</span><span class="p">]</span>
+    <span class="n">x2</span> <span class="o">=</span> <span class="n">GAMEOVER_BOX</span><span class="p">[</span><span class="sh">"</span><span class="s">X_GAMEOVER</span><span class="sh">"</span><span class="p">]</span> <span class="o">+</span> <span class="n">GAMEOVER_BOX</span><span class="p">[</span><span class="sh">"</span><span class="s">W_GAMEOVER</span><span class="sh">"</span><span class="p">]</span>
+    <span class="n">gray_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="nf">cvtColor</span><span class="p">(</span><span class="n">img_landscape</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
     <span class="n">gray</span> <span class="o">=</span> <span class="n">gray_image</span><span class="p">[</span><span class="n">y1</span><span class="p">:</span><span class="n">y2</span><span class="p">,</span> <span class="n">x1</span><span class="p">:</span><span class="n">x2</span><span class="p">]</span>
-    <span class="n">curr_state</span> <span class="o">=</span> <span class="n">gray</span><span class="p">.</span><span class="nb">sum</span><span class="p">()</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">y1</span><span class="p">,</span><span class="n">y2</span><span class="p">,</span> <span class="n">curr_state</span><span class="p">)</span>
+    <span class="n">curr_state</span> <span class="o">=</span> <span class="n">gray</span><span class="p">.</span><span class="nf">sum</span><span class="p">()</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">y1</span><span class="p">,</span><span class="n">y2</span><span class="p">,</span> <span class="n">curr_state</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">curr_state</span> <span class="o">&lt;</span> <span class="n">GAMEOVER_RANGE</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span> <span class="n">curr_state</span> <span class="o">&gt;</span> <span class="n">GAMEOVER_RANGE</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
         <span class="n">result</span> <span class="o">=</span> <span class="bp">True</span>
     <span class="k">return</span> <span class="n">result</span>
@@ -409,51 +429,51 @@
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">play_game</span><span class="p">(</span><span class="n">parameters_set</span><span class="p">):</span>
     <span class="k">global</span> <span class="n">LANDSCAPE</span>
-    <span class="k">with</span> <span class="n">mss</span><span class="p">()</span> <span class="k">as</span> <span class="n">sct</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nf">mss</span><span class="p">()</span> <span class="k">as</span> <span class="n">sct</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">LANDSCAPE</span><span class="p">:</span>
-            <span class="n">reset_game_2</span><span class="p">(</span><span class="n">LANDSCAPE</span><span class="p">)</span>
+            <span class="nf">reset_game_2</span><span class="p">(</span><span class="n">LANDSCAPE</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">reset_game</span><span class="p">()</span>
-        <span class="n">landscape</span> <span class="o">=</span> <span class="n">get_game_landscape_and_set_focus_or_die</span><span class="p">(</span><span class="n">sct</span><span class="p">,</span> <span class="p">.</span><span class="mi">8</span><span class="p">)</span>
-        <span class="n">start_game</span><span class="p">()</span>
+            <span class="nf">reset_game</span><span class="p">()</span>
+        <span class="n">landscape</span> <span class="o">=</span> <span class="nf">get_game_landscape_and_set_focus_or_die</span><span class="p">(</span><span class="n">sct</span><span class="p">,</span> <span class="p">.</span><span class="mi">8</span><span class="p">)</span>
+        <span class="nf">start_game</span><span class="p">()</span>
 
-        <span class="n">last_distance</span> <span class="o">=</span> <span class="n">landscape</span><span class="p">[</span><span class="s">'width'</span><span class="p">]</span>
-        <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">compute_region_of_interest</span><span class="p">(</span><span class="n">landscape</span><span class="p">)</span>
+        <span class="n">last_distance</span> <span class="o">=</span> <span class="n">landscape</span><span class="p">[</span><span class="sh">'</span><span class="s">width</span><span class="sh">'</span><span class="p">]</span>
+        <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="nf">compute_region_of_interest</span><span class="p">(</span><span class="n">landscape</span><span class="p">)</span>
         <span class="n">speed</span> <span class="o">=</span> <span class="n">INIT_SPEED</span>
         <span class="n">start_time</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="n">distance_array</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">count_cactus</span> <span class="o">=</span> <span class="mi">0</span>
 
         <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-            <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">sct</span><span class="p">.</span><span class="n">grab</span><span class="p">(</span><span class="n">landscape</span><span class="p">))[:,:,:</span><span class="mi">3</span><span class="p">]</span>
-            <span class="n">gray_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
-            <span class="n">gray_image</span> <span class="o">+=</span> <span class="n">np</span><span class="p">.</span><span class="nb">abs</span><span class="p">(</span><span class="mi">247</span> <span class="o">-</span> <span class="n">gray_image</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">x2</span><span class="p">])</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">(</span><span class="n">sct</span><span class="p">.</span><span class="nf">grab</span><span class="p">(</span><span class="n">landscape</span><span class="p">))[:,:,:</span><span class="mi">3</span><span class="p">]</span>
+            <span class="n">gray_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="nf">cvtColor</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+            <span class="n">gray_image</span> <span class="o">+=</span> <span class="n">np</span><span class="p">.</span><span class="nf">abs</span><span class="p">(</span><span class="mi">247</span> <span class="o">-</span> <span class="n">gray_image</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">x2</span><span class="p">])</span>
             <span class="n">roi</span> <span class="o">=</span> <span class="n">gray_image</span><span class="p">[</span><span class="n">y1</span><span class="p">:</span><span class="n">y2</span><span class="p">,</span> <span class="n">x1</span><span class="p">:</span><span class="n">x2</span><span class="p">]</span> <span class="c1"># roi la tam anh region_of_interest thoi
-</span>            <span class="n">distance</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="n">compute_distance_and_size</span><span class="p">(</span><span class="n">roi</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+</span>            <span class="n">distance</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="nf">compute_distance_and_size</span><span class="p">(</span><span class="n">roi</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
             <span class="n">input_set</span> <span class="o">=</span> <span class="p">[</span><span class="n">distance</span><span class="p">,</span> <span class="n">speed</span><span class="p">,</span> <span class="n">size</span><span class="p">]</span>
-            <span class="n">trex_nn</span><span class="p">.</span><span class="n">wrap_model</span><span class="p">(</span><span class="n">input_set</span><span class="p">,</span> <span class="n">parameters_set</span><span class="p">,</span> <span class="n">N_X</span><span class="p">)</span>
+            <span class="n">trex_nn</span><span class="p">.</span><span class="nf">wrap_model</span><span class="p">(</span><span class="n">input_set</span><span class="p">,</span> <span class="n">parameters_set</span><span class="p">,</span> <span class="n">N_X</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">distance</span> <span class="o">==</span> <span class="n">x2</span><span class="p">:</span>
                 <span class="k">continue</span>
             <span class="k">elif</span> <span class="n">distance</span> <span class="o">&lt;</span> <span class="mi">40</span> <span class="ow">or</span> <span class="n">distance</span> <span class="o">&gt;</span> <span class="n">last_distance</span><span class="p">:</span> <span class="c1"># co the thay bang so khac, tuy nhien ko qua can thiet hehe
-</span>                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">distance_array</span><span class="p">):</span>
-                    <span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span>
+</span>                <span class="k">if</span> <span class="nf">len</span><span class="p">(</span><span class="n">distance_array</span><span class="p">):</span>
+                    <span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="nf">time</span><span class="p">()</span>
                     <span class="k">if</span> <span class="n">start_time</span><span class="p">:</span>
                         <span class="n">loop_time</span> <span class="o">=</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span>
-                        <span class="n">speed</span> <span class="o">=</span> <span class="n">compute_speed</span><span class="p">(</span><span class="n">distance_array</span><span class="p">,</span> <span class="n">distance</span><span class="p">,</span> 
+                        <span class="n">speed</span> <span class="o">=</span> <span class="nf">compute_speed</span><span class="p">(</span><span class="n">distance_array</span><span class="p">,</span> <span class="n">distance</span><span class="p">,</span> 
                             <span class="n">speed</span><span class="p">,</span> <span class="n">loop_time</span><span class="p">,</span> <span class="n">max_speed_step</span> <span class="o">=</span> <span class="n">MAX_SPEED_STEP</span><span class="p">)</span>
-                    <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span>
+                    <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="nf">time</span><span class="p">()</span>
                     <span class="n">count_cactus</span> <span class="o">+=</span> <span class="mi">1</span>
-                    <span class="k">print</span><span class="p">(</span><span class="n">count_cactus</span><span class="p">)</span>
+                    <span class="nf">print</span><span class="p">(</span><span class="n">count_cactus</span><span class="p">)</span>
                 <span class="n">distance_array</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">distance_array</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">distance</span><span class="p">)</span>
-            <span class="n">gameover_state</span> <span class="o">=</span> <span class="n">check_gameover</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-            <span class="k">print</span><span class="p">(</span><span class="n">gameover_state</span><span class="p">)</span>
+                <span class="n">distance_array</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">distance</span><span class="p">)</span>
+            <span class="n">gameover_state</span> <span class="o">=</span> <span class="nf">check_gameover</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+            <span class="nf">print</span><span class="p">(</span><span class="n">gameover_state</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">gameover_state</span><span class="p">:</span>
-                <span class="k">print</span><span class="p">(</span><span class="s">"Game over. Restart game"</span><span class="p">)</span>
+                <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Game over. Restart game</span><span class="sh">"</span><span class="p">)</span>
                 <span class="k">return</span> <span class="n">count_cactus</span>
             <span class="n">last_distance</span> <span class="o">=</span> <span class="n">distance</span>
-            <span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">TIME_BETWEEN_FRAMES</span><span class="p">)</span>
+            <span class="n">time</span><span class="p">.</span><span class="nf">sleep</span><span class="p">(</span><span class="n">TIME_BETWEEN_FRAMES</span><span class="p">)</span>
 </code></pre></div></div>
 
 <h1 id="kết-luận">Kết luận</h1>

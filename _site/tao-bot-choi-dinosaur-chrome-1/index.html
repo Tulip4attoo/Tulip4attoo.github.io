@@ -18,6 +18,26 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/monster.css">
 
+    <!-- MathJax Configuration -->
+    
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$']],
+          displayMath: [['$$', '$$']],
+          processEscapes: true,
+          processEnvironments: true
+        },
+        options: {
+          skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+        }
+      };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+    
+
     
 
 </head>
@@ -143,12 +163,12 @@
 
 <p>Trước hết chúng ta cần import các package cần thiết. Chúng ta sẽ dùng  <code class="language-plaintext highlighter-rouge">mss</code> để chụp màn hình, <code class="language-plaintext highlighter-rouge">pyautogui</code> để output ra ngoài và vài package quen thuộc khác.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pyautogui</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
-<span class="kn">import</span> <span class="nn">cv2</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">pyautogui</span>
+<span class="kn">import</span> <span class="n">time</span>
+<span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="n">cv2</span>
 
-<span class="kn">from</span> <span class="nn">mss</span> <span class="kn">import</span> <span class="n">mss</span>
+<span class="kn">from</span> <span class="n">mss</span> <span class="kn">import</span> <span class="n">mss</span>
 </code></pre></div></div>
 
 <p>Chúng ta sẽ define ra 1 số constant dùng sau này:</p>
@@ -165,13 +185,13 @@
 </span>    <span class="c1"># replay_pos = (520, 390)
 </span>
 <span class="k">def</span> <span class="nf">restart_game</span><span class="p">():</span>
-    <span class="n">pyautogui</span><span class="p">.</span><span class="n">click</span><span class="p">(</span><span class="n">Cordinates</span><span class="p">.</span><span class="n">replay_pos</span><span class="p">)</span>
+    <span class="n">pyautogui</span><span class="p">.</span><span class="nf">click</span><span class="p">(</span><span class="n">Cordinates</span><span class="p">.</span><span class="n">replay_pos</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">press_up</span><span class="p">():</span>
-    <span class="n">pyautogui</span><span class="p">.</span><span class="n">keyDown</span><span class="p">(</span><span class="s">"up"</span><span class="p">)</span> <span class="c1"># press a key down
-</span>    <span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.02</span><span class="p">)</span>
+    <span class="n">pyautogui</span><span class="p">.</span><span class="nf">keyDown</span><span class="p">(</span><span class="sh">"</span><span class="s">up</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># press a key down
+</span>    <span class="n">time</span><span class="p">.</span><span class="nf">sleep</span><span class="p">(</span><span class="mf">0.02</span><span class="p">)</span>
     <span class="c1"># print("Jump")
-</span>    <span class="n">pyautogui</span><span class="p">.</span><span class="n">keyUp</span><span class="p">(</span><span class="s">"up"</span><span class="p">)</span> <span class="c1"># release a key
+</span>    <span class="n">pyautogui</span><span class="p">.</span><span class="nf">keyUp</span><span class="p">(</span><span class="sh">"</span><span class="s">up</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># release a key
 </span></code></pre></div></div>
 
 <h2 id="nhận-diện-vật-thể">Nhận diện vật thể</h2>
@@ -183,14 +203,14 @@
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">BLANK_BOX</span> <span class="o">=</span> <span class="mi">247000</span>
 
 <span class="k">def</span> <span class="nf">get_cactus_box_value</span><span class="p">():</span>
-    <span class="n">cactus_box</span> <span class="o">=</span> <span class="p">{</span><span class="s">'left'</span><span class="p">:</span> <span class="mi">270</span><span class="p">,</span> <span class="s">'top'</span><span class="p">:</span> <span class="mi">420</span><span class="p">,</span> 
-                  <span class="s">'width'</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span> <span class="s">'height'</span><span class="p">:</span> <span class="mi">20</span><span class="p">}</span>
+    <span class="n">cactus_box</span> <span class="o">=</span> <span class="p">{</span><span class="sh">'</span><span class="s">left</span><span class="sh">'</span><span class="p">:</span> <span class="mi">270</span><span class="p">,</span> <span class="sh">'</span><span class="s">top</span><span class="sh">'</span><span class="p">:</span> <span class="mi">420</span><span class="p">,</span> 
+                  <span class="sh">'</span><span class="s">width</span><span class="sh">'</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span> <span class="sh">'</span><span class="s">height</span><span class="sh">'</span><span class="p">:</span> <span class="mi">20</span><span class="p">}</span>
     <span class="c1"># cactus_box = {'left': 370, 'top': 400, 
 </span>    <span class="c1">#               'width': 50, 'height': 20}
-</span>    <span class="n">sct</span> <span class="o">=</span> <span class="n">mss</span><span class="p">()</span>
-    <span class="n">img</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">sct</span><span class="p">.</span><span class="n">grab</span><span class="p">(</span><span class="n">cactus_box</span><span class="p">))[:,:,:</span><span class="mi">3</span><span class="p">]</span>
-    <span class="n">gray</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">gray</span><span class="p">.</span><span class="nb">sum</span><span class="p">()</span>
+</span>    <span class="n">sct</span> <span class="o">=</span> <span class="nf">mss</span><span class="p">()</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">(</span><span class="n">sct</span><span class="p">.</span><span class="nf">grab</span><span class="p">(</span><span class="n">cactus_box</span><span class="p">))[:,:,:</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">gray</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="nf">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">gray</span><span class="p">.</span><span class="nf">sum</span><span class="p">()</span>
 </code></pre></div></div>
 
 <p>Tới đây chúng ta đã cơ bản hoàn thành phần code cho 1 lượt chơi. Tuy nhiên, chúng ta nên làm thêm 1 hàm <code class="language-plaintext highlighter-rouge">check_gameover</code>, để khi có gameover thì chúng ta sẽ phát hiện ra và gọi hàm <code class="language-plaintext highlighter-rouge">restart_game</code> để chơi lại.</p>
@@ -199,14 +219,14 @@
 
 <span class="k">def</span> <span class="nf">check_gameover</span><span class="p">(</span><span class="n">gameover_range</span> <span class="o">=</span> <span class="n">GAMEOVER_RANGE</span><span class="p">):</span>
     <span class="n">result</span> <span class="o">=</span> <span class="bp">False</span>
-    <span class="n">gameover_box</span> <span class="o">=</span> <span class="p">{</span><span class="s">'left'</span><span class="p">:</span> <span class="mi">290</span><span class="p">,</span> <span class="s">'top'</span><span class="p">:</span> <span class="mi">360</span><span class="p">,</span> 
-                  <span class="s">'width'</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="s">'height'</span><span class="p">:</span> <span class="mi">15</span><span class="p">}</span>
+    <span class="n">gameover_box</span> <span class="o">=</span> <span class="p">{</span><span class="sh">'</span><span class="s">left</span><span class="sh">'</span><span class="p">:</span> <span class="mi">290</span><span class="p">,</span> <span class="sh">'</span><span class="s">top</span><span class="sh">'</span><span class="p">:</span> <span class="mi">360</span><span class="p">,</span> 
+                  <span class="sh">'</span><span class="s">width</span><span class="sh">'</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="sh">'</span><span class="s">height</span><span class="sh">'</span><span class="p">:</span> <span class="mi">15</span><span class="p">}</span>
     <span class="c1"># gameover_box = {'left': 430, 'top': 345, 
 </span>    <span class="c1">#               'width': 200, 'height': 15}
-</span>    <span class="n">sct</span> <span class="o">=</span> <span class="n">mss</span><span class="p">()</span>
-    <span class="n">img</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">sct</span><span class="p">.</span><span class="n">grab</span><span class="p">(</span><span class="n">gameover_box</span><span class="p">))[:,:,:</span><span class="mi">3</span><span class="p">]</span>
-    <span class="n">gray</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
-    <span class="n">curr_state</span> <span class="o">=</span> <span class="n">gray</span><span class="p">.</span><span class="nb">sum</span><span class="p">()</span>
+</span>    <span class="n">sct</span> <span class="o">=</span> <span class="nf">mss</span><span class="p">()</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">(</span><span class="n">sct</span><span class="p">.</span><span class="nf">grab</span><span class="p">(</span><span class="n">gameover_box</span><span class="p">))[:,:,:</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">gray</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="nf">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+    <span class="n">curr_state</span> <span class="o">=</span> <span class="n">gray</span><span class="p">.</span><span class="nf">sum</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">curr_state</span> <span class="o">&lt;</span> <span class="n">GAMEOVER_RANGE</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span> <span class="n">curr_state</span> <span class="o">&gt;</span> <span class="n">GAMEOVER_RANGE</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
         <span class="n">result</span> <span class="o">=</span> <span class="bp">True</span>
     <span class="k">return</span> <span class="n">result</span>
@@ -216,15 +236,15 @@
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-        <span class="n">gameover_state</span> <span class="o">=</span> <span class="n">check_gameover</span><span class="p">()</span>
+        <span class="n">gameover_state</span> <span class="o">=</span> <span class="nf">check_gameover</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">gameover_state</span><span class="p">:</span>
-            <span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">TIME_BETWEEN_GAMES</span><span class="p">)</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">"Game over. Restart game"</span><span class="p">)</span>
-            <span class="n">restart_game</span><span class="p">()</span>
-        <span class="n">cactus_state</span> <span class="o">=</span> <span class="n">get_cactus_box_value</span><span class="p">()</span>
+            <span class="n">time</span><span class="p">.</span><span class="nf">sleep</span><span class="p">(</span><span class="n">TIME_BETWEEN_GAMES</span><span class="p">)</span>
+            <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Game over. Restart game</span><span class="sh">"</span><span class="p">)</span>
+            <span class="nf">restart_game</span><span class="p">()</span>
+        <span class="n">cactus_state</span> <span class="o">=</span> <span class="nf">get_cactus_box_value</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">cactus_state</span> <span class="o">!=</span> <span class="n">BLANK_BOX</span><span class="p">:</span>
-            <span class="n">press_up</span><span class="p">()</span>
-        <span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">TIME_BETWEEN_FRAMES</span><span class="p">)</span>
+            <span class="nf">press_up</span><span class="p">()</span>
+        <span class="n">time</span><span class="p">.</span><span class="nf">sleep</span><span class="p">(</span><span class="n">TIME_BETWEEN_FRAMES</span><span class="p">)</span>
 </code></pre></div></div>
 
 <h1 id="thiết-lập-hệ-thống">Thiết lập hệ thống</h1>

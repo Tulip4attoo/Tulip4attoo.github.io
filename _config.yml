@@ -10,14 +10,16 @@ github_username: dongyado
 github_site_repo: dongyado/dongyado.github.io
 disqus: monsterslayer
 
-
-# Build settings
-highlighter: rouge
+# MathJax configuration
+mathjax: true
 markdown: kramdown
 kramdown:
+    math_engine: mathjax
     syntax_highlighter: rouge
     extensions: ["fenced_code_blocks", "autolink", "tables", "smart"]
 
+# Build settings
+highlighter: rouge
 sass:
     style: :compressed
     sass_dir: _sass
@@ -28,7 +30,6 @@ excerpt_separator: "<!-- more -->"
 # path
 categories_path: categories/
 tags_path: tags/
-
 
 gems:
   - jekyll-sitemap
