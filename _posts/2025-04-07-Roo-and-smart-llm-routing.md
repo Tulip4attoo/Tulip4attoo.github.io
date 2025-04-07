@@ -32,7 +32,7 @@ Here are some quick observations from my first morning spent using Roo:
 
 3. **Costs:** 
     
-    With careful and moderate usage (Gemini Pro 2.5, as a best-in-class coding model), costs average around $1/hour. With intensive usage, it's pretty normal to hit around $5/hour.
+    With careful and moderate usage (Gemini Pro 2.5, as a best-in-class coding model), costs average around \$1/hour. With intensive usage, it's pretty normal to hit around \$5/hour.
 
 4. **Context Overload:** 
 
