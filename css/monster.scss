@@ -5,8 +5,9 @@
 body {
     //font: 14px/18px "Helvetica Neue", Arial, sans-serif;
     padding-bottom: 40px;
-    font-family: 'IBM Plex Mono','-apple-system','Open Sans',HelveticaNeue-Light,'Helvetica Neue Light','Helvetica Neue','Hiragino Sans GB','Microsoft YaHei',Helvetica,Arial,sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     min-height: 100vh;
+    line-height: 1.6;
     display: flex;
     flex-direction: column;
     margin: 0;
