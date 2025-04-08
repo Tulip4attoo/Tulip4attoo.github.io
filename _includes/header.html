@@ -9,6 +9,11 @@
     {% endif %}
   </div>
 
+  <button id="theme-toggle" title="Toggle theme">
+    <span class="icon-sun">☀️</span>
+    <span class="icon-moon">🌙</span>
+  </button>
+
 <div class="links">
     {% assign current = page.title %}
     <a href="/" class="page-link{% if current == null %} active{% endif %}">Blog</a>
@@ -21,3 +26,4 @@
     <a href="/feed.xml" target="_blank" class="page-link">RSS</a>
 </div>
 </header>
+

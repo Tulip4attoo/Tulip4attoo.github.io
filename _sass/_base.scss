@@ -1,6 +1,6 @@
 /* Base */
 /** reset **/
-html{color:#000;background:#FFF;}
+/* html{color:#000;background:#FFF;} Replaced by body styles in monster.scss */
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;}
 table{border-collapse:collapse;border-spacing:0;}
 fieldset,img{border:0;}
@@ -14,25 +14,25 @@ sup{vertical-align:text-top;}
 sub{vertical-align:text-bottom;}
 input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;}
 input,textarea,select{*font-size:100%;}
-legend{color:#000;}
+legend{color: var(--text-color);} /* Use text color variable */
 
 .site-footer {
     padding: 20px 0;
     margin-top: 40px;
-    border-top: 1px solid #e8e8e8;
-    background-color: #f8f8f8;
-    
+    border-top: 1px solid var(--article-border); /* Use article border or define a specific footer border */
+    background-color: var(--footer-bg);
+
     .footer-content {
         text-align: center;
-        
+
         p {
             margin: 5px 0;
         }
-        
+
         a {
-            color: #666;
+            color: var(--text-color-light); /* Use light text color */
             text-decoration: none;
-            
+
             &:hover {
                 text-decoration: underline;
             }

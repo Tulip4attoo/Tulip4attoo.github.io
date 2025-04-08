@@ -1,6 +1,133 @@
 ---
-# main style
 ---
+
+:root {
+  --bg-color: #FFF;
+  --text-color: #333;
+  --text-color-light: #777;
+  --text-color-headings: black;
+  --link-color: #D00;
+  --header-border-color: black;
+  --code-bg: #f8f8f8; /* General code block background */
+  --code-border: #eee;
+  --terminal-bg: #333;
+  --terminal-text: #FFF;
+  --footer-bg: #f8f8f8;
+  --muted-text: #999;
+  --navi-bg: transparent;
+  --navi-text: #000;
+  --navi-hover-bg: #000;
+  --navi-hover-text: #FFF;
+  --active-link: #444;
+  --hr-color: #ccc;
+  --article-border: #e7e7e7;
+  --button-bg: #eee;
+  --button-text: #333;
+
+  /* Syntax Highlighting Light Theme */
+  --syntax-bg: #fff;
+  --syntax-text: #333; /* Default code text */
+  --syntax-comment: #998;
+  --syntax-error-text: #a61717;
+  --syntax-error-bg: #e3d2d2;
+  --syntax-keyword: #FF1493;
+  --syntax-operator: var(--text-color); /* Use default text color */
+  --syntax-comment-ml: #008200;
+  --syntax-comment-preproc: #008200;
+  --syntax-comment-single: #008200;
+  --syntax-comment-special: #008200;
+  --syntax-generic-deleted-text: #000;
+  --syntax-generic-deleted-bg: #fdd;
+  --syntax-generic-error: #a00;
+  --syntax-generic-heading: #999;
+  --syntax-generic-inserted-text: #000;
+  --syntax-generic-inserted-bg: #dfd;
+  --syntax-generic-output: #888;
+  --syntax-generic-prompt: #555;
+  --syntax-generic-subheading: #aaa;
+  --syntax-generic-traceback: #a00;
+  --syntax-keyword-type: #458;
+  --syntax-literal-number: #099;
+  --syntax-literal-string: #d14;
+  --syntax-name-attribute: #008080;
+  --syntax-name-builtin: #0086B3;
+  --syntax-name-class: #458;
+  --syntax-name-constant: #008080;
+  --syntax-name-entity: #800080;
+  --syntax-name-exception: #900;
+  --syntax-name-function: #900;
+  --syntax-name-namespace: #555;
+  --syntax-name-tag: #000080;
+  --syntax-name-variable: #008080;
+  --syntax-text-whitespace: #bbb;
+  --syntax-literal-string-regex: #009926;
+  --syntax-literal-string-symbol: #990073;
+  --syntax-name-builtin-pseudo: #999;
+}
+
+[data-theme="dark"] {
+  --bg-color: #222;
+  --text-color: #ccc;
+  --text-color-light: #aaa;
+  --text-color-headings: #eee;
+  --link-color: #ff8f8f; /* Lighter red */
+  --header-border-color: #eee;
+  --code-bg: #333; /* General code block background */
+  --code-border: #555;
+  --terminal-bg: #1e1e1e;
+  --terminal-text: #ccc;
+  --footer-bg: #333;
+  --muted-text: #888;
+  --navi-bg: transparent;
+  --navi-text: #eee;
+  --navi-hover-bg: #eee;
+  --navi-hover-text: #000;
+  --active-link: #ddd;
+  --hr-color: #555;
+  --article-border: #444;
+  --button-bg: #555;
+  --button-text: #eee;
+
+  /* Syntax Highlighting Dark Theme (Dracula-ish) */
+  --syntax-bg: #282a36;
+  --syntax-text: #f8f8f2; /* Default code text */
+  --syntax-comment: #6272a4;
+  --syntax-error-text: #ff5555;
+  --syntax-error-bg: #44475a;
+  --syntax-keyword: #ff79c6;
+  --syntax-operator: #f8f8f2; /* Use default text color */
+  --syntax-comment-ml: #6272a4;
+  --syntax-comment-preproc: #ff79c6; /* Pink like keywords */
+  --syntax-comment-single: #6272a4;
+  --syntax-comment-special: #6272a4;
+  --syntax-generic-deleted-text: #ff5555;
+  --syntax-generic-deleted-bg: #44475a;
+  --syntax-generic-error: #ff5555;
+  --syntax-generic-heading: #f8f8f2;
+  --syntax-generic-inserted-text: #50fa7b;
+  --syntax-generic-inserted-bg: #44475a;
+  --syntax-generic-output: #8be9fd; /* Cyan */
+  --syntax-generic-prompt: #50fa7b; /* Green */
+  --syntax-generic-subheading: #f8f8f2;
+  --syntax-generic-traceback: #ff5555;
+  --syntax-keyword-type: #8be9fd; /* Cyan */
+  --syntax-literal-number: #bd93f9; /* Purple */
+  --syntax-literal-string: #f1fa8c; /* Yellow */
+  --syntax-name-attribute: #50fa7b; /* Green */
+  --syntax-name-builtin: #8be9fd; /* Cyan */
+  --syntax-name-class: #8be9fd; /* Cyan */
+  --syntax-name-constant: #bd93f9; /* Purple */
+  --syntax-name-entity: #bd93f9; /* Purple */
+  --syntax-name-exception: #ff79c6; /* Pink */
+  --syntax-name-function: #50fa7b; /* Green */
+  --syntax-name-namespace: #f8f8f2;
+  --syntax-name-tag: #ff79c6; /* Pink */
+  --syntax-name-variable: #f8f8f2; /* Default text */
+  --syntax-text-whitespace: #6272a4;
+  --syntax-literal-string-regex: #f1fa8c; /* Yellow */
+  --syntax-literal-string-symbol: #bd93f9; /* Purple */
+  --syntax-name-builtin-pseudo: #8be9fd; /* Cyan */
+}
 
 body {
     //font: 14px/18px "Helvetica Neue", Arial, sans-serif;
@@ -11,12 +138,15 @@ body {
     display: flex;
     flex-direction: column;
     margin: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color); /* Default text color */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
 }
 
 /** common style **/
 a {
     text-decoration: none;
-    color: #D00;
+    color: var(--link-color);
 
     &:hover {
         text-decoration: none;
@@ -24,8 +154,10 @@ a {
 }
 
 hr {
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid var(--hr-color);
     border-top-style: none;
+    border-left-style: none;
+    border-right-style: none;
 }
 
 h1, h2, h3, h4, .links {
@@ -35,7 +167,7 @@ h1, h2, h3, h4, .links {
 h1, h2 {
     font-weight: 700;
     a {
-        color: black;
+        color: var(--text-color-headings);
         text-decoration: none;
 
         &:hover, &:hover {
@@ -59,26 +191,29 @@ em {
 
 .header {
     padding-bottom: 15px;
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid var(--header-border-color);
     margin: 40px auto 0 auto;
+    display: flex; /* Use Flexbox */
+    justify-content: space-between; /* Push items to ends */
+    align-items: center; /* Vertically align items */
 
     .site-title {
         font-weight: 700;
         font-size: 25px;
         line-height: normal;
-        vertical-align: middle;
-        
+        /* vertical-align: middle; Removed, handled by align-items */
+        flex-grow: 1; /* Allow title to take available space */
+
         a {
-            color: black;
+            color: var(--text-color-headings);
             text-decoration: none;
             &:hover {
                 text-decoration: underline;
             }
-
         }
 
         a, img {
-            vertical-align: middle;
+            vertical-align: middle; /* Keep this for image alignment within title */
         }
     }
 
@@ -88,20 +223,20 @@ em {
         font-size: 16px;
         vertical-align: middle;
         line-height: normal;
-        color: #777;
+        color: var(--text-color-light);
         padding-left: 1px;
-        display: none;
+        display: none; /* Keep this as it's handled by media query later */
 
         a {
             text-decoration: none;
-            color: #777;
+            color: var(--text-color-light);
             font-weight: 600;
             margin-right: 10px;
             &:hover {
                 text-decoration: underline;
             }
             &.active {
-                color: #444;
+                color: var(--active-link);
             }
         }
 
@@ -112,13 +247,48 @@ em {
     }
 }
 
+/* Theme Toggle Button Styles (Floating) */
+#theme-toggle {
+  position: fixed; /* Make it float */
+  bottom: 20px; /* Position from bottom */
+  right: 20px; /* Position from right */
+  z-index: 1000; /* Ensure it's above other content */
+  background: var(--button-bg); /* Use theme variable for background */
+  border: 1px solid var(--code-border); /* Use theme variable for border */
+  border-radius: 50%; /* Make it circular */
+  width: 45px; /* Fixed width */
+  height: 45px; /* Fixed height */
+  display: flex; /* Center icon inside */
+  justify-content: center; /* Center icon horizontally */
+  align-items: center; /* Center icon vertically */
+  cursor: pointer;
+  font-size: 1.5em; /* Adjust icon size */
+  color: var(--button-text); /* Use theme variable for icon color */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Add a subtle shadow */
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; /* Smooth transitions */
+
+  .icon-moon {
+    display: none; /* Hide moon by default (light mode) */
+  }
+}
+
+/* Dark mode specific styles for toggle */
+html[data-theme='dark'] #theme-toggle { /* Target html element */
+  .icon-sun {
+    display: none; /* Hide sun in dark mode */
+  }
+  .icon-moon {
+    display: inline; /* Show moon in dark mode */
+  }
+}
+
 
 .articles {
     .article-author {
         margin-bottom: 40px;
         padding-top: 20px;
         font-size: 14px;
-        border-top: 1px solid #e7e7e7;
+        border-top: 1px solid var(--article-border);
         overflow: auto;
 
         .avatar {
@@ -158,14 +328,15 @@ em {
 
     a {
         display: block;
-        color: #000;
+        color: var(--navi-text);
+        background-color: var(--navi-bg);
         font-size: 1.1em;
         padding: .7em 1em;
         text-align: right;
 
         &:hover, &.active{
-            color: #FFF;
-            background-color: #000;
+            color: var(--navi-hover-text);
+            background-color: var(--navi-hover-bg);
         }
     }
 }
@@ -198,7 +369,7 @@ em {
         margin: 1em 0 1em 0;
         font-size: 16px;
         line-height: 28px;
-        color: #333;
+        color: var(--text-color);
 
         strong, b {
             font-weight: 600;
@@ -237,7 +408,8 @@ em {
     /** code style*/
     pre {
         line-height: 24px;
-        border: 2px solid #eee;
+        border: 2px solid var(--code-border);
+        background-color: var(--code-bg); /* Added background for consistency */
         padding: 10px 12px;
         white-space: pre-wrap;
         font-size: 14px;
@@ -252,9 +424,9 @@ em {
 
     /* terminal */
     pre.terminal {
-      border: 1px solid #000;
-      background-color: #333;
-      color: #FFF;
+      border: 1px solid var(--header-border-color); /* Use header border for consistency or define new var */
+      background-color: var(--terminal-bg);
+      color: var(--terminal-text);
       -webkit-border-radius: 3px;
       -moz-border-radius: 3px;
       border-radius: 3px;
@@ -262,7 +434,7 @@ em {
 
     .list-container {
         .text-muted {
-            color: #999;
+            color: var(--muted-text);
         }
 
         a {
@@ -270,9 +442,9 @@ em {
         }
 
         ul li {
-            list-style-type: none; 
+            list-style-type: none;
         }
-    } 
+    }
 }
 
 /** post */
@@ -292,7 +464,7 @@ em {
             margin-end:0;
         }
     }
-} 
+}
 
 .cnzz {
     a {display: none}
@@ -301,7 +473,7 @@ em {
 .article-meta  {
     text-align: right;
     margin: 15px 0 10px 0;
-    color: #999;
+    color: var(--muted-text);
 }
 /** page */
 .page {
@@ -334,7 +506,7 @@ em {
         font-size: 16px;
         margin-left: 2em;
         line-height: 30px;
-        span {color: #999}
+        span {color: var(--muted-text)}
         a {padding: .2em 1em}
     }
 }
@@ -352,7 +524,7 @@ em {
     .navi {display: none}
 
     .header .links {
-        display: block;
+        display: block; /* This might need adjustment if you want links next to title/button on smaller screens */
 
         a {
             margin-right: 2px;
@@ -365,35 +537,33 @@ em {
             display: none;
         }
     }
+}
 
+@media all and (max-width: 600px) {
     .wrapper {
-        padding-left: 2em;
-        padding-right: 2em;
+        padding: 0 10px;
     }
-
+    .header {
+        margin-top: 20px;
+        .site-title {
+            font-size: 20px;
+        }
+        .links {
+            font-size: 14px;
+        }
+    }
     .entry {
-        h1 {
-            font-size: 24px;
-            line-height: 28px;
-            margin-bottom: 7px;
+        .entry-body {
+            font-size: 15px;
+            line-height: 25px;
         }
     }
-
-    .article-author {
-        img {
-            display: none;
+    .article-list {
+        .list-item {
+            font-size: 15px;
+            margin-left: 1em;
         }
-    } 
+    }
 }
 
-footer {
-    margin-top: auto;
-    padding: 20px 0;
-    text-align: center;
-    background-color: #f8f8f8;
-    width: 100%;
-}
-
-@import "base";
 @import "syntax-highlighting";
-
