@@ -1,6 +1,5 @@
 ---
 ---
-
 :root {
   --bg-color: #FFF;
   --text-color: #333;
@@ -548,6 +547,8 @@ html[data-theme='dark'] #theme-toggle { /* Target html element */
         .site-title {
             font-size: 20px;
         }
+        
+        @import "syntax-highlighting";
         .links {
             font-size: 14px;
         }
@@ -566,4 +567,3 @@ html[data-theme='dark'] #theme-toggle { /* Target html element */
     }
 }
 
-@import "syntax-highlighting";
