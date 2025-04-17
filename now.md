@@ -1,23 +1,19 @@
 ---
-layout: page_with_comment
-title: Now
-permalink: /now/
-comments: false
-author_footer: false
+layout:                     post
+title:                      Now
+permalink:                  /now/
+mathjax:                    true
+comments:                   true
 ---
 
-This is what I'm currently up to:
+*Last updated: 17 Apr 2025* 
 
-### 🎮 Currently Playing
-- Working on my Soul-like game in UE5
-- Learning more about game development
+What I’m doing now
 
-### 📚 Currently Reading
-- Technical documentation for UE5
-- Game design principles
+# Working
 
-### 🎯 Current Focus
-- Improving my game development skills
-- Building more interesting projects
+To launch Echo streamer. First thing is a Vtuber playing Baltro, should stream on Twitch and Youtube.
 
-*Last updated: March 2024* 
+# Old things
+
+Will update old things here. 17 Apr 2025 is the first one.
