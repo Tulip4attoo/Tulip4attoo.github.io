@@ -6,14 +6,14 @@ mathjax:                    true
 comments:                   true
 ---
 
-*Last updated: 17 Apr 2025* 
+*Last updated: 21 Apr 2025* 
 
 What I’m doing now
 
 # Working
 
-To launch Echo streamer. First thing is a Vtuber playing Baltro, should stream on Twitch and Youtube.
+Plan to release an App about motivating people to walk/run with LLM stories. This Apr.
 
 # Old things
 
-Will update old things here. 17 Apr 2025 is the first one.
+Launch Echo streamer (drop)
