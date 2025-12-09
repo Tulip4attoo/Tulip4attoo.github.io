@@ -512,6 +512,54 @@ html[data-theme='dark'] #theme-toggle { /* Target html element */
     }
 }
 
+.blog-tabs {
+    margin-top: 10px;
+}
+
+.tab-buttons {
+    display: inline-flex;
+    gap: 10px;
+    border-bottom: 1px solid var(--header-border-color);
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+}
+
+.tab-button {
+    border: 1px solid var(--header-border-color);
+    background: var(--button-bg);
+    color: var(--button-text);
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+
+    &:hover {
+        border-color: var(--text-color-headings);
+    }
+
+    &.active {
+        background: var(--text-color-headings);
+        color: var(--bg-color);
+        border-color: var(--text-color-headings);
+        transform: translateY(-1px);
+    }
+}
+
+.tab-panel {
+    display: none;
+
+    &.active {
+        display: block;
+    }
+}
+
+.empty-state {
+    color: var(--muted-text);
+    margin: 0 0 1rem 0;
+}
+
 .rss-subscribe {
     line-height: 36px;
     margin: 30px auto;

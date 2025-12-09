@@ -4,6 +4,7 @@ title:                      Trying out Roo Code & thoughts on Smart LLM Routing
 date:                       2025-04-07
 mathjax:                    true
 comments:                   true
+lang:                      en
 ---
 
 I've been a Cursor user for nearly a year and have been quite satisfied with it overall. However, after recently hitting my quota limit, I decided to explore an alternative tool - Cline. While checking through OpenRouter, I noticed that Roo, a fork of Cline, had comparable token usage, so I switched gears and gave Roo a try.

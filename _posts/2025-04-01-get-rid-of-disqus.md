@@ -4,6 +4,7 @@ title:                      Get rid of disqus
 date:                       2025-04-01
 mathjax:                    true
 comments:                   true
+lang:                      en
 ---
 
 Recently, I decided it was time for a major cleanup of my blog (proudly hosted on GitHub Pages!). Part of this cleanup involved rethinking my choice of commenting system—specifically, saying goodbye to Disqus.

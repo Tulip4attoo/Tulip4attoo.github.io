@@ -4,6 +4,7 @@ title:                      You only get one shot at being stupid enough to try 
 date:                       2025-04-23
 mathjax:                    true
 comments:                   true
+lang:                      en
 ---
 
 ## Why First-Time Founders Build the Biggest Things?

@@ -5,6 +5,7 @@ date:                       2025-03-30
 mathjax:                    true
 comments:                   true
 description:                Text matters profoundly and uniquely.
+lang:                      en
 ---
 
 When was the last time you seriously thought about text? Yes, plain old words—the kind you're reading right now.

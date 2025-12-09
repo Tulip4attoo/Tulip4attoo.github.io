@@ -5,6 +5,7 @@ date:                       2025-03-29
 mathjax:                    true
 comments:                   true
 description:                Most of us have heard that phrase countless times - It’s a number game. But what does it really mean? Like most simple expressions, there’s deeper wisdom hiding inside.
+lang:                      en
 ---
 
 # It's a Number Game

@@ -30,5 +30,12 @@ excerpt_separator: "<!-- more -->"
 categories_path: categories/
 tags_path: tags/
 
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      lang: vi
+
 gems:
   - jekyll-sitemap

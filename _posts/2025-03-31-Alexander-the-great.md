@@ -5,6 +5,7 @@ date:                       2025-03-31
 mathjax:                    true
 comments:                   true
 description:                Is failure always necessary to build resilience?
+lang:                      en
 ---
 
 Most conquerors who win rapidly and easily early in their careers inevitably crash hard when genuine failure finally arrives. Early victories generate confidence, but they also frequently breed complacency, stubborn arrogance, and rigid thinking. Conquerors who only taste success rarely develop humility, adaptability, and resilience—qualities critical for real long-term psychological strength.
