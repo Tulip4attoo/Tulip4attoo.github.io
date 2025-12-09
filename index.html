@@ -1,91 +1,27 @@
 ---
 layout: default
+title: Vietnamese posts
 ---
 
-<div class="blog-tabs">
-    {% assign english_posts = site.posts | where: "lang", "en" %}
-    {% assign vietnamese_posts = site.posts | where: "lang", "vi" %}
+{% assign vietnamese_posts = site.posts | where: "lang", "vi" %}
+{% assign year = '' %}
 
-    <div class="tab-buttons" role="tablist" aria-label="Blog language">
-        <button class="tab-button active" data-target="en" role="tab" aria-selected="true">English</button>
-        <button class="tab-button" data-target="vi" role="tab" aria-selected="false">Tiếng Việt</button>
-    </div>
+{% if vietnamese_posts.size == 0 %}
+    <p class="empty-state">Chưa có bài viết tiếng Việt.</p>
+{% else %}
+    <ul class="article-list">
+        {% for post in vietnamese_posts %}
+            {% assign page = post %}
+            {% assign date = page.date | date: "%Y" %}
 
-    <div id="tab-en" class="tab-panel active" role="tabpanel" aria-label="English posts">
-        {% assign year = '' %}
-        {% if english_posts.size == 0 %}
-            <p class="empty-state">No English posts yet.</p>
-        {% else %}
-            <ul class="article-list">
-                {% for post in english_posts %}
-                    {% assign page = post %}
-                    {% assign date = page.date | date: "%Y" %}
+            {% if year != date %}
+                {% assign year = date %}
+                <li class="list-year"> {{year}} </li>
+            {% endif %}
 
-                    {% if year != date %}
-                        {% assign year = date %}
-                        <li class="list-year"> {{year}} </li>
-                    {% endif %}
-
-                    <li class="list-item">
-                        <span class="list-date">{{ page.date | date: "%Y-%m-%d" }}</span> <a href="{{ page.url }}">{{ page.title }}</a>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    </div>
-
-    <div id="tab-vi" class="tab-panel" role="tabpanel" aria-label="Vietnamese posts">
-        {% assign year = '' %}
-        {% if vietnamese_posts.size == 0 %}
-            <p class="empty-state">Chưa có bài viết tiếng Việt.</p>
-        {% else %}
-            <ul class="article-list">
-                {% for post in vietnamese_posts %}
-                    {% assign page = post %}
-                    {% assign date = page.date | date: "%Y" %}
-
-                    {% if year != date %}
-                        {% assign year = date %}
-                        <li class="list-year"> {{year}} </li>
-                    {% endif %}
-
-                    <li class="list-item">
-                        <span class="list-date">{{ page.date | date: "%Y-%m-%d" }}</span> <a href="{{ page.url }}">{{ page.title }}</a>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    </div>
-</div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var buttons = document.querySelectorAll('.tab-button');
-        var panels = {
-            en: document.getElementById('tab-en'),
-            vi: document.getElementById('tab-vi')
-        };
-        var stored = localStorage.getItem('blogLangTab');
-        var initial = stored === 'vi' ? 'vi' : 'en';
-
-        function activate(tab) {
-            buttons.forEach(function(btn) {
-                var isActive = btn.dataset.target === tab;
-                btn.classList.toggle('active', isActive);
-                btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
-            });
-            Object.keys(panels).forEach(function(key) {
-                panels[key].classList.toggle('active', key === tab);
-            });
-            localStorage.setItem('blogLangTab', tab);
-        }
-
-        activate(initial);
-
-        buttons.forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                activate(btn.dataset.target);
-            });
-        });
-    });
-</script>
+            <li class="list-item">
+                <span class="list-date">{{ page.date | date: "%Y-%m-%d" }}</span> <a href="{{ page.url }}">{{ page.title }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}

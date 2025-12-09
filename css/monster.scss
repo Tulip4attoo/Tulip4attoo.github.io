@@ -188,12 +188,20 @@ em {
     margin: 0 auto;
     padding: 0 30px;
     flex: 1;
+    display: grid;
+    grid-template-columns: 12em 1fr;
+    column-gap: 2em;
+    grid-template-areas:
+        "header header"
+        "navi content";
+    align-items: flex-start;
 }
 
 .header {
-    padding-bottom: 15px;
+    grid-area: header;
+    padding: 10px 0 15px calc(12em + 2em);
     border-bottom: 2px solid var(--header-border-color);
-    margin: 40px auto 0 auto;
+    margin: 0 auto 10px auto;
     display: flex; /* Use Flexbox */
     justify-content: space-between; /* Push items to ends */
     align-items: center; /* Vertically align items */
@@ -204,6 +212,7 @@ em {
         line-height: normal;
         /* vertical-align: middle; Removed, handled by align-items */
         flex-grow: 1; /* Allow title to take available space */
+        max-width: 100%;
 
         a {
             color: var(--text-color-headings);
@@ -215,6 +224,12 @@ em {
 
         a, img {
             vertical-align: middle; /* Keep this for image alignment within title */
+        }
+
+        h1, h4 {
+            margin: 0;
+            word-break: break-word;
+            max-width: 100%;
         }
     }
 
@@ -283,6 +298,12 @@ html[data-theme='dark'] #theme-toggle { /* Target html element */
   }
 }
 
+.content {
+    grid-area: content;
+    width: 100%;
+    box-sizing: border-box;
+}
+
 
 .articles {
     .article-author {
@@ -321,19 +342,25 @@ html[data-theme='dark'] #theme-toggle { /* Target html element */
 
 /** navi **/
 .navi {
-    width: 9em;
-    margin-left: -12em;
-    float: left;
+    grid-area: navi;
+    width: 11em;
+    min-width: 11em;
+    margin-left: 0;
+    float: none;
     text-transform: uppercase;
     font-family: "Electrolize",sans-serif;
+    box-sizing: border-box;
 
     a {
         display: block;
+        width: 100%;
         color: var(--navi-text);
         background-color: var(--navi-bg);
         font-size: 1.1em;
         padding: .7em 1em;
         text-align: right;
+        box-sizing: border-box;
+        white-space: nowrap;
 
         &:hover, &.active{
             color: var(--navi-hover-text);
@@ -512,49 +539,6 @@ html[data-theme='dark'] #theme-toggle { /* Target html element */
     }
 }
 
-.blog-tabs {
-    margin-top: 10px;
-}
-
-.tab-buttons {
-    display: inline-flex;
-    gap: 10px;
-    border-bottom: 1px solid var(--header-border-color);
-    padding-bottom: 8px;
-    margin-bottom: 16px;
-}
-
-.tab-button {
-    border: 1px solid var(--header-border-color);
-    background: var(--button-bg);
-    color: var(--button-text);
-    padding: 8px 14px;
-    border-radius: 999px;
-    font-weight: 600;
-    letter-spacing: 0.2px;
-    cursor: pointer;
-    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
-
-    &:hover {
-        border-color: var(--text-color-headings);
-    }
-
-    &.active {
-        background: var(--text-color-headings);
-        color: var(--bg-color);
-        border-color: var(--text-color-headings);
-        transform: translateY(-1px);
-    }
-}
-
-.tab-panel {
-    display: none;
-
-    &.active {
-        display: block;
-    }
-}
-
 .empty-state {
     color: var(--muted-text);
     margin: 0 0 1rem 0;
@@ -568,6 +552,10 @@ html[data-theme='dark'] #theme-toggle { /* Target html element */
 @media all and (max-width: 1000px) {
     #site-title img {
         width: 25px;
+    }
+
+    .wrapper {
+        display: block;
     }
 
     .navi {display: none}
