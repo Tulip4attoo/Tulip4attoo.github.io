@@ -130,6 +130,10 @@
   --syntax-name-builtin-pseudo: #8be9fd; /* Cyan */
 }
 
+html {
+    scrollbar-gutter: stable; /* Reserve space so content doesn't shift when a scrollbar appears */
+}
+
 body {
     //font: 14px/18px "Helvetica Neue", Arial, sans-serif;
     padding-bottom: 0;
