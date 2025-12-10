@@ -205,20 +205,22 @@ em {
 
 .header {
     grid-area: header;
-    padding: 10px 0 0 0;
+    padding: 40px 0 0 0;
     margin: 0 0 0 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* Center header content */
     align-items: center;
+    text-align: center;
 
     .site-title {
         font-weight: 700;
         font-size: 25px;
         line-height: normal;
         /* vertical-align: middle; Removed, handled by align-items */
-        flex-grow: 1; /* Allow title to take available space */
+        flex-grow: 0;
         max-width: 100%;
         padding-bottom: 10px;
+        text-align: center;
 
         a {
             color: var(--text-color-headings);
@@ -314,6 +316,10 @@ html[data-theme='dark'] #theme-toggle { /* Target html element */
     padding-top: 0;
 }
 
+.content.posts-page {
+    padding-top: 20px; /* Add breathing room below the header only on list pages */
+}
+
 
 .articles {
     .article-author {
@@ -356,7 +362,7 @@ html[data-theme='dark'] #theme-toggle { /* Target html element */
     width: 11em;
     min-width: 11em;
     margin-left: 0;
-    margin-top: 86px;
+    margin-top: 89px;
     float: none;
     text-transform: uppercase;
     font-family: "Electrolize",sans-serif;

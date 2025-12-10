@@ -4,14 +4,14 @@
   {% include head.html %}
 
     <body>
-    
+
     <div class="wrapper">
 
       {% include header.html %}
       
       {% include navi.html %}
 
-      <div class="content">
+      <div class="content{% if page.url == '/' or page.url == '/index.html' or page.url == '/english/' %} posts-page{% endif %}">
         <div class="articles">
             {{ content }}
         </div>
