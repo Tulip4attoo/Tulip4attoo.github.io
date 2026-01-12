@@ -1,0 +1,115 @@
+---
+layout: default
+title: Write
+permalink: /write/
+---
+
+<div class="entry page">
+  <div class="entry-content">
+    <header class="post-form__header">
+      <p class="entry-meta">Browser -> GitHub pull request</p>
+      <h1>Draft a new post</h1>
+      <p>Write your draft in the browser. We will commit it to a branch and open a PR against this site. Everything runs in your browser; you bring the GitHub token.</p>
+      <ul class="post-form__notes">
+        <li>Use a fine-grained GitHub token scoped to this repo with <code>contents:write</code> and <code>pull_requests:write</code>.</li>
+        <li>The token only lives in your browser. Check "Remember token" to keep it in local storage.</li>
+        <li>Submissions create <code>_drafts</code> by default; switch to publish if you want it in <code>_posts</code>.</li>
+      </ul>
+    </header>
+
+    <form id="post-form" class="post-form">
+      <section class="post-form__section">
+        <h3>GitHub access</h3>
+        <label class="field" for="gh-token">
+          <span>GitHub token</span>
+          <input id="gh-token" type="password" name="gh-token" autocomplete="off" placeholder="ghp_xxx" />
+        </label>
+        <div class="post-form__inline">
+          <label class="checkbox">
+            <input id="remember-token" type="checkbox" />
+            <span>Remember token on this device</span>
+          </label>
+          <span class="helper-text">Fine-grained token with repo contents + pull requests.</span>
+        </div>
+      </section>
+
+      <section class="post-form__section">
+        <h3>Post details</h3>
+        <div class="post-form__grid">
+          <label class="field">
+            <span>Title</span>
+            <input id="post-title" type="text" placeholder="Post title" required />
+          </label>
+          <label class="field">
+            <span>Slug</span>
+            <input id="post-slug" type="text" placeholder="auto-from-title" />
+            <small>Auto-fills from title</small>
+          </label>
+          <label class="field">
+            <span>Date</span>
+            <input id="post-date" type="datetime-local" />
+            <small>Used for front matter and filename</small>
+          </label>
+          <label class="field">
+            <span>Language</span>
+            <select id="post-lang">
+              <option value="vi">Vietnamese</option>
+              <option value="en">English</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Tags</span>
+            <input id="post-tags" type="text" placeholder="comma,separated" />
+          </label>
+          <label class="field">
+            <span>Description (optional)</span>
+            <input id="post-description" type="text" placeholder="Short summary" />
+          </label>
+        </div>
+        <div class="post-form__inline">
+          <label class="radio">
+            <input type="radio" name="post-kind" value="draft" checked />
+            <span>Create draft in _drafts</span>
+          </label>
+          <label class="radio">
+            <input type="radio" name="post-kind" value="post" />
+            <span>Publish-ready in _posts</span>
+          </label>
+          <label class="checkbox">
+            <input id="post-comments" type="checkbox" checked />
+            <span>Allow comments</span>
+          </label>
+        </div>
+      </section>
+
+      <section class="post-form__section">
+        <h3>Branch & PR</h3>
+        <div class="post-form__grid">
+          <label class="field">
+            <span>Branch name</span>
+            <input id="post-branch" type="text" placeholder="draft/your-slug" />
+            <small>We create it from the default branch if missing</small>
+          </label>
+          <label class="field">
+            <span>PR title</span>
+            <input id="pr-title" type="text" placeholder="Draft: Post title" />
+          </label>
+        </div>
+        <p class="helper-text">Flow: fetch default branch -> create branch -> commit file -> open PR.</p>
+      </section>
+
+      <section class="post-form__section">
+        <h3>Content</h3>
+        <textarea id="post-body" rows="16" placeholder="Write Markdown here..."></textarea>
+      </section>
+
+      <div class="post-form__footer">
+        <div class="file-preview">Target file: <code id="file-preview">_drafts/slug.md</code></div>
+        <button type="submit" class="primary-btn">Submit draft → PR</button>
+      </div>
+      <div id="submission-status" class="status" aria-live="polite"></div>
+    </form>
+  </div>
+</div>
+
+<script src="{{ '/assets/js/post-submit.js' | relative_url }}" defer></script>

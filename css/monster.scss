@@ -567,6 +567,149 @@ html[data-theme='dark'] #theme-toggle { /* Target html element */
     margin: 30px auto;
 }
 
+/* Browser submit form */
+.post-form__header {
+    margin-bottom: 15px;
+
+    ul {
+        margin: 0.5em 0 0;
+        padding-left: 1.2em;
+        color: var(--text-color-light);
+
+        li {
+            margin-bottom: 4px;
+        }
+    }
+}
+
+.post-form {
+    border: 1px solid var(--code-border);
+    background: var(--code-bg);
+    border-radius: 10px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.post-form__section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.post-form__grid {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+}
+
+.post-form__inline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: center;
+}
+
+.field span {
+    display: block;
+    font-weight: 600;
+    color: var(--text-color-headings);
+    margin-bottom: 6px;
+}
+
+.field small {
+    display: block;
+    color: var(--text-color-light);
+    margin-top: 4px;
+}
+
+.post-form input[type="text"],
+.post-form input[type="password"],
+.post-form input[type="datetime-local"],
+.post-form select,
+.post-form textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border: 1px solid var(--code-border);
+    border-radius: 6px;
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-size: 15px;
+    font-family: inherit;
+}
+
+.post-form textarea {
+    font-family: "IBM Plex Mono", monospace;
+    min-height: 200px;
+}
+
+.post-form label.checkbox,
+.post-form label.radio {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    font-weight: 600;
+}
+
+.post-form .helper-text {
+    color: var(--text-color-light);
+    font-size: 14px;
+}
+
+.post-form__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.file-preview {
+    font-family: "IBM Plex Mono", monospace;
+    color: var(--text-color-light);
+}
+
+.primary-btn {
+    background: var(--link-color);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.primary-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.status {
+    margin-top: 6px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--code-border);
+    background: var(--bg-color);
+    color: var(--text-color);
+}
+
+.status--info {
+    border-color: #c0c0c0;
+}
+
+.status--success {
+    border-color: #69b36d;
+    background: #ecf7ee;
+}
+
+.status--error {
+    border-color: #c44b4b;
+    background: #fbecec;
+}
+
 /* footer */
 .site-footer {
     margin-top: 40px;
