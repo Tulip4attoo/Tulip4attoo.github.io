@@ -37,5 +37,5 @@ defaults:
     values:
       lang: vi
 
-gems:
+plugins:
   - jekyll-sitemap
