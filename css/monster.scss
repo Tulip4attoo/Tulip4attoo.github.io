@@ -448,6 +448,28 @@ html[data-theme='dark'] #theme-toggle { /* Target html element */
             max-width: 100%;
             display: block;
         }
+
+        table {
+            width: 100%;
+            margin: 20px 0;
+            border: 1px solid var(--article-border);
+            border-collapse: collapse;
+
+            th, td {
+                border: 1px solid var(--article-border);
+                padding: 8px 12px;
+                text-align: left;
+            }
+
+            th {
+                background-color: var(--code-bg);
+                font-weight: 600;
+            }
+
+            tr:nth-child(even) {
+                background-color: var(--code-bg);
+            }
+        }
     }
 
     /** code style*/
