@@ -1,6 +1,6 @@
 ---
 ---
-@use "syntax-highlighting";
+@import "syntax-highlighting";
 
 :root {
   --bg-color: #FFF;
@@ -312,8 +312,10 @@ html[data-theme='dark'] #theme-toggle { /* Target html element */
 .content {
     grid-area: content;
     width: 100%;
+    max-width: 100%;
     box-sizing: border-box;
     padding-top: 0;
+    overflow: hidden;
 }
 
 .content.posts-page {
@@ -476,16 +478,29 @@ html[data-theme='dark'] #theme-toggle { /* Target html element */
     pre {
         line-height: 24px;
         border: 2px solid var(--code-border);
-        background-color: var(--code-bg); /* Added background for consistency */
+        background-color: var(--code-bg);
         padding: 10px 12px;
-        white-space: pre-wrap;
+        white-space: pre;
+        overflow-x: auto;
         font-size: 14px;
+        max-width: 100%;
+        box-sizing: border-box;
 
         code {
           border: 0;
           padding-right: 0;
           padding-left: 0;
           font-size: 14px;
+          white-space: pre;
+        }
+    }
+
+    .highlight {
+        max-width: 100%;
+        overflow-x: auto;
+
+        pre {
+            background: var(--syntax-bg);
         }
     }
 
