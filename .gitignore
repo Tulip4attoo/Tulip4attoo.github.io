@@ -6,5 +6,7 @@
 .jekyll-cache/
 _site/
 .roo/
+.claude/
+.vscode/
 tmp/
 vendor/
