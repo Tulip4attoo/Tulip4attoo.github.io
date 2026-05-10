@@ -1,33 +1,42 @@
 ---
 layout: page
-title: Things I tried seriously
+title: Things I’ve Tried Seriously
 permalink: /things-i-tried-seriously/
 toc: true
 comments: true
 author_footer: true
 ---
 
-A page to keep track of things I tried seriously — projects, experiments, and bets that took real effort.
+A page for keeping track of things I’ve tried seriously: projects, experiments, and bets that took real effort.
 
-# By time
+# By Time
 
-Apr 2026:
+May 2026:
 
-+ (May 26) DONE v0.2 pi-codex-manager
-+ (May 26) DONE v0.0.1 pi-pet
-+ (May 26) (Start thinking) 2nd brain - a new kind of note app
-+ (May 26) (Start working) pi electron - AI assisstant for normal users.
-+ (May 26) (Start thinking) mythos map
++ (May 26) DONE v0.3 [pi-pet](https://github.com/Tulip4attoo/pi-pet)
++ (May 26) DONE v0.2 [pi-codex-manager](https://github.com/Tulip4attoo/pi-codex-manager)
++ (May 26) Started thinking about 2nd Brain, a new kind of note app
++ (May 26) Started working on Pi Electron, an AI assistant for everyday users
++ (May 26) Started thinking about Mythos Map
 
-# By Projects / experiments
+# By Project / Experiment
 
-+ pi-codex-manager
-    + (May 26) DONE v0.2: combine with codex-fast into codex-manager
-        + also could track the usage limit
-    + (May 26) DONE v0.1: could switch between multiple codex accounts
-+ pi-pet
++ [pi-pet](https://github.com/Tulip4attoo/pi-pet)
+
+  ![pi-pet](/assets/img/tried-seriously/pi-pet.png)
+
+    + (May 26) DONE v0.3 pi-pet:
+        + Polished the project, added the `pet` command, and added a command to activate pet tools and inject context into Pi.
+    + (May 26) DONE v0.2 pi-pet:
+        + Added pet animations.
+    + (May 26) DONE v0.1 pi-pet:
+        + Added a pet sprite from Petdex, as well as the Codex usage ring.
     + (May 26) DONE v0.0.1 pi-pet:
-        + made the Windows overlay that sync with pi sessions from WSL.
-+ 2nd brain - a new kind of note app
-+ pi electron = AI assisstant for normal users.
-+ mythos map
+        + Built the Windows overlay that syncs with Pi sessions from WSL.
++ [pi-codex-manager](https://github.com/Tulip4attoo/pi-codex-manager)
+    + (May 26) DONE v0.2: Combined codex-fast with codex-manager.
+        + Added usage-limit tracking.
+    + (May 26) DONE v0.1: Added support for switching between multiple Codex accounts.
++ 2nd Brain, a new kind of note app
++ Pi Electron, an AI assistant for everyday users
++ Mythos Map
