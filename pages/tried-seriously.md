@@ -23,7 +23,9 @@ May 2026:
 
 + [pi-pet](https://github.com/Tulip4attoo/pi-pet)
 
-  ![pi-pet](/assets/img/tried-seriously/pi-pet.png)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Tulip4attoo/media_for_projects/master/pi-pet-image.gif" width="200" alt="Pi Pet demo" />
+</p>
 
     + (May 26) DONE v0.3 pi-pet:
         + Polished the project, added the `pet` command, and added a command to activate pet tools and inject context into Pi.
