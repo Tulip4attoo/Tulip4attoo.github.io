@@ -24,6 +24,9 @@
   --article-border: #e7e7e7;
   --button-bg: #eee;
   --button-text: #333;
+  --quote-bg: #f7f7f7;
+  --quote-border: #5268d8;
+  --quote-text: #555;
 
   /* Syntax Highlighting Light Theme */
   --syntax-bg: #fff;
@@ -88,6 +91,9 @@
   --article-border: #444;
   --button-bg: #555;
   --button-text: #eee;
+  --quote-bg: #2b2b2b;
+  --quote-border: #6578e6;
+  --quote-text: #ddd;
 
   /* Syntax Highlighting Dark Theme (Dracula-ish) */
   --syntax-bg: #282a36;
@@ -188,13 +194,13 @@ em {
 
 /** layout */
 .wrapper {
-    max-width: 800px;
+    max-width: 980px;
     margin: 0 auto;
     padding: 0 30px;
     flex: 1;
     display: grid;
-    grid-template-columns: 12em 1fr;
-    column-gap: 2em;
+    grid-template-columns: 11em minmax(0, 1fr);
+    column-gap: 1em;
     grid-template-areas:
         "navi header"
         "navi content";
@@ -363,7 +369,7 @@ html[data-theme='dark'] #theme-toggle { /* Target html element */
     grid-area: navi;
     width: 11em;
     min-width: 11em;
-    margin-left: 0;
+    margin-left: -1em;
     margin-top: 89px;
     float: none;
     text-transform: uppercase;
@@ -375,8 +381,8 @@ html[data-theme='dark'] #theme-toggle { /* Target html element */
         width: 100%;
         color: var(--navi-text);
         background-color: var(--navi-bg);
-        font-size: 1.1em;
-        padding: .3em 1em;
+        font-size: 1em;
+        padding: .3em .6em;
         text-align: right;
         box-sizing: border-box;
         white-space: nowrap;
@@ -449,6 +455,29 @@ html[data-theme='dark'] #theme-toggle { /* Target html element */
             margin: 10px 0 10px 0;
             max-width: 100%;
             display: block;
+        }
+
+        blockquote {
+            margin: 28px 0;
+            padding: 14px 20px;
+            border-left: 5px solid var(--quote-border);
+            background: var(--quote-bg);
+            color: var(--quote-text);
+            font-size: 1.03em;
+            font-style: italic;
+
+            p {
+                margin: 0;
+                color: var(--quote-text);
+            }
+
+            p + p {
+                margin-top: 12px;
+            }
+
+            a {
+                color: var(--link-color);
+            }
         }
 
         table {
@@ -965,6 +994,10 @@ html[data-theme='dark'] #theme-toggle { /* Target html element */
         .entry-body {
             font-size: 15px;
             line-height: 25px;
+
+            blockquote {
+                padding: 12px 15px;
+            }
         }
     }
     .article-list {
