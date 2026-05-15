@@ -1007,3 +1007,387 @@ html[data-theme='dark'] #theme-toggle { /* Target html element */
         }
     }
 }
+
+/* Minimal landing homepage */
+:root {
+    --home-cursor-x: 50vw;
+    --home-cursor-y: 50vh;
+}
+
+body.home-landing {
+    --home-bg: #f7f7fb;
+    --home-bg-soft: #ededf5;
+    --home-text: #15151d;
+    --home-muted: #686876;
+    --home-border: rgba(20, 20, 30, 0.12);
+    --home-panel: rgba(255, 255, 255, 0.58);
+    --home-panel-hover: rgba(255, 255, 255, 0.82);
+    --home-star: rgba(55, 58, 86, 0.34);
+    --home-line: rgba(55, 58, 86, 0.12);
+
+    min-height: 100vh;
+    overflow: hidden;
+    display: block;
+    background:
+        radial-gradient(circle at var(--home-cursor-x) var(--home-cursor-y), rgba(120, 105, 255, 0.13), transparent 18rem),
+        radial-gradient(circle at 85% 8%, rgba(120, 105, 255, 0.10), transparent 18rem),
+        linear-gradient(180deg, var(--home-bg), var(--home-bg-soft));
+    color: var(--home-text);
+}
+
+html[data-theme='dark'] body.home-landing {
+    --home-bg: #02030b;
+    --home-bg-soft: #05040e;
+    --home-text: #f2f2f6;
+    --home-muted: #7f808a;
+    --home-border: rgba(255, 255, 255, 0.09);
+    --home-panel: rgba(255, 255, 255, 0.035);
+    --home-panel-hover: rgba(255, 255, 255, 0.075);
+    --home-star: rgba(199, 206, 255, 0.44);
+    --home-line: rgba(199, 206, 255, 0.08);
+}
+
+body.home-landing::before,
+body.home-landing::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+}
+
+body.home-landing::before {
+    background-image:
+        radial-gradient(circle, var(--home-star) 0 1px, transparent 1.5px),
+        radial-gradient(circle, var(--home-star) 0 1px, transparent 1.6px);
+    background-size: 260px 260px, 390px 390px;
+    background-position: 34px 82px, 180px 40px;
+    opacity: 0.48;
+}
+
+body.home-landing::after {
+    background:
+        radial-gradient(circle at 50% 50%, transparent 0, transparent 21rem, rgba(0, 0, 0, 0.05) 45rem),
+        radial-gradient(circle at 90% 5%, rgba(115, 90, 255, 0.12), transparent 17rem);
+}
+
+.home-sky {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.9;
+}
+
+.home-constellations {
+    width: 100%;
+    height: 100%;
+
+    circle {
+        fill: var(--home-star);
+    }
+
+    polyline {
+        fill: none;
+        stroke: var(--home-line);
+        stroke-width: 1;
+    }
+}
+
+.constellation {
+    animation: constellationFloat 13s ease-in-out infinite alternate;
+    transform-origin: center;
+}
+
+.constellation-b,
+.constellation-e {
+    animation-duration: 17s;
+    animation-delay: -4s;
+}
+
+.constellation-c,
+.constellation-f {
+    animation-duration: 19s;
+    animation-delay: -7s;
+}
+
+@keyframes constellationFloat {
+    from { transform: translate3d(-4px, 3px, 0); opacity: 0.45; }
+    to { transform: translate3d(5px, -5px, 0); opacity: 0.9; }
+}
+
+.home-main {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 32px;
+    box-sizing: border-box;
+}
+
+.home-hero {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+    transform: translateY(-1vh);
+}
+
+.home-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45em;
+    padding: 0.42rem 0.9rem;
+    border: 1px solid var(--home-border);
+    border-radius: 999px;
+    background: var(--home-panel);
+    color: var(--home-muted);
+    font-size: clamp(0.82rem, 1.4vw, 0.98rem);
+    font-weight: 600;
+    line-height: 1;
+    box-shadow: 0 18px 60px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(14px);
+}
+
+.home-hero h1 {
+    margin: 1.1rem 0 0.35rem;
+    color: var(--home-text);
+    font-weight: 300;
+    letter-spacing: -0.075em;
+    line-height: 0.95;
+    font-size: clamp(4rem, 11vw, 8.5rem);
+}
+
+.home-intro,
+.home-obsession {
+    color: var(--home-muted);
+    font-size: clamp(1.05rem, 2vw, 1.45rem);
+    line-height: 1.45;
+    margin: 0.9rem 0 0;
+}
+
+.home-obsession {
+    font-size: clamp(0.98rem, 1.55vw, 1.16rem);
+    opacity: 0.86;
+}
+
+.home-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: 2.2rem;
+}
+
+.home-actions a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 7.2rem;
+    padding: 0.78rem 1.05rem;
+    border: 1px solid var(--home-border);
+    border-radius: 0.85rem;
+    background: var(--home-panel);
+    color: var(--home-text);
+    font-weight: 700;
+    text-decoration: none;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 16px 50px rgba(0, 0, 0, 0.08);
+    transition: transform 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;
+}
+
+.home-actions a:hover {
+    transform: translateY(-2px);
+    background: var(--home-panel-hover);
+    border-color: color-mix(in srgb, var(--home-border), var(--home-text) 25%);
+}
+
+body.home-landing #theme-toggle {
+    top: 24px;
+    right: 24px;
+    bottom: auto;
+    width: 40px;
+    height: 40px;
+    border-color: var(--home-border);
+    background: var(--home-panel);
+    color: var(--home-text);
+    box-shadow: none;
+    backdrop-filter: blur(14px);
+    font-size: 1rem;
+}
+
+body.home-landing #theme-toggle:hover {
+    background: var(--home-panel-hover);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .constellation,
+    .home-actions a {
+        animation: none;
+        transition: none;
+    }
+}
+
+@media all and (max-width: 640px) {
+    body.home-landing {
+        overflow: auto;
+    }
+
+    .home-main {
+        padding: 24px 18px;
+    }
+
+    .home-hero h1 {
+        letter-spacing: -0.055em;
+    }
+
+    .home-actions {
+        gap: 0.65rem;
+    }
+
+    .home-actions a {
+        min-width: calc(50% - 0.65rem);
+        padding: 0.72rem 0.8rem;
+    }
+}
+
+/* Homepage interaction polish: entrance, parallax depth, cursor focus */
+:root {
+    --home-parallax-x-far: 0px;
+    --home-parallax-y-far: 0px;
+    --home-parallax-x-near: 0px;
+    --home-parallax-y-near: 0px;
+}
+
+body.home-landing {
+    background:
+        radial-gradient(circle at var(--home-cursor-x) var(--home-cursor-y), rgba(150, 135, 255, 0.16), transparent 14rem),
+        radial-gradient(circle at 85% 8%, rgba(120, 105, 255, 0.10), transparent 18rem),
+        linear-gradient(180deg, var(--home-bg), var(--home-bg-soft));
+}
+
+body.home-landing::before {
+    transform: translate3d(var(--home-parallax-x-far), var(--home-parallax-y-far), 0) scale(1.03);
+    transition: transform 0.18s ease-out;
+    animation: homeStarDrift 32s ease-in-out infinite alternate;
+    will-change: transform, background-position;
+}
+
+.home-sky {
+    transform: translate3d(var(--home-parallax-x-near), var(--home-parallax-y-near), 0) scale(1.02);
+    transition: transform 0.18s ease-out;
+    will-change: transform;
+}
+
+.home-hero {
+    transform: translateY(-1vh);
+}
+
+.home-constellations circle {
+    color: var(--home-star);
+    opacity: 0.42;
+    transition: opacity 0.2s ease, filter 0.2s ease;
+}
+
+.home-badge,
+.home-hero h1,
+.home-intro,
+.home-obsession,
+.home-actions {
+    opacity: 0;
+    animation: homeReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.home-badge {
+    animation-delay: 0.08s;
+}
+
+.home-hero h1 {
+    animation-delay: 0.18s;
+}
+
+.home-intro {
+    animation-delay: 0.3s;
+}
+
+.home-obsession {
+    animation-delay: 0.42s;
+}
+
+.home-actions {
+    animation-delay: 0.54s;
+}
+
+.home-actions a {
+    position: relative;
+    overflow: hidden;
+}
+
+.home-actions a::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.18), transparent 55%);
+    opacity: 0;
+    transition: opacity 0.18s ease;
+    pointer-events: none;
+}
+
+.home-actions a:hover::before {
+    opacity: 1;
+}
+
+@keyframes homeReveal {
+    from {
+        opacity: 0;
+        transform: translateY(14px) scale(0.985);
+        filter: blur(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes homeStarDrift {
+    from {
+        background-position: 34px 82px, 180px 40px;
+    }
+    to {
+        background-position: 52px 68px, 158px 58px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body.home-landing::before,
+    .home-sky,
+    .home-hero,
+    .home-constellations circle {
+        transition: none;
+        transform: none;
+        animation: none;
+    }
+
+    .home-hero {
+        transform: translateY(-1vh);
+    }
+
+    .home-badge,
+    .home-hero h1,
+    .home-intro,
+    .home-obsession,
+    .home-actions {
+        opacity: 1;
+        animation: none;
+        filter: none;
+    }
+}
+
+/* Cursor now deforms individual constellation points instead of moving whole groups. */
+body.home-landing .constellation {
+    animation: none;
+}
+
+body.home-landing .home-constellations polyline {
+    vector-effect: non-scaling-stroke;
+}

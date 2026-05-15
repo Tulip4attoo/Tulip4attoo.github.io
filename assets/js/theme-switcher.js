@@ -17,7 +17,8 @@ const savedTheme = localStorage.getItem('theme');
 const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
 // Determine initial theme
-let currentTheme = 'light'; // Default to light
+const defaultTheme = htmlElement.dataset.defaultTheme || 'light';
+let currentTheme = defaultTheme;
 if (savedTheme) {
     currentTheme = savedTheme;
 } else if (prefersDark) {
@@ -39,7 +40,7 @@ if (themeToggle) {
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
     // Only change if no theme is explicitly saved by the user
     if (!localStorage.getItem('theme')) {
-        const newTheme = e.matches ? 'dark' : 'light';
+        const newTheme = e.matches ? 'dark' : defaultTheme;
         setTheme(newTheme);
     }
 });

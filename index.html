@@ -1,27 +1,25 @@
 ---
-layout: default
-title: Vietnamese posts
+layout: home
+title: Home
 ---
 
-{% assign vietnamese_posts = site.posts | where: "lang", "vi" %}
-{% assign year = '' %}
+<section class="home-hero" aria-labelledby="home-title">
+  <div class="home-badge">Projects · Experiments · Essays</div>
 
-{% if vietnamese_posts.size == 0 %}
-    <p class="empty-state">Chưa có bài viết tiếng Việt.</p>
-{% else %}
-    <ul class="article-list">
-        {% for post in vietnamese_posts %}
-            {% assign page = post %}
-            {% assign date = page.date | date: "%Y" %}
+  <h1 id="home-title">Tulip4attoo</h1>
 
-            {% if year != date %}
-                {% assign year = date %}
-                <li class="list-year"> {{year}} </li>
-            {% endif %}
+  <p class="home-intro">
+    I write about AI, programming, and questions that stay with me.
+  </p>
 
-            <li class="list-item">
-                <span class="list-date">{{ page.date | date: "%Y-%m-%d" }}</span> <a href="{{ page.url }}">{{ page.title }}</a>
-            </li>
-        {% endfor %}
-    </ul>
-{% endif %}
+  <p class="home-obsession">
+    Latest obsession: AI assistants, building things, and getting them into people’s hands.
+  </p>
+
+  <nav class="home-actions" aria-label="Primary links">
+    <a href="{{ '/vietnamese/' | relative_url }}">Viet posts</a>
+    <a href="{{ '/english/' | relative_url }}">Eng posts</a>
+    <a href="{{ '/things-i-tried-seriously/' | relative_url }}">Projects</a>
+    <a href="https://github.com/{{ site.github_username }}" rel="me noopener" target="_blank">GitHub</a>
+  </nav>
+</section>

@@ -1,7 +1,8 @@
 <div class="navi">
     {% assign current = page.title %}
-    <a href="/english/" class="page-link{% if current == 'Eng posts' %} active{% endif %}">Eng posts</a>
-    <a href="/" class="page-link{% if current == 'Vietnamese posts' or current == null %} active{% endif %}">Viet posts</a>
+    <a href="/" class="page-link{% if current == 'Home' %} active{% endif %}">Home</a>
+    <a href="/vietnamese/" class="page-link{% if current == 'Vietnamese posts' %} active{% endif %}">Viet posts</a>
+    <a href="/english/" class="page-link{% if current == 'English posts' %} active{% endif %}">Eng posts</a>
     <a href="/about/" class="page-link{% if current == 'About' %} active{% endif %}">About</a>
     <a href="/things-i-tried-seriously/" class="page-link{% if current == 'Things I tried seriously' %} active{% endif %}">Tried seriously</a>
     <a href="/categories/" class="page-link{% if current == 'Categories' %} active{% endif %}">Categories</a>
