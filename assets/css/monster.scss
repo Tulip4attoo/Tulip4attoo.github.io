@@ -194,7 +194,9 @@ em {
 
 /** layout */
 .wrapper {
+    width: 100%;
     max-width: 980px;
+    box-sizing: border-box;
     margin: 0 auto;
     padding: 0 30px;
     flex: 1;
@@ -1390,4 +1392,9 @@ body.home-landing .constellation {
 
 body.home-landing .home-constellations polyline {
     vector-effect: non-scaling-stroke;
+}
+
+/* Keep normal pages from shifting horizontally when a short page has no scrollbar. */
+html.site-page {
+    overflow-y: scroll;
 }

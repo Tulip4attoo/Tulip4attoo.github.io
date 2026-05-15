@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="site-page">
 
   {% include head.html %}
 
@@ -19,9 +19,9 @@
     </div>
 
     {% include footer.html %}
-    <script src="{{ '/assets/js/theme-switcher.js' | relative_url }}" defer></script>
+    <script src="{{ '/assets/js/theme-switcher.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
     {% if page.toc %}
-    <script src="{{ '/assets/js/toc.js' | relative_url }}" defer></script>
+    <script src="{{ '/assets/js/toc.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
     {% endif %}
     </body>
 </html>

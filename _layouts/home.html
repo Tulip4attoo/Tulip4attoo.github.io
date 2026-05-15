@@ -62,7 +62,7 @@
       {{ content }}
     </main>
 
-    <script src="{{ '/assets/js/theme-switcher.js' | relative_url }}" defer></script>
-    <script src="{{ '/assets/js/home-landing.js' | relative_url }}" defer></script>
+    <script src="{{ '/assets/js/theme-switcher.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
+    <script src="{{ '/assets/js/home-landing.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
   </body>
 </html>
