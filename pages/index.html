@@ -9,18 +9,10 @@ permalink: /
 
   <h1 id="home-title">Tulip4attoo</h1>
 
-  <p class="home-intro">
-    I write about AI, programming, and questions that stay with me.
-  </p>
-
-  <p class="home-obsession">
-    Latest obsession: AI assistants, building things, and getting them into people’s hands.
-  </p>
-
-  <nav class="home-actions" aria-label="Primary links">
-    <a href="{{ '/vietnamese/' | relative_url }}">Viet posts</a>
-    <a href="{{ '/english/' | relative_url }}">Eng posts</a>
-    <a href="{{ '/things-i-tried-seriously/' | relative_url }}">Projects</a>
-    <a href="https://github.com/{{ site.github_username }}" rel="me noopener" target="_blank">GitHub</a>
-  </nav>
+  <div class="home-actions">
+    <a class="home-blog-card" href="{{ '/blog/' | relative_url }}">
+      <span class="home-blog-card__title">Read the blog →</span>
+      <span class="home-blog-card__copy">Writing about AI, programming, games, and ideas.</span>
+    </a>
+  </div>
 </section>

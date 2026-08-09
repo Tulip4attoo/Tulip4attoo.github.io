@@ -27,7 +27,6 @@ permalink: /:title/
 excerpt_separator: "<!-- more -->"
 
 # path
-categories_path: categories/
 tags_path: tags/
 
 defaults:
