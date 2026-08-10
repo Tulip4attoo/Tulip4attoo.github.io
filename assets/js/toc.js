@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const article = document.querySelector('.entry-body');
     if (!article) return;
 
-    const headings = article.querySelectorAll('h1, h2, h3');
+    const headings = article.querySelectorAll('h2, h3, h4');
     if (headings.length === 0) return;
 
     // Create TOC container

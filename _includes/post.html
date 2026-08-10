@@ -3,7 +3,16 @@
 	<div class="entry-content">
 	  <article class="entry-body">
 	  	{% if content %}
-	  		{{ content }}
+            {% if content contains '<h1' %}
+                {% assign normalized_content = content | replace: '<h5', '<h6' | replace: '</h5>', '</h6>' %}
+                {% assign normalized_content = normalized_content | replace: '<h4', '<h5' | replace: '</h4>', '</h5>' %}
+                {% assign normalized_content = normalized_content | replace: '<h3', '<h4' | replace: '</h3>', '</h4>' %}
+                {% assign normalized_content = normalized_content | replace: '<h2', '<h3' | replace: '</h2>', '</h3>' %}
+                {% assign normalized_content = normalized_content | replace: '<h1', '<h2' | replace: '</h1>', '</h2>' %}
+                {{ normalized_content }}
+            {% else %}
+                {{ content }}
+            {% endif %}
   		{% else %}
 	  		{{ page.excerpt }}
 	  		{% if page.content contains '<!-- more -->' %}
@@ -15,21 +24,15 @@
 
 </div>
 
-<div class="article-meta">
-    {{ page.date | date: "%Y-%m-%d" }}
-    {% if page.tags %} • Tag: 
-        {% for tag in page.tags %}
-            <a href="/{{site.tags_path}}/#{{tag}}-ref" >{{ tag|capitalize }}</a>
-        {% endfor%}
-    {% endif %}
-</div>
-
 {% if content and page.author_footer != false %}
 
 	{% include post_footer.html %}
 
 	{% if page.comments != false %}
-	    {% include cusdis.html %}
+        <section class="post-comments" aria-labelledby="comments-title">
+            <h2 id="comments-title">Comments</h2>
+            {% include cusdis.html %}
+        </section>
 	{% endif %}
 
 {% endif %}

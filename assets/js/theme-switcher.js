@@ -5,6 +5,23 @@ const htmlElement = document.documentElement; // Target the <html> element
 const setTheme = (theme) => {
     htmlElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
+
+    const cusdisThread = document.getElementById('cusdis_thread');
+    if (cusdisThread) {
+        cusdisThread.dataset.theme = theme;
+
+        const iframeDocument = cusdisThread.querySelector('iframe')?.contentDocument;
+        const overrides = iframeDocument?.getElementById('cusdis-site-overrides');
+        if (overrides) {
+            const background = getComputedStyle(htmlElement).getPropertyValue('--bg-color').trim();
+            overrides.textContent = `html, body, #root { background: ${background} !important; }`;
+        }
+    }
+
+    if (window.CUSDIS && typeof window.CUSDIS.setTheme === 'function') {
+        window.CUSDIS.setTheme(theme);
+    }
+
     // Optional: Update button text/icon based on theme
     // if (themeToggle) {
     //     // Button content is now handled by HTML/CSS (emojis)

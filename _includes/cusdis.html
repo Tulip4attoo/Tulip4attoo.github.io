@@ -4,5 +4,36 @@
   data-page-id="{{ page.id }}"
   data-page-url="{{ site.url }}{{ page.url }}"
   data-page-title="{{ page.title }}"
+  data-theme="auto"
 ></div>
-<script async defer src="https://cusdis.com/js/cusdis.es.js"></script> 
+<script>
+  (() => {
+    const thread = document.getElementById('cusdis_thread');
+    const savedTheme = localStorage.getItem('theme');
+    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    thread.dataset.theme = savedTheme || systemTheme;
+
+    const observer = new MutationObserver(() => {
+      const iframe = thread.querySelector('iframe');
+      if (!iframe) return;
+
+      const makeBackgroundTransparent = () => {
+        const iframeDocument = iframe.contentDocument;
+        if (!iframeDocument || iframeDocument.getElementById('cusdis-site-overrides')) return;
+
+        const style = iframeDocument.createElement('style');
+        const background = thread.dataset.theme === 'dark' ? '#222' : '#fff';
+        style.id = 'cusdis-site-overrides';
+        style.textContent = `html, body, #root { background: ${background} !important; }`;
+        iframeDocument.head.appendChild(style);
+      };
+
+      iframe.addEventListener('load', makeBackgroundTransparent);
+      makeBackgroundTransparent();
+      observer.disconnect();
+    });
+
+    observer.observe(thread, { childList: true });
+  })();
+</script>
+<script async defer src="https://cusdis.com/js/cusdis.es.js"></script>

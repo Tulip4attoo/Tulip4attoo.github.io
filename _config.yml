@@ -26,9 +26,6 @@ sass:
 permalink: /:title/
 excerpt_separator: "<!-- more -->"
 
-# path
-tags_path: tags/
-
 defaults:
   - scope:
       path: ""
